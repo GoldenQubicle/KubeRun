@@ -4,7 +4,6 @@ class Cubes {
   Table Kubes;
   int row;  
 
-  //float moveZ;
 
   Cubes() {
 
@@ -46,20 +45,13 @@ class Cubes {
     }
      if (row > 160){
      row = 0;
-     }
-      
-      
-println(row);
-
-    
+      }
   }
+
 
   void collision(){
- 
-      
-      
-    
-  }
+   println(mouseX);
+   }
 
 
   float X() {
