@@ -42,8 +42,16 @@ class Cubes {
       translate(Kubes.getFloat(i, 3), Kubes.getFloat(i, 4), Kubes.getFloat(i, 5));
       box(Kubes.getFloat(i, 0), Kubes.getFloat(i, 1), Kubes.getFloat(i, 2));
       popMatrix();
-
+      
     }
+     if (row > 160){
+     row = 0;
+     }
+      
+      
+println(row);
+
+    
   }
 
   void collision(){

@@ -52,17 +52,15 @@ void draw() {
   /* ISSUE TO BE SOLVED
    generated kubes are STILL being stored in table while out of view
    this it unnecesarry
-   
+   NO, ISSUE IS ITERATION OVER TABL?!
    thus: grab z position of kube inside generator, grab  Zposition kube of 'camera rail', i.e. move
   */
   
   
 
 //  println(Cubes.Z(),move); // these are now same values, so they're in sync
-  
-  for (int i = 0; i < Cubes.Kubes.getRowCount(); i++) {
-    println(Cubes.Kubes.getFloat(i, 2),Cubes.Kubes.getFloat(i, 5));
-  }
+
+
     
 
 
