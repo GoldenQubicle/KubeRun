@@ -1,11 +1,8 @@
 //import com.hamoid.*; // video capture
 //VideoExport MovingNow; // video capture
 
-Cubes Cubes;
-
-// camera & movement
+// camera 
 float eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ;
-float move, speed;
 
 void setup() {
   //MovingNow = new VideoExport(this, "MovingNow.mp4"); // video capture
@@ -14,13 +11,10 @@ void setup() {
   randomSeed(33);
   background (127);
 
-  Cubes = new Cubes();
-  speed = 5;
-
   // camera 
   eyeX = width/2.0;
   eyeY =  height/2.0;
-  eyeZ = 640; // height/2.0; // tan(PI*30.0 / 180.0);
+  eyeZ =  height/2.0; // tan(PI*30.0 / 180.0);
   centerX = width/2.0;
   centerY = height/2.0;
   centerZ = 0;
@@ -29,26 +23,12 @@ void setup() {
   upZ = 0;
 }
 
-
 void draw() {
   background (128);
-
-  //pointLight(51, 102, 126, 320, 0, 1000);
-  camera(mouseX, mouseY, eyeZ, mouseX, mouseY, centerZ, upX, upY, upZ);
-
-//  camera(eyeX, eyeY, eyeZ, eyeX, eyeY, centerZ, upX, upY, upZ); // STATIC CAMERA AT 640
-
-  pushMatrix();
-  translate(0, 0, move);                         
-  Cubes.generator();
-  Cubes.collision();
-  popMatrix();
-
-  move = move + speed; //speed at which the cubes which HAVE BEEN GENERATED move towards viewer 
-
-
-
-
-
+  camera(eyeX, eyeY, eyeZ, eyeX, eyeY, centerZ, upX, upY, upZ); // STATIC CAMERA AT 640
+  
+  translate(320,320,0);
+  box(10,10,10);
   //MovingNow.saveFrame(); // video capture
+  eyeZ = eyeZ + 5;
 }
