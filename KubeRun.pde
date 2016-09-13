@@ -1,8 +1,9 @@
 //import com.hamoid.*; // video capture
 //VideoExport MovingNow; // video capture
 
-// camera 
-float eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ;
+
+float cubeZ, Speed, cameraZ, fov;
+
 
 void setup() {
   //MovingNow = new VideoExport(this, "MovingNow.mp4"); // video capture
@@ -11,24 +12,53 @@ void setup() {
   randomSeed(33);
   background (127);
 
-  // camera 
-  eyeX = width/2.0;
-  eyeY =  height/2.0;
-  eyeZ =  height/2.0; // tan(PI*30.0 / 180.0);
-  centerX = width/2.0;
-  centerY = height/2.0;
-  centerZ = 0;
-  upX = 0;
-  upY = 1;
-  upZ = 0;
+  cubeZ = 200; // drawdistance ? at least for this one cube it is
+  Speed = .25;
+
+  fov = PI/3.0;
+  cameraZ = 320;
+  perspective(fov, float(width)/float(height), 1, cameraZ*10.0);
 }
+
+
+
 
 void draw() {
   background (128);
-  camera(eyeX, eyeY, eyeZ, eyeX, eyeY, centerZ, upX, upY, upZ); // STATIC CAMERA AT 640
-  
-  translate(320,320,0);
-  box(10,10,10);
-  //MovingNow.saveFrame(); // video capture
-  eyeZ = eyeZ + 5;
+  pushMatrix();
+  translate(mouseX, 0, 0); 
+  Cube();
+  popMatrix();
 }
+
+void Cube() {
+  pushMatrix();
+  translate(0, 320, cubeZ); 
+  box(10, 10, 10);
+  fill(20, 122, 122);
+  popMatrix();
+
+
+  cubeZ = cubeZ + Speed;
+  println( mouseX);
+}
+
+
+
+/*  collision
+ center screen, currentlty 320,320 , will be randomized 
+ box width & height currently 2, 15
+ ergo the cube hit area = 
+ (320-2),(320+2), (320-15), (320+15)
+ 
+ CubeX-CubeW, CubeX+CubeW, CubeY-CubeH, CubeY+CubeH   
+ 
+ however!! the 320,320 currently ALSO represent the center screen
+ issue is, this will replaced with mouseX,mouseY which will be put into another translate
+ so eventual collision check needs to take that into account, too
+ 
+ 
+ ARG obviously also need collistion detection ALL AROUND 
+ because of course one can crash into cube from the side, from beneath and so on
+ 
+ */
