@@ -4,7 +4,7 @@ class Cubes {
   Table Kubes;
   int row;  
 
-  float moveZ;
+  //float moveZ;
 
   Cubes() {
 
@@ -46,10 +46,16 @@ class Cubes {
     }
   }
 
+  void collision(){
+ 
+      
+      
+    
+  }
 
 
   float X() {
-    X = random(0, 640); // general rule of thumb, add .5*Z to X&Y to fill screen space
+    X = random(0, 640); 
     return X;
   }
 
@@ -61,7 +67,11 @@ class Cubes {
 
   float Z() {
     //Z = random(20, 620);
-    Z = Z - 5;
+    Z = Z - speed; 
+    /* this here is speed at which generator moves! 
+    thus this determines the position at which cubes are being drawn. 
+    Currently this is a negative value since z = z -5    
+    */
     return Z;
   }
 
