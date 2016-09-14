@@ -2,8 +2,9 @@
 //VideoExport MovingNow; // video capture
 
 
-float cubeZ, Speed, cameraZ, fov;
+float Speed, cameraZ, fov, t;
 
+ArrayList<Cubes> Kubes;
 
 void setup() {
   //MovingNow = new VideoExport(this, "MovingNow.mp4"); // video capture
@@ -12,19 +13,44 @@ void setup() {
   randomSeed(33);
   background (127);
 
-  Speed = 0;
+  Speed = 5;
 
   fov = PI/3.0;
   cameraZ = 320;
   perspective(fov, float(width)/float(height), 1, cameraZ*10.0);
+
+  Kubes = new ArrayList();
 }
 
 
 void draw() {
   background (127);
-  Cubes myKube = new Cubes();
-  myKube.move();
-  myKube.display();
+  //generate cubes & add to ArrayList
+  Cubes myKube = new Cubes(); 
+  Kubes.add(myKube);
+
+  //mouse movement
+  pushMatrix();
+  translate(mouseX-width/2, mouseY-height/2, 0);
+  
+  for (Cubes myKubes : Kubes) {
+    myKubes.display();
+    myKubes.move();
+  }
+  
+  popMatrix();
+
+  println(Kubes.size());
+}
+
+
+
+void keyPressed() {
+  if (key == 'k') {
+
+    Cubes myKube = new Cubes(); 
+    Kubes.add(myKube);
+  }
 }
 
 //void Cube() {
