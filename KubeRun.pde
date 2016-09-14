@@ -1,11 +1,10 @@
 //import com.hamoid.*; // video capture
 //VideoExport MovingNow; // video capture
 
-Cubes Cubes;
 
-// camera & movement
-float eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ;
-float move, speed;
+float Speed, cameraZ, fov, t;
+
+ArrayList<Cubes> Kubes;
 
 void setup() {
   //MovingNow = new VideoExport(this, "MovingNow.mp4"); // video capture
@@ -14,41 +13,70 @@ void setup() {
   randomSeed(33);
   background (127);
 
-  Cubes = new Cubes();
-  speed = 5;
+  Speed = 5;
 
-  // camera 
-  eyeX = width/2.0;
-  eyeY =  height/2.0;
-  eyeZ = 640; // height/2.0; // tan(PI*30.0 / 180.0);
-  centerX = width/2.0;
-  centerY = height/2.0;
-  centerZ = 0;
-  upX = 0;
-  upY = 1;
-  upZ = 0;
+  fov = PI/3.0;
+  cameraZ = 320;
+  perspective(fov, float(width)/float(height), 1, cameraZ*10.0);
+
+  Kubes = new ArrayList();
 }
 
 
 void draw() {
-  background (128);
+  background (127);
+  //generate cubes & add to ArrayList
+  Cubes myKube = new Cubes(); 
+  Kubes.add(myKube);
 
-  //pointLight(51, 102, 126, 320, 0, 1000);
-  camera(mouseX, mouseY, eyeZ, mouseX, mouseY, centerZ, upX, upY, upZ);
-
-//  camera(eyeX, eyeY, eyeZ, eyeX, eyeY, centerZ, upX, upY, upZ); // STATIC CAMERA AT 640
-
+  //mouse movement
   pushMatrix();
-  translate(0, 0, move);                         
-  Cubes.generator();
-  Cubes.collision();
+  translate(mouseX-width/2, mouseY-height/2, 0);
+  
+  for (Cubes myKubes : Kubes) {
+    myKubes.display();
+    myKubes.move();
+  }
+  
   popMatrix();
 
-  move = move + speed; //speed at which the cubes which HAVE BEEN GENERATED move towards viewer 
-
-
-
-
-
-  //MovingNow.saveFrame(); // video capture
+  println(Kubes.size());
 }
+
+
+
+void keyPressed() {
+  if (key == 'k') {
+
+    Cubes myKube = new Cubes(); 
+    Kubes.add(myKube);
+  }
+}
+
+//void Cube() {
+//  pushMatrix();
+//  translate(320, 320, cubeZ); 
+//  box(10, 10, 10);
+//  fill(20, 122, 122);
+//  popMatrix();
+
+
+
+
+/*  collision
+ center screen, currentlty 320,320 , will be randomized 
+ box width & height currently 2, 15
+ ergo the cube hit area = 
+ (320-2),(320+2), (320-15), (320+15)
+ 
+ CubeX-CubeW, CubeX+CubeW, CubeY-CubeH, CubeY+CubeH   
+ 
+ however!! the 320,320 currently ALSO represent the center screen
+ issue is, this will replaced with mouseX,mouseY which will be put into another translate
+ so eventual collision check needs to take that into account, too
+ 
+ 
+ ARG obviously also need collistion detection ALL AROUND 
+ because of course one can crash into cube from the side, from beneath and so on
+ 
+ */
