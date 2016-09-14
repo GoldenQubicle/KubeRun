@@ -12,8 +12,7 @@ void setup() {
   randomSeed(33);
   background (127);
 
-  cubeZ = 200; // drawdistance ? at least for this one cube it is
-  Speed = .25;
+  Speed = 0;
 
   fov = PI/3.0;
   cameraZ = 320;
@@ -21,27 +20,20 @@ void setup() {
 }
 
 
-
-
 void draw() {
-  background (128);
-  pushMatrix();
-  translate(mouseX, 0, 0); 
-  Cube();
-  popMatrix();
+  background (127);
+  Cubes myKube = new Cubes();
+  myKube.move();
+  myKube.display();
 }
 
-void Cube() {
-  pushMatrix();
-  translate(0, 320, cubeZ); 
-  box(10, 10, 10);
-  fill(20, 122, 122);
-  popMatrix();
+//void Cube() {
+//  pushMatrix();
+//  translate(320, 320, cubeZ); 
+//  box(10, 10, 10);
+//  fill(20, 122, 122);
+//  popMatrix();
 
-
-  cubeZ = cubeZ + Speed;
-  println( mouseX);
-}
 
 
 
