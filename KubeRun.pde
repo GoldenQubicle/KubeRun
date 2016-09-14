@@ -2,7 +2,7 @@
 //VideoExport MovingNow; // video capture
 
 
-float Speed, cameraZ, fov, t;
+float Speed, fov, drawdistance;
 
 ArrayList<Cubes> Kubes;
 
@@ -13,11 +13,11 @@ void setup() {
   randomSeed(33);
   background (127);
 
-  Speed = 5;
+  Speed = 2.5; 
 
   fov = PI/3.0;
-  cameraZ = 320;
-  perspective(fov, float(width)/float(height), 1, cameraZ*10.0);
+  drawdistance = 2000;
+  perspective(fov, float(width)/float(height), 1, drawdistance);
 
   Kubes = new ArrayList();
 }
@@ -25,26 +25,23 @@ void setup() {
 
 void draw() {
   background (127);
-  //generate cubes & add to ArrayList
-  Cubes myKube = new Cubes(); 
-  Kubes.add(myKube);
 
-  //mouse movement
+  //generate cubes & add to ArrayList !! STILL NEED TO REMOVE CUBES ONCE OUT OF SIGHT!!
+  //Cubes myKube = new Cubes(); 
+  //Kubes.add(myKube);
+
   pushMatrix();
-  translate(mouseX-width/2, mouseY-height/2, 0);
-  
+  translate(mouseX-width/2, mouseY-height/2, 0);  //mouse movement
   for (Cubes myKubes : Kubes) {
     myKubes.display();
     myKubes.move();
+    //println(myKubes.cubeZ);
   }
-  
   popMatrix();
-
-  println(Kubes.size());
 }
 
 
-
+// for testing
 void keyPressed() {
   if (key == 'k') {
 
@@ -52,15 +49,6 @@ void keyPressed() {
     Kubes.add(myKube);
   }
 }
-
-//void Cube() {
-//  pushMatrix();
-//  translate(320, 320, cubeZ); 
-//  box(10, 10, 10);
-//  fill(20, 122, 122);
-//  popMatrix();
-
-
 
 
 /*  collision
