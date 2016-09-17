@@ -2,7 +2,7 @@
 //VideoExport MovingNow; // video capture
 
 
-float Speed, fov, drawdistance;
+float Speed, fov, drawdistance, Zplane;
 
 ArrayList<Cubes> Kubes;
 
@@ -13,11 +13,12 @@ void setup() {
   randomSeed(33);
   background (127);
 
-  Speed = 2.5; 
+  Speed = 5; // obviously wanna make this dynamic later
 
+  Zplane =  ((height/2.0) / tan(PI*60.0/360.0)); // default cameraZ from perspective(); 
   fov = PI/3.0;
   drawdistance = 2000;
-  perspective(fov, float(width)/float(height), 1, drawdistance);
+  perspective(fov, float(width)/float(height), 1, drawdistance); // need custom perpective to set zNear at 1
 
   Kubes = new ArrayList();
 }
@@ -25,19 +26,24 @@ void setup() {
 
 void draw() {
   background (127);
-
-  //generate cubes & add to ArrayList !! STILL NEED TO REMOVE CUBES ONCE OUT OF SIGHT!!
-  //Cubes myKube = new Cubes(); 
-  //Kubes.add(myKube);
-
-  pushMatrix();
-  translate(mouseX-width/2, mouseY-height/2, 0);  //mouse movement
-  for (Cubes myKubes : Kubes) {
-    myKubes.display();
-    myKubes.move();
-    //println(myKubes.cubeZ);
+  
+  //generate cubes & add to ArrayList 
+  Cubes myKube = new Cubes(); 
+  Kubes.add(myKube);
+  
+  // iterate backwards over Arraylist & delete cubes once out of sight
+  for (int i = Kubes.size()-1; i >= 0; i--) {   
+    Cubes myCube = Kubes.get(i);
+    pushMatrix();
+    translate(mouseX-width/2, mouseY-height/2, 0);  //mouse movement
+    myCube.display();
+    myCube.move();
+    if (myCube.OutOfSight()) {
+      Kubes.remove(i);
+      //println(Kubes.size());
+    }  
+    popMatrix();
   }
-  popMatrix();
 }
 
 
