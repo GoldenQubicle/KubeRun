@@ -38,7 +38,7 @@ class Cubes {
 
   void move() {
     cubeZ += Speed;
-    cubeFront = cubeZ + cubeD;
+    cubeFront = cubeZ - cubeD;
   }
 
   void display() {
@@ -59,7 +59,7 @@ class Cubes {
 
   void collision() {
 
-    if ((cubeFront > Zplane) && 
+    if ((cubeFront > Zplane-cubeD) && 
         (mouseX > cubeXl) && (mouseX < cubeXr) && 
         (mouseY > cubeYd) && (mouseY < cubeYu)) {
       hit = true;

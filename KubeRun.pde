@@ -31,9 +31,9 @@ void draw() {
   background (127);
 
   //generate cubes & add to ArrayList 
-
+if (hit == false){
     Cubes myKube = new Cubes(); 
-    Kubes.add(myKube);
+    Kubes.add(myKube);}
 
     // iterate backwards over Arraylist & delete cubes once out of sight
     for (int i = Kubes.size()-1; i >= 0; i--) {   
@@ -48,8 +48,10 @@ void draw() {
       }  
       popMatrix();
       //println(hit);
-      println(Kubes.size());
+     println(mouseX,mouseY, myCube.cubeXl,myCube.cubeXr,myCube.cubeYu, myCube.cubeYd);
     }
+    
+     //println(mouseX,mouseY);
   }
 
 
