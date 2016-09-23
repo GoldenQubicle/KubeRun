@@ -2,7 +2,7 @@ import processing.opengl.*
 float Speed, fov, drawdistance, Zplane;
 ArrayList <Cubes> Kubes;
 boolean hit = false;
-
+boolean start = false;
 void setup() {
  
   size(640, 640, OPENGL); // using opengl for web
@@ -22,7 +22,7 @@ void draw() {
   background (127);  
 
   //generate cubes & add to ArrayList 
-  if (hit == false) {
+  if ((hit == false) && (start == true)) {
     Cubes myKube = new Cubes(); 
     Kubes.add(myKube);
   }
@@ -49,6 +49,13 @@ void keyPressed() {
   if (key == 'r') {
     hit = false;
     Speed = 10;
+  }
+ if ((key == ' ') && (start == false)){
+   start = true; 
+   hit = false;
+   Speed = 10;
+   Kubes = new ArrayList();
+   println(" ");
   }
 }
 
@@ -88,6 +95,7 @@ class Cubes {
     
     if (hit == true) {
       Speed = 0;
+      start = false;
       println("HIT");
     }
   }
