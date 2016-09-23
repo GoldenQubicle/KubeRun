@@ -79,8 +79,8 @@ class Cubes {
     color c = color(cubeR, cubeG, cubeG); /* initially used cubeG twice by accident but 
      put it back on purpose bc I liked the result =) */
 
-    Kube = createShape(BOX, size.x, size.y, size.z);
-    Kube.setFill(c);
+   // Kube = createShape(BOX, size.x, size.y, size.z);
+   // Kube.setFill(c);
   }
 
   void move() {
@@ -95,7 +95,9 @@ class Cubes {
   void display() {
     pushMatrix();
     translate(pos.x, pos.y, pos.z); 
-    shape(Kube);
+    //shape(Kube);
+    fill(cubeR,cubeG,cubeG);
+    box(size.x, size.y, size.z);
     popMatrix();
   }
 
