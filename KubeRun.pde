@@ -1,4 +1,4 @@
-
+import processing.opengl.*
 float Speed, fov, drawdistance, Zplane;
 ArrayList <Cubes> Kubes;
 boolean hit = false;
