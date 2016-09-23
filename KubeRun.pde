@@ -9,7 +9,7 @@
 import processing.opengl.*;
 
 float Speed, fov, drawdistance, Zplane;
-ArrayList<Cubes> Kubes;
+ArrayList <Cubes> Kubes;
 boolean hit = false;
 
 void setup() {
@@ -67,12 +67,12 @@ void draw() {
 
 // for testing, spawns a single cube
 void keyPressed() {
-  if (key == 'k') {
-    Cubes myKube = new Cubes(); 
-    Kubes.add(myKube);
-    hit = false;
-    Speed = 5;
-  }
+  //if (key == 'k') {
+  //  Cubes myKube = new Cubes(); 
+  //  Kubes.add(myKube);
+  //  hit = false;
+  //  Speed = 5;
+  //}
   // reset
   if (key == 'r') {
     hit = false;
