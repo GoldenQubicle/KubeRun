@@ -12,11 +12,11 @@ class Cubes {
     size = new PVector(random(10, 50), random(10, 50), random(10, 50));
 
     // static spawn for collision detection & debugging
-    //pos = new PVector(320, 320, 300);
+    //pos = new PVector(317, 537, 300);
     //size = new PVector(10, 10, 10);
-    
-    cubeW = new PVector(pos.x-(size.x/2), pos.x+(size.x/2));
-    cubeH = new PVector(pos.y-(size.y/2), pos.y+(size.y/2));
+
+    cubeW = new PVector(pos.x-(size.x), pos.x+(size.x));
+    cubeH = new PVector(pos.y-(size.y), pos.y+(size.y));
     // random color 
     cubeR = int(random(0, 255));
     cubeG = int(random(0, 255));
@@ -73,19 +73,30 @@ TO DO
      
      if mouseY=0, than viewportY = 320,960
      if mouse=640, than viewportY = -320,320
+     
+     THE QUESTION: how to take mouseX and normalize (?) it to cube
      */
-    VPX = new PVector((320-mouseX)/2, (960-mouseX)/2);
-    VPY = new PVector((320-mouseY)/2, (960-mouseY)/2);
+    //VPX = new PVector((320-mouseX)/2, (960-mouseX)/2);
+    //VPY = new PVector((320-mouseY)/2, (960-mouseY)/2);
 
-if ((pos.z+size.z > Zplane) && (VPX.y > cubeW.x) && (VPX.y < cubeW.y) && (VPY.y > cubeH.x) && (VPY.y < cubeH.y)){
-      //println(VPX, cubeW);
-    
-      hit = true;
-    }
-    //} else{
-    // println("clear"); 
-    //}
+    VPX = new PVector((mouseX)/2, (mouseX)/2);
+    VPY = new PVector((mouseY)/2, (mouseY)/2);
 
-     //checks front of cube hits Zplane
+    float mX = 1-norm(mouseX, 0, 640);
+    float mY = 1-norm(mouseY, 0, 640);
+    float cXl = norm(cubeW.x, 0, 640);
+    float cXr = norm(cubeW.y, 0, 640);
+    float cYu = norm(cubeH.x, 0, 640);
+    float cYd = norm(cubeH.y, 0, 640);
+    //println(mX, cXl);
+
+    if ((pos.z+size.z > Zplane)) {    
+      if ( (mX > cXl) && (mX < cXr) && (mY > cYu) && (mY < cYd) ) {
+        //println("HIT"); 
+        hit = true;
+      } else {
+        //println("CLEAR");
+      }
     }
   }
+}
