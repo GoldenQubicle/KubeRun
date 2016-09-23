@@ -4,14 +4,9 @@ ArrayList <Cubes> Kubes;
 boolean hit = false;
 
 void setup() {
-  //video capture
-  //MovingNow = new VideoExport(this, "checkonetwo.mp4"); 
-  //custom camera
-  //cam = new Camera(this,width/2.0, height/2.0, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/2.0, 0, 0, 1, 0);
-
+ 
   size(640, 640, OPENGL); // using opengl for web
 
-  
   Speed = 10; // obviously wanna make this dynamic later
   
   Zplane =  ((height/2.0) / tan(PI*60.0/360.0)); // default cameraZ from perspective(); 
