@@ -89,7 +89,6 @@ class Cubes {
     if (hit == true) {
       Speed = 0;
       println("HIT");
-      exit();
     }
   }
 
