@@ -42,6 +42,7 @@ void draw() {
     //println(Kubes.size(), myCube.pos.z, Zplane);
     //println(mouseX,mouseY);
   }
+  loop();
 }
 
 void keyPressed() {
@@ -89,6 +90,7 @@ class Cubes {
     if (hit == true) {
       Speed = 0;
       println("HIT");
+      noLoop();
     }
   }
 
