@@ -1,56 +1,45 @@
 class Cubes {
 
-  float cubeX, cubeY, cubeZ; // x,y & z position at which cube is spawned
-  float cubeW, cubeH, cubeD; // width, height & depth of cube
+  PShape Kube;
+  PVector size, pos;
   float cubeR, cubeG, cubeB; // r,g,b color values
-  float cubeXr, cubeXl, cubeYd, cubeYu, cubeFront;
   boolean Z = false;
-
+  float volume;
 
   Cubes() {
-    // dynamic, randomized procedural spawn
-    cubeX = random(0, 640);
-    cubeY = random(0, 640);
-    cubeZ = random(0, 220); 
-    cubeW = random(10, 50);
-    cubeD = random(10, 50);
-    cubeH = random(10, 50);
-    cubeR = random(0, 255);
-    cubeG = random(0, 255);
-    cubeB = random(0, 255);
+    // procedural spawn
+    pos = new PVector(random(0, 640), random(0, 640), random(0, 220));
+    size = new PVector(random(10, 50), random(10, 50), random(10, 50));
 
     // static spawn for collision detection & debugging
-    //cubeX = 320;
-    //cubeY = 320;
-    //cubeZ = 300; 
-    //cubeW = 10;
-    //cubeH = 10;
-    //cubeD = 10;
-    //cubeR = 20;
-    //cubeG = 122;
-    //cubeB = 122;
+    //pos = new PVector(320, 320, 300);
+    //size = new PVector(10, 10, 10);
 
-    cubeXl = cubeX - cubeW;
-    cubeXr = cubeX + cubeW;
-    cubeYd = cubeY - cubeH;
-    cubeYu = cubeY + cubeH;
+    // random color 
+    cubeR = int(random(0, 255));
+    cubeG = int(random(0, 255));
+    cubeB = int(random(0, 255));
+    color c = color(cubeR, cubeG, cubeG); /* initially used cubeG twice but put it back 
+                                              on purpose bc I liked the result =)   */
+
+    Kube = createShape(BOX, size.x, size.y, size.z);
+    Kube.setFill(c);
+    volume = size.x*size.y*size.z;
   }
 
   void move() {
-    cubeZ += Speed;
-    cubeFront = cubeZ - cubeD;
+    pos.z += Speed;
   }
 
   void display() {
     pushMatrix();
-    translate(cubeX, cubeY, cubeZ); 
-    box(cubeW, cubeH, cubeD);
-    fill(cubeR, cubeG, cubeB);
+    translate(pos.x, pos.y, pos.z); 
+    shape(Kube);
     popMatrix();
   }
 
   boolean OutOfSight() {    
-    if ((cubeZ-cubeD) >= Zplane) {
+    if ((pos.z-size.z) >= Zplane) {
       Z = true;
     }
     return Z;
@@ -58,12 +47,20 @@ class Cubes {
 
 
   void collision() {
+    /*
+TO DO 
+     - get the volume of each cube which can be calculated from size 
+     - get the position relative to Zplane which can be grabbed from position
+     - perform multiple checks
+     1) check if front surface of the cube is touching Zplane viewport
+     2) if yes, check if front surface (i.e. w*h) is actually inside viewport 
+     THIS is the difficult part because viewport is transalted by mosue
+     SO perhaps need to 'undo' that transaltion for check?
+     
+     */
 
-    if ((cubeFront > Zplane-cubeD) && 
-        (mouseX > cubeXl) && (mouseX < cubeXr) && 
-        (mouseY > cubeYd) && (mouseY < cubeYu)) {
-      hit = true;
-    }
+
+
     if (hit == true) {
       Speed = 0;
       println("HIT");
