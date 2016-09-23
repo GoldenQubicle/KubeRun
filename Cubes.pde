@@ -8,8 +8,8 @@ class Cubes {
 
   Cubes() {
     // procedural spawn
-    pos = new PVector(random(0, 640), random(0, 640), random(0, 220));
-    size = new PVector(random(10, 50), random(10, 50), random(10, 50));
+    pos = new PVector(random(0, 640), random(0, 640), random(0, 10)); // make z plane in which to spawn dynamic 
+    size = new PVector(random(10, 50), random(10, 50), random(10, 50)); // prolly want to make the size constraints dynamic, too
 
     // static spawn for collision detection & debugging
     //pos = new PVector(317, 537, 300);
@@ -32,9 +32,9 @@ class Cubes {
   void move() {
     pos.z += Speed;
 
-    if (hit == false) {
-      Speed = 5;
-    }
+    //if (hit == false) {
+    //  Speed = 5;
+    //}
     if (hit == true) {
       Speed = 0;
       println("HIT");

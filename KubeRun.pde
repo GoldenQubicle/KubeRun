@@ -21,7 +21,7 @@ void setup() {
   size(640, 640, OPENGL); // using opengl for web
   randomSeed(33);
   
-  Speed = 5; // obviously wanna make this dynamic later
+  Speed = 10; // obviously wanna make this dynamic later
   
   Zplane =  ((height/2.0) / tan(PI*60.0/360.0)); // default cameraZ from perspective(); 
   fov = PI/3.0;
@@ -76,5 +76,6 @@ void keyPressed() {
   // reset
   if (key == 'r') {
     hit = false;
+    Speed = 10;
   }
 }
