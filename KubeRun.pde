@@ -56,6 +56,7 @@ void draw() {
     //println(Kubes.size(), myCube.pos.z, Zplane);
     //println(mouseX,mouseY);
   }
+  loop();
 }
 
 // for testing to check if cubes are in fact deleted once out of sight - they are :)

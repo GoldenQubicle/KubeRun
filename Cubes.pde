@@ -26,8 +26,8 @@ class Cubes {
     color c = color(cubeR, cubeG, cubeG); /* initially used cubeG twice by accident but 
      put it back on purpose bc I liked the result =) */
 
-    Kube = createShape(BOX, size.x, size.y, size.z);
-    Kube.setFill(c);
+    //Kube = createShape(BOX, size.x, size.y, size.z); // createShape IS NOT IN JS REFERENCE!!!!!!
+    //Kube.setFill(c);
   }
 
   void move() {
@@ -36,13 +36,17 @@ class Cubes {
     if (hit == true) {
       Speed = 0;
       println("HIT");
+      noLoop();
     }
+    
   }
 
   void display() {
     pushMatrix();
     translate(pos.x, pos.y, pos.z); 
-    shape(Kube);
+    //shape(Kube);
+    fill(cubeR,cubeG,cubeG);
+    box(size.x, size.y, size.z);
     popMatrix();
   }
 
