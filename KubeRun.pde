@@ -11,8 +11,8 @@ import processing.opengl.*;
 float Speed, fov, drawdistance, Zplane;
 ArrayList <Cubes> Kubes;
 boolean hit = false; // collision check
-boolean start = false; // restart game
-
+boolean start = true; // restart game
+PVector randomXY;
 
 void setup() {
   //video capture
@@ -29,11 +29,13 @@ void setup() {
   fov = PI/3.0;
   drawdistance = 2000;
   perspective(fov, float(width)/float(height), 1, drawdistance); // however still need custom perpective to set zNear at 1
-
+  randomXY = new PVector(random(0, 640), random(0, 640));
   Kubes = new ArrayList();
+  noCursor();
 }
 
 void draw() {
+  //autorun();
   //cam.feed();
   background (127);  
   //generate cubes & add to ArrayList 
@@ -41,24 +43,26 @@ void draw() {
     Cubes myKube = new Cubes(); 
     Cubes myKubextra = new Cubes(); 
     Kubes.add(myKube);
-    Kubes.add(myKubextra);}
-   
+    Kubes.add(myKubextra);
+  }
+
   // iterate backwards over Arraylist & delete cubes once out of sight
   for (int i = Kubes.size()-1; i >= 0; i--) {   
     Cubes myCube = Kubes.get(i);
     pushMatrix();
     translate(mouseX-width/2, mouseY-height/2, 0);  //mouse movement
+    //translate(randomXY.x-width/2, randomXY.y-height/2, 0);  //autorun
     myCube.display();
     myCube.move();
     myCube.collision();
     if (myCube.OutOfSight()) {
       Kubes.remove(i);
     }
-     popMatrix();
+    popMatrix();
   }
-    //println(Kubes.size());
-    //println(mouseX,mouseY);
-  
+  //println(Kubes.size());
+  //println(mouseX,mouseY);
+  //println(hit, start);
 }
 // for testing to check if cubes are in fact deleted once out of sight - they are :)
 //void mouseDragged() {
@@ -67,12 +71,26 @@ void draw() {
 //  }
 //}
 
-// for testing, spawns a single cube
+// auturun
+// dont forget to switch collision as well!
+//PVector autorun() {
+//  if ((hit == true) && (start == false)) {
+//    hit = false;
+//    start = true; 
+//    Speed = 10;
+//    Kubes = new ArrayList();
+//    randomXY = new PVector(random(0, 640), random(0, 640));
+//  }
+//  return randomXY;
+//}
+
+
+// reset on spacebar
 void keyPressed() {
-  if ((key == ' ') && (start == false)){
-   start = true; 
-   hit = false;
-   Speed = 10;
-   Kubes = new ArrayList();
-   }
+  if ((key == ' ') && (start == false)) {
+    start = true; 
+    hit = false;
+    Speed = 10;
+    Kubes = new ArrayList();
+  }
 }

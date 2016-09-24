@@ -4,9 +4,9 @@ class Cubes {
   PVector size, pos, cubeW, cubeH;
   float cubeR, cubeG, cubeB; // r,g,b color values
   boolean Z = false;
- 
+
   Cubes() {
-    
+
     // procedural spawn
     pos = new PVector(random(0, 640), random(0, 640), random(0, 0)); // make z plane in which to spawn dynamic 
     size = new PVector(random(10, 50), random(10, 50), random(10, 50)); // prolly want to make the size constraints dynamic, too
@@ -37,18 +37,18 @@ class Cubes {
       Speed = 0;
       //println("HIT");
       start = false;
-      }
+    }
   }
 
   void display() {
     pushMatrix();
     translate(pos.x, pos.y, pos.z); 
     //shape(Kube);
-    fill(cubeR, cubeG, cubeG);
+    fill(cubeR, cubeG, cubeG, cubeB);
     box(size.x, size.y, size.z);
     popMatrix();
   }
-  
+
   boolean OutOfSight() {
     // check if Kube is behind Zplane
     if (pos.z-size.z > Zplane) {
@@ -62,6 +62,11 @@ class Cubes {
     //normalse mouse position
     float mX = 1-norm(mouseX, 0, 640);
     float mY = 1-norm(mouseY, 0, 640);
+   
+    // autorun
+    //float mX = 1-norm(randomXY.x, 0, 640);
+    //float mY = 1-norm(randomXY.y, 0, 640);
+    //println(randomXY.x,randomXY.y);
 
     // check if cube is on Zplane
     if ((pos.z+size.z > Zplane)) {   
