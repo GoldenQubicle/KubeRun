@@ -23,16 +23,11 @@ class Cubes {
     cubeR = int(random(0, 255));
     cubeG = int(random(0, 255));
     cubeB = int(random(0, 255));
-    color c = color(cubeR, cubeG, cubeG); /* initially used cubeG twice by accident but 
-     put it back on purpose bc I liked the result =) */
-
-    //Kube = createShape(BOX, size.x, size.y, size.z); // createShape IS NOT IN JS REFERENCE!!!!!!
-    //Kube.setFill(c);
   }
 
   void move() {
     pos.z += Speed;
-
+  
     if (hit == true) {
       Speed = 0;
       //println("HIT");
@@ -43,8 +38,9 @@ class Cubes {
   void display() {
     pushMatrix();
     translate(pos.x, pos.y, pos.z); 
-    //shape(Kube);
-    fill(cubeR, cubeG, cubeG, cubeB);
+    strokeWeight(.25); // ok this is very cool to play around with
+    stroke(cubeR, cubeG); // its all gonna be dynamic!
+    fill(cubeR, cubeG, cubeG, cubeB); //, cubeB);
     box(size.x, size.y, size.z);
     popMatrix();
   }
@@ -60,18 +56,15 @@ class Cubes {
 
   void collision() {
     //normalse mouse position
-    float mX = 1-norm(mouseX, 0, 640);
-    float mY = 1-norm(mouseY, 0, 640);
-   
-    // autorun
-    //float mX = 1-norm(randomXY.x, 0, 640);
-    //float mY = 1-norm(randomXY.y, 0, 640);
-    //println(randomXY.x,randomXY.y);
+    mouseXY = new PVector((1-norm(mouseX, 0, 640)), (1-norm(mouseY, 0, 640)));
+    
+    //autorun
+    //mouseXY = new PVector((1-norm(randomXY.x, 0, 640)), (1-norm(randomXY.y, 0, 640)));
 
     // check if cube is on Zplane
     if ((pos.z+size.z > Zplane)) {   
       // check normalized mouse position against normalized kube position
-      if ( (mX > cubeW.x) && (mX < cubeW.y) && (mY > cubeH.x) && (mY < cubeH.y) ) {
+      if ( (mouseXY.x > cubeW.x) && (mouseXY.x < cubeW.y) && (mouseXY.y > cubeH.x) && (mouseXY.y < cubeH.y) ) {
         hit = true;
         start = false;
       }
