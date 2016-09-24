@@ -26,12 +26,12 @@ class Cubes {
   }
 
   void move() {
-    pos.z += Speed;
+    pos.z += state.Speed;
   
-    if (hit == true) {
-      Speed = 0;
+    if ( state.hit == true) {
+      state.Speed = 0;
       //println("HIT");
-      start = false;
+       state.start = false;
     }
   }
 
@@ -47,7 +47,7 @@ class Cubes {
 
   boolean OutOfSight() {
     // check if Kube is behind Zplane
-    if (pos.z-size.z > Zplane) {
+    if (pos.z-size.z > state.Zplane) {
       Z = true;
     }
     return Z;
@@ -56,17 +56,17 @@ class Cubes {
 
   void collision() {
     //normalse mouse position
-    mouseXY = new PVector((1-norm(mouseX, 0, 640)), (1-norm(mouseY, 0, 640)));
+    state.mouseXY = new PVector((1-norm(mouseX, 0, 640)), (1-norm(mouseY, 0, 640)));
     
     //autorun
-    //mouseXY = new PVector((1-norm(randomXY.x, 0, 640)), (1-norm(randomXY.y, 0, 640)));
+    //state.mouseXY = new PVector((1-norm(state.randomXY.x, 0, 640)), (1-norm(state.randomXY.y, 0, 640)));
 
     // check if cube is on Zplane
-    if ((pos.z+size.z > Zplane)) {   
+    if ((pos.z+size.z > state.Zplane)) {   
       // check normalized mouse position against normalized kube position
-      if ( (mouseXY.x > cubeW.x) && (mouseXY.x < cubeW.y) && (mouseXY.y > cubeH.x) && (mouseXY.y < cubeH.y) ) {
-        hit = true;
-        start = false;
+      if ( (state.mouseXY.x > cubeW.x) && (state.mouseXY.x < cubeW.y) && (state.mouseXY.y > cubeH.x) && (state.mouseXY.y < cubeH.y) ) {
+         state.hit = true;
+         state.start = false;
       }
     }
   }
