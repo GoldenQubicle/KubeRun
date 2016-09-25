@@ -91,7 +91,7 @@ class state {
   ArrayList <Cubes> Kubes;
   boolean hit, start, finish;
   float Speed, fov, drawdistance, Zplane, run, dist, best, Finish;
-
+  PVector mouseXY;
   state() {
     // ! gameloop setup !
     Kubes = new ArrayList(); // holds kubes to draw
@@ -196,14 +196,12 @@ class state {
 }
 class GUI {
   String [] text; 
-  PFont font;
   int x, y, w, h, alpha;
   float finish;
   color checker1, checker2;
 
   GUI() {
-
-    font = createFont ("MyriadHebrew-Bold-40.tff", 33);
+  
     text = new String [7];
     text[0] = "run"; // currently bit of a mess
     text[1] = "ph"; // want to add more stuff anyway
@@ -227,7 +225,7 @@ class GUI {
     pushMatrix();
     translate(-15, -65);
     fill(255);   
-    textFont(font);
+    textSize(33);
     // static
     translate(150, 0, 0);
     textAlign(RIGHT);
