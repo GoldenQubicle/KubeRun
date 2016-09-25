@@ -1,6 +1,6 @@
 import processing.opengl.*;
 
-state state;
+//state state;
 ui ui;
 
 float fov, drawdistance, Zplane;
@@ -13,15 +13,15 @@ void setup() {
   Zplane =  ((height/2.0) / tan(PI*60.0/360.0)); // default cameraZ from perspective(); 
   perspective(fov, float(width)/float(height), 1, drawdistance); // however still need custom perpective to set zNear at 1
   
-  state = new state();
+  //state = new state();
   ui = new ui();
 }
 
 void draw() {
   background (127);
   ui.display();  
-  state.gameloop();
-  state.finish();
+  //state.gameloop();
+  //state.finish();
 }
 
 void mouseClicked() {
@@ -30,7 +30,7 @@ void mouseClicked() {
 
 void keyPressed() {
   //reset on spacebar
-  state.reset();
+  //state.reset();
 }
 
 class Cubes {
@@ -56,11 +56,11 @@ class Cubes {
   }
 
   void move() {
-    pos.z += state.Speed;
-    if ( state.hit == true) {
-      state.Speed = 0;
-      state.start = false;
-    }
+    //pos.z += state.Speed;
+    //if ( state.hit == true) {
+    //  state.Speed = 0;
+    //  state.start = false;
+    //}
   }
 
   void display() {
@@ -87,8 +87,8 @@ class Cubes {
     if ((pos.z+size.z > Zplane)) {   
       // check normalized mouse position against normalized kube position
       if ( (mouseXY.x > cubeW.x) && (mouseXY.x < cubeW.y) && (mouseXY.y > cubeH.x) && (mouseXY.y < cubeH.y) ) {
-        state.hit = true;
-        state.start = false;
+        //state.hit = true;
+        //state.start = false;
       }
     }
   }
@@ -121,8 +121,8 @@ class state {
 
       if (Finish >  Zplane) {
         Speed = 0; 
-        state.hit = true;
-        state.start = false;
+        //state.hit = true;
+        //state.start = false;
         Finish = 550 ;
         finish = true;
       }
@@ -134,20 +134,20 @@ class state {
   }
 
   void reset() {
-    if ((key == ' ') && ( state.start == false)) {
-      Speed = 10; 
-      start = true; 
-      hit = false;     
-      Kubes = new ArrayList();
-      run = state.run + 1;
-      dist = 0;
-      Finish = -4000;
-      if (finish == true) {
-        run = 0;
-        best = 0;
-        finish = false;
-      }
-    }
+    //if ((key == ' ') && ( state.start == false)) {
+    //  Speed = 10; 
+    //  start = true; 
+    //  hit = false;     
+    //  Kubes = new ArrayList();
+    //  run = state.run + 1;
+    //  dist = 0;
+    //  Finish = -4000;
+    //  if (finish == true) {
+    //    run = 0;
+    //    best = 0;
+    //    finish = false;
+    //  }
+    //}
     noCursor();
   }
 
@@ -188,9 +188,9 @@ class state {
 
   // return current & best distance to GUI
   float distance() {
-    if ((state.hit == false) && (state.start == true)) {
-      dist = dist + Speed;
-    }
+    //if ((state.hit == false) && (state.start == true)) {
+    //  dist = dist + Speed;
+    //}
     return dist;
   }
 
@@ -241,23 +241,23 @@ class ui {
     text(text[3], 350, 100);
     //  dynamic
     textAlign(LEFT);
-    text(Run(), 15, 100);    
-    text(Distance(), 190, 100);
-    text(Best(), 365, 100);
+    //text(Run(), 15, 100);    
+    //text(Distance(), 190, 100);
+    //text(Best(), 365, 100);
     popMatrix();
   }
 
-  String Run() {
-    return text[1] = nf(state.run, 0, 0);
-  }
+  //String Run() {
+  //  return text[1] = nf(state.run, 0, 0);
+  //}
 
-  String Distance() {
-    return text[4] = nf(state.distance(), 0, 0);
-  }
+  //String Distance() {
+  //  return text[4] = nf(state.distance(), 0, 0);
+  //}
 
-  String Best() {
-    return text[5] = nf(state.distance_best(), 0, 0);
-  }
+  //String Best() {
+  //  return text[5] = nf(state.distance_best(), 0, 0);
+  //}
 
   void finishflag() {
     fill(checker1);
