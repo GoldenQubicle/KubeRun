@@ -1,7 +1,7 @@
 class state {
 
   ArrayList <Cubes> Kubes;
-  boolean hit, start;
+  boolean hit, start, finish;
   float Speed, fov, drawdistance, Zplane, run, dist, best, Finish;
   PVector randomXY, mouseXY; // needed for autorun
 
@@ -11,7 +11,8 @@ class state {
     Speed = 10; // obviously wanna make this dynamic later
     hit = false; // collision check
     start = false; // restart game
-    Finish = -1000; // distance to finish
+    Finish = -3000; // distance to finish
+    finish = false;
     // ! camera setup !     
     Zplane =  ((height/2.0) / tan(PI*60.0/360.0)); // default cameraZ from perspective(); 
     fov = PI/3.0;
@@ -23,30 +24,38 @@ class state {
 
 
   void finish() {
-    if (dist > 200) {
+    if (distance() > 2000) {
       Finish = Finish + Speed;
+
+      if (Finish >  Zplane) {
+        Speed = 0; 
+        println("YOU WON");
+        state.hit = true;
+        state.start = false;
+        Finish = 550 ;
+        finish = true;
+      }
+      pushMatrix();
+      translate(0, 0, Finish);
+      GUI.finishflag();
+      popMatrix();
     }
-     if (Finish >  Zplane) {
-      Speed = 0; 
-      println("YOU WON");
-      state.hit = true;
-      state.start = false;
-     }
-    pushMatrix();
-    translate(0, 0, Finish);
-    GUI.finishflag();
-    popMatrix();
   }
 
   void reset() {
     if ((key == ' ') && ( state.start == false)) {
-      state.Speed = 10; 
-      state.start = true; 
-      state.hit = false;     
-      state.Kubes = new ArrayList();
-      state.run = state.run + 1;
-      state.dist = 0;
-      state.Finish = -1000;
+      Speed = 10; 
+      start = true; 
+      hit = false;     
+      Kubes = new ArrayList();
+      run = state.run + 1;
+      dist = 0;
+      Finish = -4000;
+      if (finish == true) {
+        run = 0;
+        best = 0;
+        finish = false;
+      }
     }
   }
 

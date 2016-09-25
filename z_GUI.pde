@@ -7,12 +7,14 @@ class GUI {
   GUI() {
 
     font = createFont ("MyriadHebrew-Bold-40.tff", 33);
-    text = new String [4];
-    text[0] = "run"; // at the start
-    text[1] = "runs"; // after 2, or more, attempts
-    text[2] = "distance";
+    text = new String [7];
+    text[0] = "run"; // 
+    text[1] = "ph"; // 
+    text[2] = "current";
     text[3] = "best";  //
-
+    text[4] = "ph"; 
+    text[5] = "ph"; 
+    text[6] = "ph"; 
     // finishflag setup
     alpha = 128;
     x = 0;
@@ -25,18 +27,35 @@ class GUI {
 
 
   void display() {
-    fill(255); 
+    pushMatrix();
+    translate(-15 ,-65);
+    fill(255);   
     textFont(font);
+    // static
+    translate(150, 0, 0);
+    textAlign(RIGHT);
     text(text[0], 0, 100);
-    text(state.run, 75, 100);
-    text(text[2], 0, 175);
-    text(state.distance(), 150, 175);
-    text(text[3], 0, 250);
-    text(state.distance_best(), 125, 250);
+    text(text[2], 175, 100);
+    text(text[3], 350, 100);
+    //  dynamic
+    textAlign(LEFT);
+    text(Run(), 15, 100);    
+    text(Distance(), 190, 100);
+    text(Best(), 365, 100);
+    popMatrix();
   }
 
+  String Run() {
+    return text[1] = nf(state.run, 0, 0);
+  }
 
+  String Distance() {
+    return text[4] = nf(state.distance(), 0, 0);
+  }
 
+  String Best() {
+    return text[5] = nf(state.distance_best(), 0, 0);
+  }
   void finishflag() {
     // checker1 is solidfill backdrop which might affect how checker2 loops w aplha!! 
     fill(checker1);
