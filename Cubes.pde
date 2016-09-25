@@ -4,6 +4,7 @@ class Cubes {
   PVector size, pos, cubeW, cubeH;
   float cubeR, cubeG, cubeB; // r,g,b color values
   boolean Z = false;
+ 
 
   Cubes() {
 
@@ -12,7 +13,7 @@ class Cubes {
     size = new PVector(random(10, 50), random(10, 50), random(10, 50)); // prolly want to make the size constraints dynamic, too
 
     // static spawn for collision detection & debugging
-    //pos = new PVector(317, 537, 300);
+    //pos = new PVector(320, 320, -100);
     //size = new PVector(10, 10, 10);
 
     // normalise position & volume of cube for collision
@@ -23,14 +24,14 @@ class Cubes {
     cubeR = int(random(0, 255));
     cubeG = int(random(0, 255));
     cubeB = int(random(0, 255));
+    
+   
   }
 
   void move() {
     pos.z += state.Speed;
-  
     if ( state.hit == true) {
       state.Speed = 0;
-      //println("HIT");
        state.start = false;
     }
   }
@@ -53,7 +54,6 @@ class Cubes {
     return Z;
   }
 
-
   void collision() {
     //normalse mouse position
     state.mouseXY = new PVector((1-norm(mouseX, 0, 640)), (1-norm(mouseY, 0, 640)));
@@ -67,6 +67,7 @@ class Cubes {
       if ( (state.mouseXY.x > cubeW.x) && (state.mouseXY.x < cubeW.y) && (state.mouseXY.y > cubeH.x) && (state.mouseXY.y < cubeH.y) ) {
          state.hit = true;
          state.start = false;
+         
       }
     }
   }
