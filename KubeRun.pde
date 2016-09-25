@@ -22,8 +22,9 @@ void draw() {
   GUI.display();
   
   //state.autorun();
-  state.gameloop();
+  state.core();
   state.finish();
+  
   // state failure
 
   

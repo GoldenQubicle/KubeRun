@@ -12,7 +12,7 @@ class state {
     hit = false; // collision check
     start = false; // restart game
     Finish = -3000; // distance to finish
-    finish = false;
+    finish = false;   
     // ! camera setup !     
     Zplane =  ((height/2.0) / tan(PI*60.0/360.0)); // default cameraZ from perspective(); 
     fov = PI/3.0;
@@ -24,12 +24,11 @@ class state {
 
 
   void finish() {
-    if (distance() > 2000) {
+    if (dist > 2000) {
       Finish = Finish + Speed;
 
       if (Finish >  Zplane) {
         Speed = 0; 
-        println("YOU WON");
         state.hit = true;
         state.start = false;
         Finish = 550 ;
@@ -59,14 +58,26 @@ class state {
     }
   }
 
+  void core() {
+    if ((hit == false) && (start == true) && (finish == false)) {
+      gameloop();
+    }
+    if ((hit == true) && (start == false) && (finish == false)) {
+      GUI.reset();
+    }
+    if ((hit == true) && (start == false) && (finish == true)) {
+      GUI.finish();
+    }
+  }
+
   void gameloop() {
     //generate cubes & add to ArrayList 
-    if ((hit == false) && (start == true)) {
-      Cubes myKube = new Cubes(); 
-      Cubes myKubextra = new Cubes(); 
-      Kubes.add(myKube);
-      Kubes.add(myKubextra);
-    }
+    //if ((hit == false) && (start == true)) {
+    Cubes myKube = new Cubes(); 
+    Cubes myKubextra = new Cubes(); 
+    Kubes.add(myKube);
+    Kubes.add(myKubextra);
+    //}
     // iterate backwards over Arraylist & delete cubes once out of sight
     for (int i = Kubes.size()-1; i >= 0; i--) {   
       Cubes myCube = Kubes.get(i);

@@ -56,6 +56,7 @@ class GUI {
   String Best() {
     return text[5] = nf(state.distance_best(), 0, 0);
   }
+  
   void finishflag() {
     // checker1 is solidfill backdrop which might affect how checker2 loops w aplha!! 
     fill(checker1);
@@ -79,7 +80,20 @@ class GUI {
       popMatrix();
     }
   }
+void reset(){
+  textAlign(CENTER);
+ text("Press Spacebar to retry", width/2, height/2); 
+  }
+  
+  void finish(){
+  textAlign(CENTER);
+ text("YOU MADE IT! Press Spacebar to restart", width/2, height/2); 
+  }
+
 }
+
+
+
 
 
 
