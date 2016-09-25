@@ -14,10 +14,11 @@ void setup() {
   perspective(fov, float(width)/float(height), 1, drawdistance); // however still need custom perpective to set zNear at 1
   
   //state = new state();
-  ui = new ui();
+  
 }
 
 void draw() {
+  ui = new ui();
   background (127);
   ui.display();  
   //state.gameloop();
