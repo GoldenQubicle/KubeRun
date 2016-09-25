@@ -1,20 +1,28 @@
 import processing.opengl.*;
 
 state state;
-GUI GUI;
+ui ui;
+
+float fov, drawdistance, Zplane;
 
 void setup() {
   size(640, 640, OPENGL); // using opengl for web
+  
+  fov = PI/3.0;
+  drawdistance = 2000;
+  Zplane =  ((height/2.0) / tan(PI*60.0/360.0)); // default cameraZ from perspective(); 
+  perspective(fov, float(width)/float(height), 1, drawdistance); // however still need custom perpective to set zNear at 1
+  
   state = new state();
-  GUI = new GUI();
-  }
+  ui = new ui();
+}
 
 void draw() {
   background (127);
-  GUI.display();  
+  ui.display();  
   state.gameloop();
   state.finish();
-  }
+}
 
 void mouseClicked() {
   noCursor();
@@ -22,11 +30,11 @@ void mouseClicked() {
 
 void keyPressed() {
   //reset on spacebar
-  state.reset();   
+  state.reset();
 }
 
 class Cubes {
-  
+
   PVector size, pos, cubeW, cubeH, mouseXY;
   float cubeR, cubeG, cubeB; // r,g,b color values
   boolean Z = false;
@@ -37,7 +45,7 @@ class Cubes {
     pos = new PVector(random(0, 640), random(0, 640), random(0, 0)); // make z plane in which to spawn dynamic 
     size = new PVector(random(10, 50), random(10, 50), random(10, 50)); // prolly want to make the size constraints dynamic, too
 
-      // normalise position & volume of cube for collision
+    // normalise position & volume of cube for collision
     cubeW = new PVector(norm(pos.x-(size.x), 0, 640), norm(pos.x+(size.x), 0, 640));
     cubeH = new PVector(norm(pos.y-(size.y), 0, 640), norm(pos.y+(size.y), 0, 640));
 
@@ -65,7 +73,7 @@ class Cubes {
 
   boolean OutOfSight() {
     // check if Kube is behind Zplane
-    if (pos.z-size.z > state.Zplane) {
+    if (pos.z-size.z > Zplane) {
       Z = true;
     }
     return Z;
@@ -76,7 +84,7 @@ class Cubes {
     mouseXY = new PVector((1-norm(mouseX, 0, 640)), (1-norm(mouseY, 0, 640)));
 
     // check if cube is on Zplane
-    if ((pos.z+size.z > state.Zplane)) {   
+    if ((pos.z+size.z > Zplane)) {   
       // check normalized mouse position against normalized kube position
       if ( (mouseXY.x > cubeW.x) && (mouseXY.x < cubeW.y) && (mouseXY.y > cubeH.x) && (mouseXY.y < cubeH.y) ) {
         state.hit = true;
@@ -89,9 +97,9 @@ class state {
 
   ArrayList <Cubes> Kubes;
   boolean hit, start, finish;
-  float Finish, Speed, fov, drawdistance, Zplane, run, dist, best;
-  
-  
+  float Finish, Speed, run, dist, best;
+
+
   state() {
 
     Kubes = new ArrayList(); // holds kubes to draw
@@ -100,10 +108,7 @@ class state {
     finish = false;   
     Finish = -3000; // distance to finish
     Speed = 10; // obviously wanna make this dynamic later
-    fov = PI/3.0;
-    drawdistance = 2000;
-    Zplane =  ((height/2.0) / tan(PI*60.0/360.0)); // default cameraZ from perspective(); 
-    perspective(fov, float(width)/float(height), 1, drawdistance); // however still need custom perpective to set zNear at 1
+
     run = 0;
     dist = 0;
     best = 0;
@@ -113,7 +118,7 @@ class state {
   void finish() {
     if (dist > 2000) {
       Finish = Finish + Speed;
-      
+
       if (Finish >  Zplane) {
         Speed = 0; 
         state.hit = true;
@@ -123,7 +128,7 @@ class state {
       }
       pushMatrix();
       translate(0, 0, Finish);
-      GUI.finishflag();
+      ui.finishflag();
       popMatrix();
     }
   }
@@ -165,19 +170,19 @@ class state {
       if (myCube.OutOfSight()) {
         Kubes.remove(i);
       }
-      popMatrix(); 
+      popMatrix();
     }
   }
-  
-    void gameloop() {
+
+  void gameloop() {
     if ((hit == false) && (start == true) && (finish == false)) {
       generator();
     }
     if ((hit == true) && (start == false) && (finish == false)) {
-      GUI.reset();
+      ui.reset();
     }
     if ((hit == true) && (start == false) && (finish == true)) {
-      GUI.finish();
+      ui.finish();
     }
   }
 
@@ -196,14 +201,14 @@ class state {
     return best;
   }
 }
-class GUI {
+class ui {
   String [] text; 
   int x, y, w, h, alpha;
   float finish;
   color checker1, checker2;
 
-  GUI() {
-  
+  ui() {
+
     text = new String [7];
     text[0] = "run"; // currently bit of a mess
     text[1] = "ph"; // want to add more stuff anyway
