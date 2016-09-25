@@ -26,9 +26,8 @@ void keyPressed() {
 }
 
 class Cubes {
-
-  PShape Kube;
-  PVector size, pos, cubeW, cubeH;
+  
+  PVector size, pos, cubeW, cubeH, mouseXY;
   float cubeR, cubeG, cubeB; // r,g,b color values
   boolean Z = false;
 
@@ -74,12 +73,12 @@ class Cubes {
 
   void collision() {
     //normalse mouse position
-    state.mouseXY = new PVector((1-norm(mouseX, 0, 640)), (1-norm(mouseY, 0, 640)));
+    mouseXY = new PVector((1-norm(mouseX, 0, 640)), (1-norm(mouseY, 0, 640)));
 
     // check if cube is on Zplane
     if ((pos.z+size.z > state.Zplane)) {   
       // check normalized mouse position against normalized kube position
-      if ( (state.mouseXY.x > cubeW.x) && (state.mouseXY.x < cubeW.y) && (state.mouseXY.y > cubeH.x) && (state.mouseXY.y < cubeH.y) ) {
+      if ( (mouseXY.x > cubeW.x) && (mouseXY.x < cubeW.y) && (mouseXY.y > cubeH.x) && (mouseXY.y < cubeH.y) ) {
         state.hit = true;
         state.start = false;
       }
@@ -90,21 +89,24 @@ class state {
 
   ArrayList <Cubes> Kubes;
   boolean hit, start, finish;
-  float Speed, fov, drawdistance, Zplane, run, dist, best, Finish;
-  PVector mouseXY;
+  float Finish, Speed, fov, drawdistance, Zplane, run, dist, best;
+  
+  
   state() {
-    // ! gameloop setup !
+
     Kubes = new ArrayList(); // holds kubes to draw
-    Speed = 10; // obviously wanna make this dynamic later
     hit = false; // collision check
-    start = false; // restart game
-    Finish = -3000; // distance to finish
+    start = false; // restart game   
     finish = false;   
-    // ! camera setup !     
-    Zplane =  ((height/2.0) / tan(PI*60.0/360.0)); // default cameraZ from perspective(); 
+    Finish = -3000; // distance to finish
+    Speed = 10; // obviously wanna make this dynamic later
     fov = PI/3.0;
     drawdistance = 2000;
+    Zplane =  ((height/2.0) / tan(PI*60.0/360.0)); // default cameraZ from perspective(); 
     perspective(fov, float(width)/float(height), 1, drawdistance); // however still need custom perpective to set zNear at 1
+    run = 0;
+    dist = 0;
+    best = 0;
   }
 
 
@@ -144,18 +146,6 @@ class state {
     noCursor();
   }
 
-  void gameloop() {
-    if ((hit == false) && (start == true) && (finish == false)) {
-      generator();
-    }
-    if ((hit == true) && (start == false) && (finish == false)) {
-      GUI.reset();
-    }
-    if ((hit == true) && (start == false) && (finish == true)) {
-      GUI.finish();
-    }
-  }
-
   void generator() {
     //generate cubes & add to ArrayList 
     //if ((hit == false) && (start == true)) {
@@ -176,6 +166,18 @@ class state {
         Kubes.remove(i);
       }
       popMatrix(); 
+    }
+  }
+  
+    void gameloop() {
+    if ((hit == false) && (start == true) && (finish == false)) {
+      generator();
+    }
+    if ((hit == true) && (start == false) && (finish == false)) {
+      GUI.reset();
+    }
+    if ((hit == true) && (start == false) && (finish == true)) {
+      GUI.finish();
     }
   }
 
