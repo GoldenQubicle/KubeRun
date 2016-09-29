@@ -97,24 +97,22 @@ class state {
     // added levels - prolly a better solution but f-it
     //generate cubes & add to ArrayList
     if (level == 1) {
-      Cubes lvl1 = new Cubes(); 
+      Cubes lvl1 = new Cubes(1); 
       Kubes.add(lvl1);
     }
 
     if (level == 2) {
-      Cubes lvl1 = new Cubes(); 
-      Kubes.add(lvl1);
-      Cubes lvl2 = new Cubes();  
+      Cubes lvl2 = new Cubes(2); 
       Kubes.add(lvl2);
+      //Cubes lvl2 = new Cubes();  
+      //Kubes.add(lvl2);
     }
 
     if (level == 3) {
-    }
-
-    if (level == 4) {
-    }
-
-    if (level == 5) {
+      Cubes lvl3 = new Cubes(3); 
+      Kubes.add(lvl3);
+      Cubes lvl3e = new Cubes(4); 
+      Kubes.add(lvl3e);
     }
   }
 

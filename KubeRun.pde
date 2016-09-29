@@ -33,12 +33,12 @@ void mouseClicked() {
 
 void keyPressed() {
   // spawn single cube for debug
-  if (key == 'k'){
-   Cubes myKube = new Cubes(); 
-    state.Kubes.add(myKube);
-    state.hit = false;
-    state.Speed= 10;
-  }  
+  //if (key == 'k'){
+  // Cubes myKube = new Cubes(); 
+  //  state.Kubes.add(myKube);
+  //  state.hit = false;
+  //  state.Speed= 10;
+  //}  
   //reset on spacebar
   controls.reset();
 }

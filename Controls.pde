@@ -33,6 +33,8 @@ class controls {
       state.dist = 0;
 
       controls.freeze = false;
+      //mouseX = 320;
+      //mouseY = 320;
       
       if (state.finish == true) {
         state.run = 1;

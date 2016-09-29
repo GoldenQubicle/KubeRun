@@ -102,7 +102,7 @@ class gui {
     textAlign(CENTER);
     textFont(font1, 33);
     fill(0, 0, 0);
-    text("Press Spacebar to retry", width/2, height/2);
+    //text("Press Spacebar to retry", width/2, height/2);
   }
 
   void finish() {

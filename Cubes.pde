@@ -6,24 +6,61 @@ class Cubes {
   boolean Z = false;
   float pX, pY;
 
-  Cubes() {
+  Cubes(int level) {
 
-    // procedural spawn
-    pos = new PVector(random(0, 640), random(0, 640), random(0, 0)); // make z plane in which to spawn dynamic 
-    size = new PVector(random(10, 50), random(10, 50), random(10, 50)); // prolly want to make the size constraints dynamic, too
+    if (level == 1) {
+      // procedural spawn    
+      pos = new PVector(random(0, 640), random(0, 640), random(0, 100)); // make z plane in which to spawn dynamic 
+      size = new PVector(random(10, 50), random(10, 50), random(10, 50)); // prolly want to make the size constraints dynamic, too
+      // normalise position & volume of cube for collision
+      cubeW = new PVector(norm(pos.x-(size.x), 0, 640), norm(pos.x+(size.x), 0, 640));
+      cubeH = new PVector(norm(pos.y-(size.y), 0, 640), norm(pos.y+(size.y), 0, 640));
+      // random color 
+      cubeR = int(random(0, 255));
+      cubeG = int(random(0, 255));
+      cubeB = int(random(0, 255));
+    }
 
+    if (level == 2) {
+      // procedural spawn    
+      pos = new PVector(random(0, 640), random(0, 640), random(0, 50)); // make z plane in which to spawn dynamic 
+      size = new PVector(random(25, 75), random(25, 75), random(25, 75)); // prolly want to make the size constraints dynamic, too
+      // normalise position & volume of cube for collision
+      cubeW = new PVector(norm(pos.x-(size.x), 0, 640), norm(pos.x+(size.x), 0, 640));
+      cubeH = new PVector(norm(pos.y-(size.y), 0, 640), norm(pos.y+(size.y), 0, 640));
+      // random color 
+      cubeR = int(random(0, 255));
+      cubeG = int(random(0, 255));
+      cubeB = int(random(0, 255));
+    }
+
+    if (level == 3) {
+      // procedural spawn    
+      pos = new PVector(random(0, 640), random(0, 640), random(0, 25)); // make z plane in which to spawn dynamic 
+      size = new PVector(random(35, 75), random(35, 75), random(35, 75)); // prolly want to make the size constraints dynamic, too
+      // normalise position & volume of cube for collision
+      cubeW = new PVector(norm(pos.x-(size.x), 0, 640), norm(pos.x+(size.x), 0, 640));
+      cubeH = new PVector(norm(pos.y-(size.y), 0, 640), norm(pos.y+(size.y), 0, 640));
+      // random color 
+      cubeR = int(random(0, 255));
+      cubeG = int(random(0, 255));
+      cubeB = int(random(0, 255));
+    }
+    if (level == 4) {
+      // procedural spawn    
+      pos = new PVector(random(0, 640), random(0, 640), random(0, 50)); // make z plane in which to spawn dynamic 
+      size = new PVector(random(5, 25), random(5, 25), random(5, 25)); // prolly want to make the size constraints dynamic, too
+      // normalise position & volume of cube for collision
+      cubeW = new PVector(norm(pos.x-(size.x), 0, 640), norm(pos.x+(size.x), 0, 640));
+      cubeH = new PVector(norm(pos.y-(size.y), 0, 640), norm(pos.y+(size.y), 0, 640));
+      // random color 
+      cubeR = int(random(0, 255));
+      cubeG = int(random(0, 255));
+      cubeB = int(random(0, 255));
+    }
     // static spawn for collision detection & debugging
     //pos = new PVector(320, 320, -100);
     //size = new PVector(10, 10, 10);
-
-    // normalise position & volume of cube for collision
-    cubeW = new PVector(norm(pos.x-(size.x), 0, 640), norm(pos.x+(size.x), 0, 640));
-    cubeH = new PVector(norm(pos.y-(size.y), 0, 640), norm(pos.y+(size.y), 0, 640));
-
-    // random color 
-    cubeR = int(random(0, 255));
-    cubeG = int(random(0, 255));
-    cubeB = int(random(0, 255));
   }
 
   void move() {
@@ -43,35 +80,22 @@ class Cubes {
     translate(pos.x, pos.y, pos.z); 
 
     if (state.level == 1) {
-      state.Speed = 7;
-      //strokeWeight(10); // ok this is very cool to play around with
+      state.Speed = 8;
+      stroke(64, 64, 64);
+      fill(cubeR, cubeG, cubeB);
+    }
+    if (state.level == 2) {
+      state.Speed = 10.5;
+      strokeWeight(1); 
+      stroke(cubeR, cubeG); 
+      fill(cubeR, cubeG, cubeG, cubeB);
+    }
+    if (state.level == 3) {
+      state.Speed = 12.5;
+      strokeWeight(0.5); 
       stroke(cubeR, cubeG, cubeG); // its all gonna be dynamic!
       fill(cubeR, cubeG); //, cubeB);
     }
-    if (state.level == 2) {
-      state.Speed = 10;
-      strokeWeight(.25); // ok this is very cool to play around with
-      stroke(cubeR, cubeG); // its all gonna be dynamic!
-      fill(cubeR, cubeG, cubeG, cubeB); //, cubeB);
-    }
-    if (state.level == 3) {
-      strokeWeight(.25); // ok this is very cool to play around with
-      stroke(cubeR, cubeG); // its all gonna be dynamic!
-      fill(cubeR, cubeG, cubeG, cubeB); //, cubeB);
-    }
-    if (state.level == 4) {
-      strokeWeight(.25); // ok this is very cool to play around with
-      stroke(cubeR, cubeG); // its all gonna be dynamic!
-      fill(cubeR, cubeG, cubeG, cubeB); //, cubeB);
-    }
-    if (state.level == 5) {
-      strokeWeight(.25); // ok this is very cool to play around with
-      stroke(cubeR, cubeG); // its all gonna be dynamic!
-      fill(cubeR, cubeG, cubeG, cubeB); //, cubeB);
-    }
-    //strokeWeight(.25); // ok this is very cool to play around with
-    //stroke(cubeR, cubeG); // its all gonna be dynamic!
-    //fill(cubeR, cubeG, cubeG, cubeB); //, cubeB);
     box(size.x, size.y, size.z);
   }
 
