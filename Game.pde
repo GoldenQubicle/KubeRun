@@ -26,28 +26,24 @@ class state {
 
 
   void gameloop() {
-
     if ((hit == false) && (start == false) && (finish == false)) {
       gui.titlescreen();
       cursor();
     }
-
     if ((hit == false) && (start == true) && (finish == false)) {
       noCursor();
-      gui.display();
-      translate((mouseX-width/2)*-1, (mouseY-height/2)*-1, 0); // normal mouse movement
+      controls.Distance();
+      controls.mouse();
       generator();
       iterate();
+      finish();
     }
-
     if ((hit == true) && (start == false) && (finish == false)) {
       cursor(); 
-      gui.reset();
+      //gui.reset();
       controls.mouseHit();
-      translate((controls.mouseXY.x-width/2)*-1, (controls.mouseXY.y-height/2)*-1, 0);
       iterate();
     }
-
     if ((hit == true) && (start == false) && (finish == true)) {
       gui.finish();
       cursor();
@@ -58,21 +54,22 @@ class state {
     // flag trigger visible
     if (dist > 200) {
       Finish = Finish + Speed;
-   // flag start moving
+      // flag moving
       if (Finish >  Zplane) {
         Speed = 0; 
         hit = true;
         start = false;
         Finish = 550 ;
         finish = true;
-        level = level + 1;
-      }
+        level = level + 1;}
+        
       pushMatrix();
       translate(0, 0, Finish);
       gui.finishflag();
       popMatrix();
-    }
+     }
   }
+  
 
   void iterate() {
     // iterate backwards over Arraylist & delete cubes once out of sight
@@ -80,7 +77,7 @@ class state {
       Cubes myCube = Kubes.get(i);
       pushMatrix();
       //myCube.display();
-      if ((hit == true) && (start == false)) { // turn cubes red . but. plz y fade u no work
+      if ((hit == true) && (start == false)) { // turn cubes red 
         myCube.cubeR = gui.RedFade(); 
         myCube.cubeG = 0;
       }
@@ -95,19 +92,15 @@ class state {
 
   void generator() {
     // added levels - prolly a better solution but f-it
-    //generate cubes & add to ArrayList
+    // generate cubes & add to ArrayList
     if (level == 1) {
       Cubes lvl1 = new Cubes(1); 
       Kubes.add(lvl1);
     }
-
     if (level == 2) {
       Cubes lvl2 = new Cubes(2); 
       Kubes.add(lvl2);
-      //Cubes lvl2 = new Cubes();  
-      //Kubes.add(lvl2);
     }
-
     if (level == 3) {
       Cubes lvl3 = new Cubes(3); 
       Kubes.add(lvl3);
@@ -115,19 +108,6 @@ class state {
       Kubes.add(lvl3e);
     }
   }
-
-  // auturun
-  // dont forget mouseXY in Cubes collision!!
-  //PVector autorun() {
-  //  if ((hit == true) && (start == false)) {
-  //    hit = false;
-  //    start = true; 
-  //    Speed = 10;
-  //    Kubes = new ArrayList();
-  //    randomXY = new PVector(random(0, 640), random(0, 640));
-  //  }
-  //  return randomXY;
-  //}
 
   // return current & best distance to GUI
   float distance() {
@@ -144,3 +124,17 @@ class state {
     return best;
   }
 }
+
+// yeah this no longer gonna work ~ fix it tho
+// auturun
+// dont forget mouseXY in Cubes collision!!
+//PVector autorun() {
+//  if ((hit == true) && (start == false)) {
+//    hit = false;
+//    start = true; 
+//    Speed = 10;
+//    Kubes = new ArrayList();
+//    randomXY = new PVector(random(0, 640), random(0, 640));
+//  }
+//  return randomXY;
+//}
