@@ -4,8 +4,8 @@ class Cubes {
   PVector size, pos, cubeW, cubeH;
   float cubeR, cubeG, cubeB; // r,g,b color values
   boolean Z = false;
-
-
+  float pX, pY;
+  
   Cubes() {
 
     // procedural spawn
@@ -52,7 +52,8 @@ class Cubes {
 
   void collision() {
     //normalse mouse position
-    state.mouseXY = new PVector((1-norm(mouseX, 0, 640)), (1-norm(mouseY, 0, 640)));
+    //state.mouseXY = new PVector((1-norm(mouseX, 0, 640)), (1-norm(mouseY, 0, 640))); // inverse collision
+    state.mouseXY = new PVector((norm(mouseX, 0, 640)), (norm(mouseY, 0, 640))); // normal collision 
 
     //autorun
     //state.mouseXY = new PVector((1-norm(state.randomXY.x, 0, 640)), (1-norm(state.randomXY.y, 0, 640)));
@@ -62,8 +63,10 @@ class Cubes {
       // check normalized mouse position against normalized kube position
       if ( (state.mouseXY.x > cubeW.x) && (state.mouseXY.x < cubeW.y) && (state.mouseXY.y > cubeH.x) && (state.mouseXY.y < cubeH.y) ) {
         state.hit = true;
-        state.start = false;
-      }
+        state.start = false;    
+       }
     }
   }
+  
+
 }

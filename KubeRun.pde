@@ -1,30 +1,25 @@
-//video capture
-//import com.hamoid.*; 
-//VideoExport MovingNow; 
-
-import processing.opengl.*;
 
 state state;
-GUI GUI;
-
+gui gui;
+controls controls;
 
 void setup() {
-  size(640, 640, OPENGL); // using opengl for web
+  size(640, 640, P3D); 
+  controls = new controls();
   state = new state();
-  GUI = new GUI();
-  //video capture
-  //MovingNow = new VideoExport(this, "checkonetwo.mp4");
-  
+  gui = new gui();
+
 }
 
 void draw() {
-  background (127);
-  GUI.display();
-  
+    background (127);  
+
+
   //state.autorun();
-  state.core();
+
+  state.gameloop();
   state.finish();
-  
+
   // state failure
 
   
@@ -33,7 +28,7 @@ void draw() {
 void mouseClicked() {
   // needs to trigger countdown when clicked on start ui button 
 
-  noCursor();
+  //noCursor();
 }
 
 void keyPressed() {
@@ -45,5 +40,5 @@ void keyPressed() {
     state.Speed= 10;
   }  
   //reset on spacebar
-  state.reset();
+  controls.reset();
 }
