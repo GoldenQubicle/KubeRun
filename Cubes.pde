@@ -5,7 +5,7 @@ class Cubes {
   float cubeR, cubeG, cubeB; // r,g,b color values
   boolean Z = false;
   float pX, pY;
-  
+
   Cubes() {
 
     // procedural spawn
@@ -28,17 +28,50 @@ class Cubes {
 
   void move() {
     pos.z += state.Speed;
-    if ( state.hit == true) {
+    if (state.hit == true) {
+      display(); 
       state.Speed = 0;
       state.start = false;
+    }
+    if ( state.start == true) {
+      display();
     }
   }
 
   void display() {
+    // set color &  outline cube per level
     translate(pos.x, pos.y, pos.z); 
-    strokeWeight(.25); // ok this is very cool to play around with
-    stroke(cubeR, cubeG); // its all gonna be dynamic!
-    fill(cubeR, cubeG, cubeG, cubeB); //, cubeB);
+
+    if (state.level == 1) {
+      state.Speed = 7;
+      //strokeWeight(10); // ok this is very cool to play around with
+      stroke(cubeR, cubeG, cubeG); // its all gonna be dynamic!
+      fill(cubeR, cubeG); //, cubeB);
+    }
+    if (state.level == 2) {
+      state.Speed = 10;
+      strokeWeight(.25); // ok this is very cool to play around with
+      stroke(cubeR, cubeG); // its all gonna be dynamic!
+      fill(cubeR, cubeG, cubeG, cubeB); //, cubeB);
+    }
+    if (state.level == 3) {
+      strokeWeight(.25); // ok this is very cool to play around with
+      stroke(cubeR, cubeG); // its all gonna be dynamic!
+      fill(cubeR, cubeG, cubeG, cubeB); //, cubeB);
+    }
+    if (state.level == 4) {
+      strokeWeight(.25); // ok this is very cool to play around with
+      stroke(cubeR, cubeG); // its all gonna be dynamic!
+      fill(cubeR, cubeG, cubeG, cubeB); //, cubeB);
+    }
+    if (state.level == 5) {
+      strokeWeight(.25); // ok this is very cool to play around with
+      stroke(cubeR, cubeG); // its all gonna be dynamic!
+      fill(cubeR, cubeG, cubeG, cubeB); //, cubeB);
+    }
+    //strokeWeight(.25); // ok this is very cool to play around with
+    //stroke(cubeR, cubeG); // its all gonna be dynamic!
+    //fill(cubeR, cubeG, cubeG, cubeB); //, cubeB);
     box(size.x, size.y, size.z);
   }
 
@@ -63,10 +96,8 @@ class Cubes {
       // check normalized mouse position against normalized kube position
       if ( (state.mouseXY.x > cubeW.x) && (state.mouseXY.x < cubeW.y) && (state.mouseXY.y > cubeH.x) && (state.mouseXY.y < cubeH.y) ) {
         state.hit = true;
-        state.start = false;    
-       }
+        state.start = false;
+      }
     }
   }
-  
-
 }

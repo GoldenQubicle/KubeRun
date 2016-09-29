@@ -4,11 +4,12 @@ class state {
   boolean hit, start, finish;
   float Speed, fov, drawdistance, Zplane, run, dist, best, Finish;
   PVector randomXY, mouseXY; // needed for autorun
+  int level;
 
   state() {
     // ! gameloop setup !
     Kubes = new ArrayList(); // holds kubes to draw
-    Speed = 10; // obviously wanna make this dynamic later
+    //Speed = 10; // obviously wanna make this dynamic later
     hit = false; // collision check
     start = false; // restart game
     Finish = -1000; // distance to finish
@@ -20,6 +21,7 @@ class state {
     perspective(fov, float(width)/float(height), 1, drawdistance); // however still need custom perpective to set zNear at 1
     // ! needed for autorun !
     randomXY = new PVector(random(0, 640), random(0, 640));
+    level = 1;
   }
 
 
@@ -51,17 +53,19 @@ class state {
       cursor();
     }
   }
-  
+
   void finish() {
+    // flag trigger visible
     if (dist > 200) {
       Finish = Finish + Speed;
-
+   // flag start moving
       if (Finish >  Zplane) {
         Speed = 0; 
         hit = true;
         start = false;
         Finish = 550 ;
         finish = true;
+        level = level + 1;
       }
       pushMatrix();
       translate(0, 0, Finish);
@@ -75,11 +79,10 @@ class state {
     for (int i = Kubes.size()-1; i >= 0; i--) {   
       Cubes myCube = Kubes.get(i);
       pushMatrix();
-      myCube.display();
+      //myCube.display();
       if ((hit == true) && (start == false)) { // turn cubes red . but. plz y fade u no work
         myCube.cubeR = gui.RedFade(); 
         myCube.cubeG = 0;
-        println("check");
       }
       myCube.move();
       myCube.collision();
@@ -89,15 +92,32 @@ class state {
       popMatrix();
     }
   }
-  
+
   void generator() {
-    //generate cubes & add to ArrayList 
-    Cubes myKube = new Cubes(); 
-    Cubes myKubextra = new Cubes();  
-    Kubes.add(myKube);
-    Kubes.add(myKubextra);
+    // added levels - prolly a better solution but f-it
+    //generate cubes & add to ArrayList
+    if (level == 1) {
+      Cubes lvl1 = new Cubes(); 
+      Kubes.add(lvl1);
+    }
+
+    if (level == 2) {
+      Cubes lvl1 = new Cubes(); 
+      Kubes.add(lvl1);
+      Cubes lvl2 = new Cubes();  
+      Kubes.add(lvl2);
+    }
+
+    if (level == 3) {
+    }
+
+    if (level == 4) {
+    }
+
+    if (level == 5) {
+    }
   }
-  
+
   // auturun
   // dont forget mouseXY in Cubes collision!!
   //PVector autorun() {
