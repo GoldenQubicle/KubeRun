@@ -34,7 +34,7 @@ class controls {
 
   void reset() {
     if ((key == ' ') && ( state.start == false)) {
-      state.Finish = -4000;
+      //state.Finish = -5000; // easy mode -1000 // -2500 // -5000
       state.start = true; 
       state.hit = false;     
       state.Kubes = new ArrayList();
@@ -45,6 +45,7 @@ class controls {
         state.run = 1;
         state.best = 0;
         state.finish = false;
+        state.Finish = state.Mode(state.mode);
       }
       controls.freeze = false;
     }

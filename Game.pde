@@ -4,26 +4,43 @@ class state {
   boolean hit, start, finish;
   float Speed, fov, drawdistance, Zplane, run, dist, best, Finish;
   PVector randomXY, mouseXY; // needed for autorun
-  int level;
+  int level, mode;
 
   state() {
     // ! gameloop setup !
-    Kubes = new ArrayList(); // holds kubes to draw
-    //Speed = 10; // obviously wanna make this dynamic later
-    hit = false; // collision check
-    start = false; // restart game
-    Finish = -1000; // distance to finish
-    finish = false;   
+    Kubes = new ArrayList(); 
+    hit = false;
+    start = false; 
+    finish = false; 
+    mode = 2;
+    level = 2;
+
     // ! camera setup !     
     Zplane =  ((height/2.0) / tan(PI*60.0/360.0)); // default cameraZ from perspective(); 
     fov = PI/3.0;
     drawdistance = 2000;
     perspective(fov, float(width)/float(height), 1, drawdistance); // however still need custom perpective to set zNear at 1
-    // ! needed for autorun !
-    randomXY = new PVector(random(0, 640), random(0, 640));
-    level = 1;
   }
 
+
+  float Mode(int mode) {
+    if ( mode == 1 ) {
+      // easy
+      Finish = -1000;
+    } 
+    if ( mode == 2 ) {
+      // medium
+      Finish = -2500;
+    } 
+    if ( mode == 3 ) {
+      // hard
+      Finish = -5000;
+    } 
+    if ( mode == 4 ) {
+      //  hyper
+    } 
+    return Finish;
+  }
 
   void gameloop() {
     if ((hit == false) && (start == false) && (finish == false)) {
@@ -59,17 +76,18 @@ class state {
         Speed = 0; 
         hit = true;
         start = false;
-        Finish = 550 ;
+        Finish = 550 ; // is zplane
         finish = true;
-        level = level + 1;}
-        
+        level = level + 1;
+      }
+
       pushMatrix();
       translate(0, 0, Finish);
       gui.finishflag();
       popMatrix();
-     }
+    }
   }
-  
+
 
   void iterate() {
     // iterate backwards over Arraylist & delete cubes once out of sight

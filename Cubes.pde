@@ -17,7 +17,7 @@ class Cubes {
     }
     if (level == 3) {
       pos = new PVector(random(0, 640), random(0, 640), random(0, 25)); 
-      size = new PVector(random(35, 75), random(35, 75), random(35, 75));
+      size = new PVector(random(35, 70), random(35, 70), random(35, 70));
     }
     if (level == 4) {
       pos = new PVector(random(0, 640), random(0, 640), random(0, 50)); 
