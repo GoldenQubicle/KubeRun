@@ -1,45 +1,25 @@
-class state {
+class State {
 
   ArrayList <Cubes> Kubes;
   boolean hit, start, finish;
-  float Speed, fov, drawdistance, Zplane, run, dist, best, Finish;
+  float Speed, fov, drawdistance, Zplane, run, dist, best, target, Finish;
   PVector randomXY, mouseXY; // needed for autorun
   int level, mode;
 
-  state() {
+  State() {
     // ! gameloop setup !
     Kubes = new ArrayList(); 
     hit = false;
     start = false; 
     finish = false; 
-    mode = 2;
-    level = 2;
-
+    mode = 3;
+    level = 1;
+    Finish = 750; // easy = 500 | medium = 2000 | hard = 5000
     // ! camera setup !     
     Zplane =  ((height/2.0) / tan(PI*60.0/360.0)); // default cameraZ from perspective(); 
     fov = PI/3.0;
     drawdistance = 2000;
     perspective(fov, float(width)/float(height), 1, drawdistance); // however still need custom perpective to set zNear at 1
-  }
-
-
-  float Mode(int mode) {
-    if ( mode == 1 ) {
-      // easy
-      Finish = -1000;
-    } 
-    if ( mode == 2 ) {
-      // medium
-      Finish = -2500;
-    } 
-    if ( mode == 3 ) {
-      // hard
-      Finish = -5000;
-    } 
-    if ( mode == 4 ) {
-      //  hyper
-    } 
-    return Finish;
   }
 
   void gameloop() {
@@ -53,7 +33,7 @@ class state {
       controls.mouse();
       generator();
       iterate();
-      finish();
+      Target();
     }
     if ((hit == true) && (start == false) && (finish == false)) {
       cursor(); 
@@ -67,23 +47,23 @@ class state {
     }
   }
 
-  void finish() {
-    // flag trigger visible
-    if (dist > 200) {
-      Finish = Finish + Speed;
-      // flag moving
-      if (Finish >  Zplane) {
+  void Target() {
+
+    // target trigger visible and moving
+    if (dist > Finish) { // this term here is what sets the finish distance for mode!!!!
+      target = target + Speed;
+      // 
+      if (target >  Zplane) {
         Speed = 0; 
         hit = true;
         start = false;
-        Finish = 550 ; // is zplane
+        target = 550 ; // is zplane NOT the cause of mode not propegating
         finish = true;
         level = level + 1;
       }
-
       pushMatrix();
-      translate(0, 0, Finish);
-      gui.finishflag();
+      translate(0, 0, target);
+      gui.target();
       popMatrix();
     }
   }
@@ -127,7 +107,7 @@ class state {
     }
   }
 
-  // return current & best distance to GUI
+  // return current & best distance 
   float distance() {
     if ((hit == false) && (start == true)) {
       dist = dist + Speed;

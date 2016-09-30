@@ -1,4 +1,4 @@
-class gui {
+class GUI {
 
   String [] text; 
   PFont font1, font2;
@@ -6,7 +6,7 @@ class gui {
   float finish;
   color checker1, checker2;
 
-  gui() {
+  GUI() {
     font1 = createFont ("TOSTADA.ttf", 64);
     font2 = createFont ("PoiretOne-Regular.ttf", 33);
     text = new String [5];
@@ -40,7 +40,7 @@ class gui {
 
 
 
-  void finishflag() {
+  void target() {
     if (state.level == 3) {
       strokeWeight(8);
     } 

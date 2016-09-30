@@ -32,15 +32,15 @@ controls
 
 */ 
 
-state state;
-gui gui;
-controls controls;
+State state;
+GUI gui;
+Controls controls;
 
 void setup() {
   size(640, 640, P3D); 
-  controls = new controls();
-  state = new state();
-  gui = new gui();
+  controls = new Controls();
+  state = new State();
+  gui = new GUI();
  
 }
 
