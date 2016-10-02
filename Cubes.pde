@@ -6,26 +6,26 @@ class Cubes {
   float pX, pY;
 
   Cubes(int level) {
-     // procedural spawn cube per level. note level4 is actually extra layer in lvl3 
+    // procedural spawn cube per level. Note level4 is actually extra layer in lvl3 
     if (level == 1) {
-      pos = new PVector(random(0, 640), random(0, 640), random(0, 50)); 
+      pos = new PVector(random(0, width), random(0, height), random(0, 50)); 
       size = new PVector(random(10, 64), random(10, 64), random(10, 64));
     }
     if (level == 2) {
-      pos = new PVector(random(0, 640), random(0, 640), random(0, 25)); 
+      pos = new PVector(random(0, width), random(0, height), random(0, 25)); 
       size = new PVector(random(25, 65), random(25, 65), random(25, 65));
     }
     if (level == 3) {
-      pos = new PVector(random(0, 640), random(0, 640), random(0, 25)); 
+      pos = new PVector(random(0, width), random(0, height), random(0, 25)); 
       size = new PVector(random(35, 70), random(35, 70), random(35, 70));
     }
     if (level == 4) {
-      pos = new PVector(random(0, 640), random(0, 640), random(0, 50)); 
+      pos = new PVector(random(0, width), random(0, height), random(0, 50)); 
       size = new PVector(random(5, 25), random(5, 25), random(5, 25));
     }
     // normalise position & volume of cube for collision
-    cubeW = new PVector(norm(pos.x-(size.x), 0, 640), norm(pos.x+(size.x), 0, 640));
-    cubeH = new PVector(norm(pos.y-(size.y), 0, 640), norm(pos.y+(size.y), 0, 640));
+    cubeW = new PVector(norm(pos.x-(size.x), 0, width), norm(pos.x+(size.x), 0, width));
+    cubeH = new PVector(norm(pos.y-(size.y), 0, height), norm(pos.y+(size.y), 0, height));
     // random color 
     cubeR = int(random(0, 255));
     cubeG = int(random(0, 255));
@@ -45,7 +45,7 @@ class Cubes {
   }
 
   void display() {
-    // set color &  outline cube per level
+    // set color & outline cube per level
     translate(pos.x, pos.y, pos.z); 
     if (state.level == 1) {
       state.Speed = 8;
@@ -79,17 +79,10 @@ class Cubes {
   }
 
   void collision() {
-    //normalse mouse position
-    //state.mouseXY = new PVector((1-norm(mouseX, 0, 640)), (1-norm(mouseY, 0, 640))); // inverse collision
-    state.mouseXY = new PVector((norm(mouseX, 0, 640)), (norm(mouseY, 0, 640))); // normal collision 
-   
-    //autorun
-    //state.mouseXY = new PVector((1-norm(state.randomXY.x, 0, 640)), (1-norm(state.randomXY.y, 0, 640)));
-    
     // check if cube is on Zplane
     if ((pos.z+size.z > state.Zplane)) {   
       // check normalized mouse position against normalized kube position
-      if ( (state.mouseXY.x > cubeW.x) && (state.mouseXY.x < cubeW.y) && (state.mouseXY.y > cubeH.x) && (state.mouseXY.y < cubeH.y) ) {
+      if ( (controls.mouseXY.x > cubeW.x) && (controls.mouseXY.x < cubeW.y) && (controls.mouseXY.y > cubeH.x) && (controls.mouseXY.y < cubeH.y) ) { // new collision detection
         state.hit = true;
         state.start = false;
       }

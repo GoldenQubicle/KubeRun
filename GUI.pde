@@ -4,7 +4,7 @@ class GUI {
   PFont font1, font2;
   int x, y, w, h, alpha, fade;
   float finish;
-  color checker1, checker2;
+  color color1, color2, color3, color4;
 
   GUI() {
     font1 = createFont ("TOSTADA.ttf", 64);
@@ -21,8 +21,10 @@ class GUI {
     y = 0;
     w = 64;
     h = 64;
-    checker1 = color(175, alpha);
-    checker2 = color(75, alpha);
+    color1 = color(255, 153, 51);
+    color2 = color(255, 255, 51);
+    color3 = color(153, 255, 51);
+    color4 = color(51, 255, 51);
     fade = 255;
   }
 
@@ -38,67 +40,30 @@ class GUI {
     popMatrix();
   }
 
-
-
   void target() {
-    if (state.level == 3) {
-      strokeWeight(8);
-    } 
-    fill(checker1);
+    noStroke();
+    fill(color1);
     rect(0, 0, width, height);  
-    // draws checker2
-    for ( y = 0; y < 640; y = y + 128) {
-      pushMatrix();
-      translate(0, y);
-      for ( x = 0; x < 640; x = x + 128) {
-        noStroke();
-        fill(checker2);
-        rect(x, 0, w, h);
-      }
-      translate(64, 64);
-      for ( x = 0; x < 640; x = x + 128) {
-        noStroke();
-        fill(checker2);
-        rect(x, 0, w, h);
-      }
-      popMatrix();
-    }
-  }
-
-  void reset() {
-    textAlign(CENTER);
-    textFont(font1, 33);
-    fill(0, 0, 0);
-    //text("Press Spacebar to retry", width/2, height/2);
+    fill(color2);
+    rect(width/8, height/8, 3*(width/4), 3*(height/4)); 
+    fill(color3);
+    rect(width/4, height/4, 2*(width/4), 2*(height/4));
+    fill(color4);
+    rect(1.5*(width/4), 1.5*(height/4), 2*(width/8), 2*(height/8));
   }
 
   void finish() {
     textAlign(CENTER);
     textFont(font1, 33);
     fill(255);
-    if(state.level <= 3){
-    text(text[3] + state.level, width/2, height/2);
+    if (state.level <= 3) {
+      text(text[3] + state.level, width/2, height/2);
     } else {    
-    text(text[4],width/2, height/2);
+      text(text[4], width/2, height/2);
     }
-    
   }
 
-
   int RedFade() {
-
-    //float S, s, start, stop;
-    //start = controls.mouseXY.z;
-    //stop = start + 255*10000;
-
-    //for ( S = start; S < stop; S++){
-    //  for ( s = 0; s < 10000; s++){
-
-    //fade = fade -1;
-    //  }
-
-    //}
-    //println(start, stop, S, s, fade);
     return fade;
   }
 }

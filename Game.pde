@@ -2,9 +2,8 @@ class State {
 
   ArrayList <Cubes> Kubes;
   boolean hit, start, finish;
-  float Speed, fov, drawdistance, Zplane, run, dist, best, target, Finish;
-  PVector randomXY, mouseXY; // needed for autorun
-  int level, mode;
+  float Speed, fov, drawdistance, Zplane, run, dist, target, Finish;
+  int level, distance;
 
   State() {
     // ! gameloop setup !
@@ -12,9 +11,10 @@ class State {
     hit = false;
     start = false; 
     finish = false; 
-    mode = 3;
+    distance = 1;
     level = 1;
-    Finish = 750; // easy = 500 | medium = 2000 | hard = 5000
+    Finish = 2000; // distance 1 = 500 | distance 2 = 2000 | distance 3 = 5000
+
     // ! camera setup !     
     Zplane =  ((height/2.0) / tan(PI*60.0/360.0)); // default cameraZ from perspective(); 
     fov = PI/3.0;
@@ -24,21 +24,20 @@ class State {
 
   void gameloop() {
     if ((hit == false) && (start == false) && (finish == false)) {
-      gui.titlescreen();
+      gui.titlescreen(); 
       cursor();
     }
     if ((hit == false) && (start == true) && (finish == false)) {
-      noCursor();
-      controls.Distance();
-      controls.mouse();
+      //noCursor();
+      controls.Mouse();
+      distance();
       generator();
       iterate();
       Target();
     }
     if ((hit == true) && (start == false) && (finish == false)) {
       cursor(); 
-      //gui.reset();
-      controls.mouseHit();
+      controls.MouseHit();
       iterate();
     }
     if ((hit == true) && (start == false) && (finish == true)) {
@@ -47,17 +46,29 @@ class State {
     }
   }
 
-  void Target() {
+  float finish_trigger() {
+    if (distance == 1) {
+      Finish = 500;
+    }
+    if (distance == 2) {
+      Finish = 2000;
+    }
+    if (distance == 3) {
+      Finish = 5000;
+    }
+    return Finish;
+  }
 
+  void Target() {
     // target trigger visible and moving
-    if (dist > Finish) { // this term here is what sets the finish distance for mode!!!!
+    if (dist > finish_trigger()) { 
       target = target + Speed;
-      // 
+      // what happens when target is hit, target hit detection & calculation score should prolly be called here
       if (target >  Zplane) {
         Speed = 0; 
         hit = true;
         start = false;
-        target = 550 ; // is zplane NOT the cause of mode not propegating
+        target = 550 ; // lock at Zplane so to not pass it
         finish = true;
         level = level + 1;
       }
@@ -68,13 +79,11 @@ class State {
     }
   }
 
-
   void iterate() {
     // iterate backwards over Arraylist & delete cubes once out of sight
     for (int i = Kubes.size()-1; i >= 0; i--) {   
       Cubes myCube = Kubes.get(i);
       pushMatrix();
-      //myCube.display();
       if ((hit == true) && (start == false)) { // turn cubes red 
         myCube.cubeR = gui.RedFade(); 
         myCube.cubeG = 0;
@@ -89,7 +98,7 @@ class State {
   }
 
   void generator() {
-    // added levels - prolly a better solution but f-it
+    // added levels - prolly not the best solution but f-it
     // generate cubes & add to ArrayList
     if (level == 1) {
       Cubes lvl1 = new Cubes(1); 
@@ -107,32 +116,11 @@ class State {
     }
   }
 
-  // return current & best distance 
+  // return current & best distance, latter no longer 
   float distance() {
     if ((hit == false) && (start == true)) {
       dist = dist + Speed;
     }
     return dist;
   }
-
-  float distance_best() {
-    if (dist > best) {
-      best = dist;
-    }
-    return best;
-  }
 }
-
-// yeah this no longer gonna work ~ fix it tho
-// auturun
-// dont forget mouseXY in Cubes collision!!
-//PVector autorun() {
-//  if ((hit == true) && (start == false)) {
-//    hit = false;
-//    start = true; 
-//    Speed = 10;
-//    Kubes = new ArrayList();
-//    randomXY = new PVector(random(0, 640), random(0, 640));
-//  }
-//  return randomXY;
-//}
