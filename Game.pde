@@ -24,7 +24,7 @@ class State {
 
   void gameloop() {
     if ((hit == false) && (start == false) && (finish == false)) {
-      //gui.titlescreen(); 
+      gui.titlescreen(); 
       //gui.target();
       cursor();
     }

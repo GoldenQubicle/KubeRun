@@ -28,6 +28,7 @@ class Controls {
     translate((mouseHit.x-width/2)*-1, (mouseHit.y-height/2)*-1, 0); // handle freeze frame upon collision
   }
 
+
   void reset() {
     if ((key == ' ') && ( state.start == false)) {
       state.start = true; 
