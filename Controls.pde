@@ -3,11 +3,11 @@ class Controls {
   // selection for distance & mode should go here
   boolean inverse, freeze;
   PVector mouseXY, mouseHit;
-
+  
   Controls() {
     freeze = false;
     inverse = false;
-  }
+    }
 
   void Mouse() {
     mouseXY = new PVector((norm(mouseX, 0, width)), (norm(mouseY, 0, height)));

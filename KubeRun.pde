@@ -5,6 +5,10 @@
  
  
  TO DO
+ 
+ !! DO NOT RESET RANDOM SEED PER RUN, i.e. re-runs should be in the same randomseed
+ !! once succesfully cleared level should be able to select it for practice (this ties into randomseed, should be stored somewhere?
+ 
  Game / Controls / gui
  score dependent on distance to target (average speed increases over short/medium/long), number of runs and center hits
  so a perfect score would read like
@@ -39,20 +43,25 @@
  toggle inverse mouse control
  */
 
-State state;
-GUI gui;
 Controls controls;
+GUI gui;
+Score score;
+State state;
 
 void setup() {
   size(640, 640, P3D); 
+
   controls = new Controls();
-  state = new State();
   gui = new GUI();
+  score = new Score();
+  state = new State();
 }
 
 void draw() {
   background (127);  
+
   state.gameloop();
+  score.Target();
 }
 
 void mouseClicked() {
