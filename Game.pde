@@ -2,7 +2,7 @@ class State {
 
   ArrayList <Cubes> Kubes;
   boolean hit, start, finish;
-  float Speed, fov, drawdistance, Zplane, run, dist, target, Finish;
+  float Speed, fov, drawdistance, Zplane, run, dist, target, Finish, Score;
   int level, distance;
 
   State() {
@@ -25,7 +25,7 @@ class State {
   void gameloop() {
     if ((hit == false) && (start == false) && (finish == false)) {
       //gui.titlescreen(); 
-      gui.target();
+      //gui.target();
       cursor();
     }
     if ((hit == false) && (start == true) && (finish == false)) {
@@ -66,12 +66,15 @@ class State {
       target = target + Speed;
       // what happens when target is hit, target hit detection & calculation score should prolly be called here
       if (target >  Zplane) {
+        Score = score.Target();
         Speed = 0; 
         hit = true;
         start = false;
         target = 550 ; // lock at Zplane so to not pass it
         finish = true;
         level = level + 1;
+        println(Score);
+      
       }
       pushMatrix();
       translate(0, 0, target);

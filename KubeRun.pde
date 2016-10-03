@@ -1,7 +1,7 @@
 /* 
  CURRENT CONCERNS
  
- controls.mouseXY is used for steering & collisionm, however, latter is not working properly yet with inverse control
+ controls.mouseXY is used for steering, target score & collision, however, latter is not working properly yet with inverse control
  
  
  TO DO
@@ -61,7 +61,7 @@ void draw() {
   background (127);  
 
   state.gameloop();
-  score.Target();
+ 
 }
 
 void mouseClicked() {
