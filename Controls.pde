@@ -7,6 +7,7 @@ class Controls {
   Controls() {
     freeze = false;
     inverse = false;
+    mouseXY = new PVector((norm(mouseX, 0, width)), (norm(mouseY, 0, height)));
     }
 
   void Mouse() {
@@ -30,19 +31,26 @@ class Controls {
 
 
   void reset() {
-    if ((key == ' ') && ( state.start == false)) {
+    if (state.start == false) {
       state.start = true; 
       state.hit = false;     
       state.Kubes = new ArrayList();
       state.run = state.run + 1;
       state.dist = 0;
       state.target = 0;
-
+      struct = 3;
       if (state.finish == true) {
         state.run = 1;
         state.finish = false;
       }
       controls.freeze = false;
+    }
+  }
+  
+  void menu(){
+    if (key == 'm'){
+      state.start = false;
+      struct = 0;
     }
   }
 }

@@ -3,7 +3,7 @@ class State {
   ArrayList <Cubes> Kubes;
   boolean hit, start, finish;
   float Speed, fov, drawdistance, Zplane, run, dist, target, Finish, Score;
-  int level, distance;
+  int level, mode;
 
   State() {
     // ! gameloop setup !
@@ -11,7 +11,7 @@ class State {
     hit = false;
     start = false; 
     finish = false; 
-    distance = 1;
+    mode = 1;
     level = 1;
     Finish = 2000; // distance 1 = 500 | distance 2 = 2000 | distance 3 = 5000
 
@@ -22,14 +22,9 @@ class State {
     perspective(fov, float(width)/float(height), 1, drawdistance); // however still need custom perpective to set zNear at 1
   }
 
-  void gameloop() {
-    if ((hit == false) && (start == false) && (finish == false)) {
-      gui.titlescreen(); 
-      //gui.target();
-      cursor();
-    }
+  void gameloop() {  
     if ((hit == false) && (start == true) && (finish == false)) {
-      //noCursor();
+      noCursor();
       controls.Mouse();
       distance();
       generator();
@@ -47,19 +42,6 @@ class State {
     }
   }
 
-  float finish_trigger() {
-    if (distance == 1) {
-      Finish = 500;
-    }
-    if (distance == 2) {
-      Finish = 2000;
-    }
-    if (distance == 3) {
-      Finish = 5000;
-    }
-    return Finish;
-  }
-
   void Target() {
     // target trigger visible and moving
     if (dist > finish_trigger()) { 
@@ -74,7 +56,6 @@ class State {
         finish = true;
         level = level + 1;
         println(Score);
-      
       }
       pushMatrix();
       translate(0, 0, target);
@@ -119,12 +100,25 @@ class State {
       Kubes.add(lvl3e);
     }
   }
-
-  // return current & best distance, latter no longer 
+  
+  // return current & best distance, latter no longer in use
   float distance() {
     if ((hit == false) && (start == true)) {
       dist = dist + Speed;
     }
     return dist;
+  }
+  // set finish distance per mode
+  float finish_trigger() {
+    if (mode == 1) {
+      Finish = 500;
+    }
+    if (mode == 2) {
+      Finish = 2000;
+    }
+    if (mode == 3) {
+      Finish = 5000;
+    }
+    return Finish;
   }
 }

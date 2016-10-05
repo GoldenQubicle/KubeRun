@@ -48,6 +48,8 @@ GUI gui;
 Score score;
 State state;
 
+int struct;
+
 void setup() {
   size(640, 640, P3D); 
 
@@ -55,18 +57,40 @@ void setup() {
   gui = new GUI();
   score = new Score();
   state = new State();
+  struct = 0;
 }
 
 void draw() {
   background (127);  
+//struct = 0;
+  switch(struct) {
 
-  state.gameloop();
+  case 0:
+    gui.titlescreen();
  
+   //println(width/2-gui.wB/2);
+    break;
+
+  case 1: 
+
+    //println(state.start);
+    break;
+
+  case 2:
+  
+    break;
+    
+   case 3:
+    state.gameloop();
+    break;
+  }
 }
 
 void mouseClicked() {
 }
 
 void keyPressed() {
+  
   controls.reset();
- }
+  //controls.menu();
+}
