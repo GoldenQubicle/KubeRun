@@ -1,5 +1,6 @@
 class GUI {
-
+  Button header, start, stats, easy, normal, hard, hyper, mouse, mouse_i;
+  ArrayList <Button> buttons;
   String [] text; 
   PFont font1, font2;
   int x, y, w, h, alpha, fade;
@@ -34,43 +35,45 @@ class GUI {
     color4 = color(51, 255, 51);
     fade = 255;
     // buttons
-    wB = 150;
-    hB = 50;
+    buttons = new ArrayList();
+    header = new Button("header", 0, 0, width, 155);
+    start = new Button("start", 0, 155, width/2, 155);
+    stats = new Button("stats", width/2, 155, width/2, 155);
+    easy = new Button("easy", 0, 310, width/2, 110);
+    normal = new Button  ("normal", width/2, 310, width/2, 110);
+    hard = new Button  ("hard", 0, 420, width/2, 110);
+    hyper = new Button  ("hyper", width/2, 420, width/2, 110);
+    mouse  = new Button ("mouse", 0, 530, width/2, 110);
+    mouse_i  = new Button ("mouse_i", width/2, 530, width/2, 110);
+    buttons.add(header);
+    buttons.add(start);
+    buttons.add(stats);
+    buttons.add(easy);
+    buttons.add(normal);
+    buttons.add(hard);
+    buttons.add(hyper);
+    buttons.add(mouse);
+    buttons.add(mouse_i);
   }
 
-  void menu() {
+  void buttons() {
     noStroke();
-
     fill(180);
-    rect(0, 0, width, 155);
-    fill(80);
-    rect(0, 155, width/2, 155);
-    fill(100);
-    rect(width/2, 155, width/2, 155);
-
-    fill(200);
-    rect(0, 310, width/2, 110);
-    fill(220);
-    rect(width/2, 310, width/2, 110);
-
-    fill(180);
-    rect(0, 420, width/2, 110);
-    fill(160);
-    rect(width/2, 420, width/2, 110);
-
-    fill(120);
-    rect(0, 530, width/2, 110);
-    fill(140);
-    rect(width/2, 530, width/2, 110);
+    for (int i = 0; i < buttons.size(); i++) {      
+      Button myButton = buttons.get(i);
+      myButton.hoover();
+      myButton.mouseClicked();
+    }
   }
 
   void titlescreen() {
-    menu();
+    buttons();
+    cursor();
 
     fill(255);
     textAlign(CENTER);
     textFont(font1);
-   
+
     text(text[0], width/2, 128);  // silly little game by vrtxt, link to GP
     textSize(48);
     text(text[1], width/4, 255); // run 'n dodge through 3 levels , dodge 'n run
@@ -86,30 +89,6 @@ class GUI {
     text(text[9], width/4, 595); // up is up, left is left and all is right. 
     text(text[10], (width-width/4), 595); // left is right, up is down and whats going on?!
   }
-
-  void buttons_title() {
-    fill(0, 117);
-    noStroke();
-    strokeCap(ROUND);
-    rectMode(CENTER);
-    if ((mouseX > (width/2 - wB/2) && mouseX < (width/2 + wB/2)) && 
-      (mouseY > (270 - hB/2) && mouseY < (270 + hB/2))) {
-      rect(width/2, 272, wB, hB); // start
-      //if (mousePressed && (mouseButton == LEFT)) {
-      //  struct = 1;
-      //}
-    } else if ((mouseX > (width/2 - wB/2) && mouseX < (width/2 + wB/2)) && 
-      (mouseY > (400 - hB/2) && mouseY < (400 + hB/2))) {
-      rect(width/2, 402, wB, hB); // stats
-      //if (mousePressed && (mouseButton == LEFT)) {
-      //  struct = 2;
-      //}
-    } else {
-      println("");
-    }
-  }
-
-
 
   void target() {
     pushMatrix();

@@ -62,27 +62,17 @@ void setup() {
 
 void draw() {
   background (127);  
-//struct = 0;
+
   switch(struct) {
 
   case 0:
     gui.titlescreen();
- 
-   //println(width/2-gui.wB/2);
     break;
 
   case 1: 
-
-    //println(state.start);
-    break;
-
-  case 2:
-  
-    break;
-    
-   case 3:
     state.gameloop();
     break;
+
   }
 }
 
@@ -92,5 +82,5 @@ void mouseClicked() {
 void keyPressed() {
   
   controls.reset();
-  //controls.menu();
+  controls.menu();
 }

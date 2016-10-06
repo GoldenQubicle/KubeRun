@@ -38,7 +38,7 @@ class Controls {
       state.run = state.run + 1;
       state.dist = 0;
       state.target = 0;
-      struct = 3;
+      //struct = 3;
       if (state.finish == true) {
         state.run = 1;
         state.finish = false;
@@ -50,6 +50,7 @@ class Controls {
   void menu(){
     if (key == 'm'){
       state.start = false;
+      state.level = 1;
       struct = 0;
     }
   }
