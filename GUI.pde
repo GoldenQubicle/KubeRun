@@ -10,7 +10,7 @@ class GUI {
 
   GUI() {
     font1 = createFont ("TOSTADA.ttf", 120);
-    font2 = createFont ("PoiretOne-Regular.ttf", 33);
+    font2 = createFont ("PoiretOne-Regular.ttf", 64);
     text = new String [11];
     text[0] = "KubeRun"; 
     text[1] = "start";
@@ -75,17 +75,18 @@ class GUI {
     textFont(font1);
 
     text(text[0], width/2, 128);  // silly little game by vrtxt, link to GP
-    textSize(48);
+    textFont(font2);
+    textSize(64);
     text(text[1], width/4, 255); // run 'n dodge through 3 levels , dodge 'n run
     text(text[2], (width-width/4), 255); // dem scores
 
 
-    textSize(33);   
+    textSize(64);   
     text(text[5], width/4, 375); // smallest distance, slowest overall speed, 3 levels
     text(text[6], (width-width/4), 375); // normal distance, normal overall speed, 3 levels
     text(text[7], width/4, 485); // largest distance, highest overall speed, 3 levels
     text(text[8], (width-width/4), 485); // clear all 3 modes in one go! 9 levels without a single hit
-    textSize(28); 
+    textSize(33); 
     text(text[9], width/4, 595); // up is up, left is left and all is right. 
     text(text[10], (width-width/4), 595); // left is right, up is down and whats going on?!
   }

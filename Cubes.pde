@@ -42,6 +42,9 @@ class Cubes {
     if ( state.start == true) {
       display();
     }
+    if (state.lock == true){
+       state.Speed = lerp(0,state.Speed,1); 
+    }
   }
 
   void display() {

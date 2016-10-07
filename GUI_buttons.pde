@@ -2,7 +2,7 @@ class Button {
 
   int Red, Green, Blue;
   int Xpos, Ypos, BWidth, BHeight;
-  String Name;
+  String Name, HooverText;
   int xpos, ypos, bwidth, bheight;
   boolean hoover;
 
@@ -13,6 +13,7 @@ class Button {
     Ypos = ypos;
     BWidth = bwidth;
     BHeight = bheight;
+    HooverText = "test";
     //Red = red;
     //Green = green;
     //Blue = blue;
@@ -23,6 +24,9 @@ class Button {
       mouseY > Ypos && mouseY < Ypos + BHeight) {
       fill(180);
       rect(Xpos, Ypos, BWidth, BHeight);
+      textAlign(CENTER);
+      fill(255,255,0);
+      text(HooverText, (Xpos+BWidth/2), (Ypos+BHeight/2));
       hoover = true;
     } else {
       hoover = false;
@@ -40,6 +44,8 @@ class Button {
         state.hit = false;
         state.start = true;
         state.finish = false;
+        state.lock = true;
+        state.lockdown = millis();
       }
       if (Name == "stats") {
       }

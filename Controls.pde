@@ -1,14 +1,14 @@
 class Controls {
 
-  // selection for distance & mode should go here
   boolean inverse, freeze;
   PVector mouseXY, mouseHit;
-  
+
   Controls() {
     freeze = false;
     inverse = false;
     mouseXY = new PVector((norm(mouseX, 0, width)), (norm(mouseY, 0, height)));
-    }
+  }
+
 
   void Mouse() {
     mouseXY = new PVector((norm(mouseX, 0, width)), (norm(mouseY, 0, height)));
@@ -29,7 +29,6 @@ class Controls {
     translate((mouseHit.x-width/2)*-1, (mouseHit.y-height/2)*-1, 0); // handle freeze frame upon collision
   }
 
-
   void reset() {
     if (state.start == false) {
       state.start = true; 
@@ -46,9 +45,9 @@ class Controls {
       controls.freeze = false;
     }
   }
-  
-  void menu(){
-    if (key == 'm'){
+
+  void menu() {
+    if (key == 'm') {
       state.start = false;
       state.level = 1;
       struct = 0;

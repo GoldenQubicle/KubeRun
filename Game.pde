@@ -1,8 +1,8 @@
 class State {
 
   ArrayList <Cubes> Kubes;
-  boolean hit, start, finish;
-  float Speed, fov, drawdistance, Zplane, run, dist, target, Finish, Score;
+  boolean hit, start, finish, lock;
+  float Speed, fov, drawdistance, Zplane, run, dist, target, Finish, Score, lockdown, clear;
   int level, mode;
 
   State() {
@@ -11,6 +11,7 @@ class State {
     hit = false;
     start = false; 
     finish = false; 
+    lock = true;
     mode = 1;
     level = 1;
     Finish = 2000; // distance 1 = 500 | distance 2 = 2000 | distance 3 = 5000
@@ -23,7 +24,15 @@ class State {
   }
 
   void gameloop() {  
-    if ((hit == false) && (start == true) && (finish == false)) {
+    LockStart();
+    if (lock == true) {
+      while (Kubes.size() < 80) {
+        generator();
+      }
+      iterate();
+    }    
+
+    if ((hit == false) && (start == true) && (finish == false) && (lock == false)) {
       noCursor();
       controls.Mouse();
       distance();
@@ -41,6 +50,15 @@ class State {
       cursor();
     }
   }
+
+  void LockStart(){
+    clear = lockdown + 1000;
+   if (millis() > clear) {
+      lock = false;
+    }
+  }
+    
+  
 
   void Target() {
     // target trigger visible and moving
@@ -69,7 +87,7 @@ class State {
     for (int i = Kubes.size()-1; i >= 0; i--) {   
       Cubes myCube = Kubes.get(i);
       pushMatrix();
-      if ((hit == true) && (start == false)) { // turn cubes red 
+      if ((hit == true) && (start == false)) { // inject red for fail state
         myCube.cubeR = gui.RedFade(); 
         myCube.cubeG = 0;
       }
@@ -100,7 +118,9 @@ class State {
       Kubes.add(lvl3e);
     }
   }
-  
+
+
+
   // return current & best distance, latter no longer in use
   float distance() {
     if ((hit == false) && (start == true)) {

@@ -63,17 +63,20 @@ void setup() {
 void draw() {
   background (127);  
 
-  switch(struct) {
+  gui.buttons();
+  
+  //switch(struct) {
 
-  case 0:
-    gui.titlescreen();
-    break;
+  //case 0:
+  //  gui.titlescreen();
+  //  break;
 
-  case 1: 
-    state.gameloop();
-    break;
+  //case 1: 
+  //  //controls.CountDown();
+  //  state.gameloop();
+  //  break;
 
-  }
+  //}
 }
 
 void mouseClicked() {

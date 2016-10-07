@@ -31,5 +31,4 @@ class Score {
     println(Scores);
     return score;
   }
-  // what if end score is 'target score * 1/runs' and hyperrun highscore  score = 9 * 1000 + 1000 bonus = 10000
 }
