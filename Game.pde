@@ -24,15 +24,15 @@ class State {
   }
 
   void gameloop() {  
-    LockStart();
-    if (lock == true) {
-      while (Kubes.size() < 80) {
-        generator();
-      }
-      iterate();
-    }    
+    //LockStart();
+    //if (lock == true) {
+    //  while (Kubes.size() < 80) {
+    //    generator();
+    //  }
+    //  iterate();
+    //}    
 
-    if ((hit == false) && (start == true) && (finish == false) && (lock == false)) {
+    if ((hit == false) && (start == true) && (finish == false)) {
       noCursor();
       controls.Mouse();
       distance();

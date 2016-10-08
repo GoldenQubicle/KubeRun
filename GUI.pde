@@ -1,5 +1,5 @@
 class GUI {
-  Button header, start, stats, easy, normal, hard, hyper, mouse, mouse_i;
+  Button header, start, howto, stats, easy, normal, hard, hyper, mouse, mouse_i;
   ArrayList <Button> buttons;
   String [] text; 
   PFont font1, font2;
@@ -36,24 +36,26 @@ class GUI {
     fade = 255;
     // buttons
     buttons = new ArrayList();
-    header = new Button("header", 0, 0, width, 155);
-    start = new Button("start", 0, 155, width/2, 155);
-    stats = new Button("stats", width/2, 155, width/2, 155);
-    easy = new Button("easy", 0, 310, width/2, 110);
-    normal = new Button  ("normal", width/2, 310, width/2, 110);
-    hard = new Button  ("hard", 0, 420, width/2, 110);
-    hyper = new Button  ("hyper", width/2, 420, width/2, 110);
-    mouse  = new Button ("mouse", 0, 530, width/2, 110);
-    mouse_i  = new Button ("mouse_i", width/2, 530, width/2, 110);
+    header = new Button("KubeRun", 0, 0, width, height/3);
+    start = new Button("start", width/3, height/3, width/3, height/3);
+    howto = new Button("how to?", 0, height/3, width/3, height/3);
+    stats = new Button("stats", (width-width/3), height/3, width/3, height/3);
+    easy = new Button("easy", 0, (height-height/3), width/2, 110);
+    normal = new Button  ("normal", width/2,(height-height/3), width/2, 110);
+    hard = new Button  ("hard", 0, (height-110), width/2, 110);
+    hyper = new Button  ("hyper", width/2, (height-110), width/2, 110);
+    //mouse  = new Button ("mouse", 0, 530, width/2, 110);
+    //mouse_i  = new Button ("mouse_i", width/2, 530, width/2, 110);
     buttons.add(header);
     buttons.add(start);
+    buttons.add(howto);
     buttons.add(stats);
     buttons.add(easy);
     buttons.add(normal);
     buttons.add(hard);
     buttons.add(hyper);
-    buttons.add(mouse);
-    buttons.add(mouse_i);
+    //buttons.add(mouse);
+    //buttons.add(mouse_i);
   }
 
   void buttons() {
