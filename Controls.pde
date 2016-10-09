@@ -9,7 +9,6 @@ class Controls {
     mouseXY = new PVector((norm(mouseX, 0, width)), (norm(mouseY, 0, height)));
   }
 
-
   void Mouse() {
     mouseXY = new PVector((norm(mouseX, 0, width)), (norm(mouseY, 0, height)));
     if (inverse == true) {

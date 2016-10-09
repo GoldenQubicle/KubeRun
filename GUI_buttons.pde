@@ -1,34 +1,41 @@
 class Button {
 
 
-  float Xpos, Ypos, BWidth, BHeight,xpos, ypos, bwidth, bheight;
- 
-  String Title,title;
+  float Xpos, Ypos, BWidth, BHeight, xpos, ypos, bwidth, bheight;
+  PFont Font, font;
+  int TextSize, textsize;
+  String Title, title;
   boolean hoover;
+  color Hoover, Clicked;
 
-  Button (String title, float xpos, float ypos, float bwidth, float bheight) {
+  Button (String title, float xpos, float ypos, float bwidth, float bheight, PFont font, int textsize) {
     hoover = false;  
-    
+    Title = title;
     Xpos = xpos;
     Ypos = ypos;
     BWidth = bwidth;
     BHeight = bheight;
-    
-    Title = title;
+    Font = font;
+    TextSize = textsize;
+    Hoover = color (180, 50);
+    Clicked = color (200, 100);
+  }
+
+  void Text() {
+    textAlign(CENTER);
+    textFont(Font);
+    fill(255, 255, 0);    
+    text(Title, (Xpos+BWidth/2), (Ypos+(BHeight*.6)));
   }
 
   void hoover() {
     if (mouseX > Xpos && mouseX < Xpos + BWidth && 
       mouseY > Ypos && mouseY < Ypos + BHeight) {
-    fill(180);
-    
-    rect(Xpos, Ypos, BWidth, BHeight);
-    textAlign(CENTER);
-    //fill(255, 255, 0);
-    //text(Title, (Xpos+BWidth/2), (Ypos+BHeight/2));
-    hoover = true;
+      fill(Hoover);
+      rect(Xpos, Ypos, BWidth, BHeight);
+      hoover = true;
     } else {
-    hoover = false;
+      hoover = false;
     }
   }
 
@@ -43,28 +50,19 @@ class Button {
         state.hit = false;
         state.start = true;
         state.finish = false;
-        //state.lock = true;
-        //state.lockdown = millis();
       }
       if (Title == "stats") {
       }
       if (Title == "easy") {
         state.mode = 1;
-        println(state.mode);
       }
       if (Title == "normal") {
-        state.mode = 2;    
-        println(state.mode);
+        state.mode = 2;
       }
       if (Title == "hard") {
-        state.mode = 3;   
-        println(state.mode);
+        state.mode = 3;
       }
       if (Title == "hyper") {
-      }
-      if (Title == "mouse") {
-      }
-      if (Title == "mouse_i") {
       }
     }
   }

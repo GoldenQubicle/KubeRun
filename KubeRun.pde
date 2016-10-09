@@ -63,16 +63,15 @@ void setup() {
 void draw() {
   background (127);  
 
-  //gui.buttons();
+  
   
   switch(struct) {
 
   case 0:
-    gui.titlescreen();
+    gui.buttons();
     break;
 
   case 1: 
-    //controls.CountDown();
     state.gameloop();
     break;
 

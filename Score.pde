@@ -26,8 +26,12 @@ class Score {
     if ((controls.mouseXY.x >.375 && controls.mouseXY.x < .625 && controls.mouseXY.y > .375 && controls.mouseXY.y < .625)) {
       score = 1000;
     }
-    score = score * 1/state.run;
-    Scores.append(score);
+    if (state.run > 1) {
+      score = score * 1/state.run;
+      Scores.append(score);
+    } else {
+      Scores.append(score);
+    }
     println(Scores);
     return score;
   }
