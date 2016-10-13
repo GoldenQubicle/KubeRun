@@ -1,43 +1,43 @@
 class GUI {
-  Button header, start, howto, stats, easy, normal, hard, hyper;
-  ArrayList <Button> buttons;
-  String [] text; 
-  PFont font1, font2;
+  //Button header, start, howto, stats, easy, normal, hard, hyper;
+  //ArrayList <Button> buttons;
+  //String [] text; 
+  //PFont font1, font2;
   int fade;
   float finish;
   color color1, color2, color3, color4;
 
   GUI() {
-    font1 = createFont ("TOSTADA.ttf", 120);
-    font2 = createFont ("PoiretOne-Regular.ttf", 64);
-    text = new String [9];
-    text[0] = "KubeRun"; 
-    text[1] = "start";
-    text[2] = "what?";
-    text[3] = "stats";
-    text[4] = "easy";
-    text[5] = "normal";
-    text[6] = "hard";
-    text[7] = "hyper";
-    text[8] = "LVL ";
+    //font1 = createFont ("TOSTADA.ttf", 120);
+    //font2 = createFont ("PoiretOne-Regular.ttf", 64);
+    //text = new String [9];
+    //text[0] = "KubeRun"; 
+    //text[1] = "start";
+    //text[2] = "what?";
+    //text[3] = "stats";
+    //text[4] = "easy";
+    //text[5] = "normal";
+    //text[6] = "hard";
+    //text[7] = "hyper";
+    //text[8] = "LVL ";
       // buttons
-    buttons = new ArrayList();
-    header = new Button(text[0], 0, 0, width, height/3, font1, 128);
-    start = new Button(text[1], width/3, height/3, width/3, height/3, font2, 64);
-    howto = new Button(text[2], 0, height/3, width/3, height/3, font2, 64);
-    stats = new Button(text[3], (width-width/3), height/3, width/3, height/3, font2, 64);
-    easy = new Button(text[4], 0, (height-height/3), width/2, 110, font2, 64);
-    normal = new Button(text[5], width/2, (height-height/3), width/2, 110, font2, 64);
-    hard = new Button(text[6], 0, (height-110), width/2, 110, font2, 64);
-    hyper = new Button(text[7], width/2, (height-110), width/2, 110, font2, 64);
-    buttons.add(header);
-    buttons.add(start);
-    buttons.add(howto);
-    buttons.add(stats);
-    buttons.add(easy);
-    buttons.add(normal);
-    buttons.add(hard);
-    buttons.add(hyper);
+    //buttons = new ArrayList();
+    //header = new Button(text[0], 0, 0, width, height/3, font1, 128);
+    //start = new Button(text[1], width/3, height/3, width/3, height/3, font2, 64);
+    //howto = new Button(text[2], 0, height/3, width/3, height/3, font2, 64);
+    //stats = new Button(text[3], (width-width/3), height/3, width/3, height/3, font2, 64);
+    //easy = new Button(text[4], 0, (height-height/3), width/2, 110, font2, 64);
+    //normal = new Button(text[5], width/2, (height-height/3), width/2, 110, font2, 64);
+    //hard = new Button(text[6], 0, (height-110), width/2, 110, font2, 64);
+    //hyper = new Button(text[7], width/2, (height-110), width/2, 110, font2, 64);
+    //buttons.add(header);
+    //buttons.add(start);
+    //buttons.add(howto);
+    //buttons.add(stats);
+    //buttons.add(easy);
+    //buttons.add(normal);
+    //buttons.add(hard);
+    //buttons.add(hyper);
     // target colors
     color1 = color(255, 153, 51);
     color2 = color(255, 255, 51);
@@ -47,16 +47,16 @@ class GUI {
     fade = 255;
   }
 
-  void buttons() {
-    noStroke();
-    fill(180);
-    for (int i = 0; i < buttons.size(); i++) {      
-      Button myButton = buttons.get(i);
-      myButton.Text();
-      myButton.hoover();
-      myButton.mouseClicked();
-    }
-  }
+  //void buttons() {
+  //  noStroke();
+  //  fill(180);
+  //  for (int i = 0; i < buttons.size(); i++) {      
+  //    Button myButton = buttons.get(i);
+  //    myButton.Text();
+  //    myButton.hoover();
+  //    myButton.mouseClicked();
+  //  }
+  //}
 
 
   // possible hoover texts
@@ -88,10 +88,10 @@ class GUI {
 
   void finish() {
     textAlign(CENTER);
-    textFont(font1, 33);
+   
     fill(255);
     if (state.level <= 3) {
-      text(text[8] + state.level, width/2, height/2);
+      text("placeholder", width/2, height/2);
     } else {    
       text("congrats I guess", width/2, height/2);
     }

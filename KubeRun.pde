@@ -1,62 +1,22 @@
 /* 
- CURRENT CONCERNS
- 
- controls.mouseXY is used for steering, target score & collision, however, latter is not working properly yet with inverse control
- 
- 
- TO DO
- 
- !!!! design decision
- github only
- work with limitations, i.e. solid colors only
- button as images (but what about score?!)
- ui via javascript?!
- score via console?!! why the f not, its the easiest!
- 
- 3 levels, increasing in target distance & overall speed
- implement speed increase over each level
- score & return to menu after each level 
- decorate! 
- target different per level
- walls with possible animation towards
- 
- 
- !! DO NOT RESET RANDOM SEED PER RUN, i.e. re-runs should be in the same randomseed
- !! once succesfully cleared level should be able to select it for practice (this ties into randomseed, should be stored somewhere?
- !! scores floatlist not reset after mode complete
- 
- Game / Controls / gui
- score dependent on distance to target (average speed increases over short/medium/long), number of runs and center hits
- so a perfect score would read like
- 
- distance - runs - hit
- small - 3 - center / center / center
- medium - 3 - center/center/center
- far - 3 - center/center/center
- 
- modes: infitine runs / sudden death (i.e. 9 discrete achievements)
- 
- hyper run achievement
- all distances/levels in one go, i.e. 9 runs in sudden death mode
- 
- bulls eye with scoring rings
- easy / normal / hard mode which differ in distance, i.e. seconds per run
- scoring system based on the above 2
- scoring menu
- 
- UI
- title menu
- start - in current mode 
- how to screen / short tutorial with mouse toggle (and a got it button to start too)     
- score menu (load from db?!)
- // sort highest score per level 
- // and of course hyperrun
- 
- controls
- mouse-over buttons in title menu / how to screen
- 'hit esc' during run to return to title menu
- toggle distance/second countdown
- toggle inverse mouse control
+
+BIG RIG JOB
+setup walls & lighting
+
+DESIGN STUFF
+formalise color schemes
+design UI in PS
+  
+TWEAKS
+random seed when a level is started, however, NOT on reset
+increasing speed per level, and higher overall speed between levels
+setup UI control structure per level
+special message if runs==3 && level==3, hyperrun!
+
+STRATEGY
+run setup such that static cubes spawn
+
+
  */
 
 Controls controls;
@@ -85,7 +45,7 @@ void draw() {
 
   case 0:
   cursor();
-    gui.buttons();
+    //gui.buttons();
     break;
 
   case 1: 
@@ -102,5 +62,5 @@ void mouseClicked() {
 void keyPressed() {
   
   controls.reset();
-  controls.menu();
+  //controls.menu();
 }
