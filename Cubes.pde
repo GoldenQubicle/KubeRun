@@ -32,6 +32,12 @@ class Cubes {
     cubeB = int(random(0, 255));
   }
 
+  float RandomSeed(){
+   float Seed;
+   Seed = random(0,10000);
+    return Seed;
+  }
+
   void move() {
     pos.z += state.Speed;
     if (state.hit == true) {
@@ -45,27 +51,28 @@ class Cubes {
   }
 
   void display() {
+     
     // set color & outline cube per level
     translate(pos.x, pos.y, pos.z); 
     if (state.level == 1) {
       state.Speed = 8;
-      strokeWeight(33); 
+      strokeWeight(3); 
       strokeJoin(ROUND);
       strokeCap(ROUND);
-      stroke(cubeR+100, cubeG+100, cubeB+100, 17);
+      stroke(cubeR+100, cubeG+100, cubeB+100);
       fill(cubeR, cubeG, cubeB);
     }
     if (state.level == 2) {
       state.Speed = 10.5;
       strokeWeight(1); 
-      stroke(cubeR, cubeG); 
-      fill(cubeR, cubeG, cubeG, cubeB);
+      stroke(cubeR); 
+      fill(cubeR, cubeG, cubeG);
     }
     if (state.level == 3) {
       state.Speed = 12;
       strokeWeight(0.5); 
       stroke(cubeR, cubeG, cubeG); 
-      fill(cubeR, cubeG);
+      fill(cubeR, cubeG,cubeG);
     }
     box(size.x, size.y, size.z);
   }

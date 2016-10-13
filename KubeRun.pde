@@ -6,8 +6,24 @@
  
  TO DO
  
+ !!!! design decision
+ github only
+ work with limitations, i.e. solid colors only
+ button as images (but what about score?!)
+ ui via javascript?!
+ score via console?!! why the f not, its the easiest!
+ 
+ 3 levels, increasing in target distance & overall speed
+ implement speed increase over each level
+ score & return to menu after each level 
+ decorate! 
+ target different per level
+ walls with possible animation towards
+ 
+ 
  !! DO NOT RESET RANDOM SEED PER RUN, i.e. re-runs should be in the same randomseed
  !! once succesfully cleared level should be able to select it for practice (this ties into randomseed, should be stored somewhere?
+ !! scores floatlist not reset after mode complete
  
  Game / Controls / gui
  score dependent on distance to target (average speed increases over short/medium/long), number of runs and center hits
@@ -30,7 +46,7 @@
  
  UI
  title menu
- start - in current mode / show in tooltip 
+ start - in current mode 
  how to screen / short tutorial with mouse toggle (and a got it button to start too)     
  score menu (load from db?!)
  // sort highest score per level 
@@ -57,7 +73,7 @@ void setup() {
   gui = new GUI();
   score = new Score();
   state = new State();
-  struct = 0;
+  struct = 1;
 }
 
 void draw() {
@@ -68,10 +84,12 @@ void draw() {
   switch(struct) {
 
   case 0:
+  cursor();
     gui.buttons();
     break;
 
   case 1: 
+  spotLight(255, 255, 126,320,320,state.Zplane, 0, 0, -1, 180,10);
     state.gameloop();
     break;
 

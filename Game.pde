@@ -13,7 +13,7 @@ class State {
     finish = false; 
     mode = 1;
     level = 1;
-    Finish = 2000; // distance 1 = 500 | distance 2 = 2000 | distance 3 = 5000
+    Finish = 2000; // distance 1 = 750 | distance 2 = 2000 | distance 3 = 5000
 
     // ! camera setup !     
     Zplane =  ((height/2.0) / tan(PI*60.0/360.0)); // default cameraZ from perspective(); 
@@ -23,6 +23,7 @@ class State {
   }
 
   void gameloop() {  
+    
     if ((hit == false) && (start == true) && (finish == false)) {
       noCursor();
       controls.Mouse();
@@ -111,7 +112,7 @@ class State {
   // set finish distance per mode
   float finish_trigger() {
     if (mode == 1) {
-      Finish = 500;
+      Finish = 750;
     }
     if (mode == 2) {
       Finish = 2000;
