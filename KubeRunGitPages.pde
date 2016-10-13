@@ -138,12 +138,12 @@ class Cubes {
     // set color &  outline cube per level
     translate(pos.x, pos.y, pos.z); 
     if (State.level == 1) {
-      State.Speed = 8;
-      strokeWeight(3); 
+       State.Speed = 8;
+      strokeWeight(33); 
       strokeJoin(ROUND);
       strokeCap(ROUND);
-      stroke(cubeR+100, cubeG+100, cubeB+100);
-      fill(cubeR, cubeG, cubeB);;
+      stroke(cubeR+100, cubeG+100, cubeB+100, 17);
+      fill(cubeR, cubeG, cubeB);
     }
     if (State.level == 2) {
       State.Speed = 10.5;
@@ -305,7 +305,7 @@ class state {
     start = false; 
     finish = false; 
     mode = 1;
-    level = 2;
+    level = 1;
     Finish = 750; // easy = 500 | medium = 2000 | hard = 5000
     // ! camera setup !     
     Zplane =  ((height/2.0) / tan(PI*60.0/360.0)); // default cameraZ from perspective(); 
