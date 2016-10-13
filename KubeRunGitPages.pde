@@ -304,8 +304,8 @@ class state {
     hit = false;
     start = false; 
     finish = false; 
-    mode = 1;
-    level = 1;
+    mode = 2;
+    level = 2;
     Finish = 750; // easy = 500 | medium = 2000 | hard = 5000
     // ! camera setup !     
     Zplane =  ((height/2.0) / tan(PI*60.0/360.0)); // default cameraZ from perspective(); 
