@@ -32,7 +32,7 @@ class Score {
     } else {
       Scores.append(score);
     }
-    println(Scores);
+    //println(Scores);
     return score;
   }
   

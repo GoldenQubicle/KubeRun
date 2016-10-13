@@ -5,7 +5,7 @@ setup walls & lighting
 
 DESIGN STUFF
 formalise color schemes
-design UI in PS
+design UI in PS - keep start & continue button in middle!
   
 TWEAKS
 random seed when a level is started, however, NOT on reset
@@ -20,7 +20,7 @@ run setup such that static cubes spawn
  */
 
 Controls controls;
-GUI gui;
+ENV env;
 Score score;
 State state;
 
@@ -30,7 +30,7 @@ void setup() {
   size(640, 640, P3D); 
 
   controls = new Controls();
-  gui = new GUI();
+  env = new ENV();
   score = new Score();
   state = new State();
   struct = 1;
@@ -49,7 +49,7 @@ void draw() {
     break;
 
   case 1: 
-  spotLight(255, 255, 126,320,320,state.Zplane, 0, 0, -1, 180,10);
+ 
     state.gameloop();
     break;
 

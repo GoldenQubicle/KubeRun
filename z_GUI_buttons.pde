@@ -67,3 +67,26 @@
 //    }
 //  }
 //}
+//!! carried over from former GUI class
+  //void buttons() {
+  //  noStroke();
+  //  fill(180);
+  //  for (int i = 0; i < buttons.size(); i++) {      
+  //    Button myButton = buttons.get(i);
+  //    myButton.Text();
+  //    myButton.hoover();
+  //    myButton.mouseClicked();
+  //  }
+  //}
+
+
+// possible hoover texts
+  // silly little game by vrtxt, link to GP
+  // run 'n dodge through 3 levels , dodge 'n run
+  // dem scores
+  // smallest distance, slowest overall speed, 3 levels
+  // normal distance, normal overall speed, 3 levels
+  // largest distance, highest overall speed, 3 levels
+  // clear all 3 modes in one go! 9 levels without a single hit
+  // up is up, left is left and all is right. 
+  // left is right, up is down and whats going on?!

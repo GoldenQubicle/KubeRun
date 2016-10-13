@@ -3,7 +3,8 @@ class State {
   ArrayList <Cubes> Kubes;
   boolean hit, start, finish;
   float Speed, fov, drawdistance, Zplane, run, dist, target, Finish, Score;
-  int level, mode;
+  int level;
+
 
   State() {
     // ! gameloop setup !
@@ -11,7 +12,7 @@ class State {
     hit = false;
     start = false; 
     finish = false; 
-    mode = 1;
+    //mode = 1;
     level = 1;
     Finish = 2000; // distance 1 = 750 | distance 2 = 2000 | distance 3 = 5000
 
@@ -23,7 +24,7 @@ class State {
   }
 
   void gameloop() {  
-    
+    env.lights();
     if ((hit == false) && (start == true) && (finish == false)) {
       noCursor();
       controls.Mouse();
@@ -38,7 +39,7 @@ class State {
       iterate();
     }
     if ((hit == true) && (start == false) && (finish == true)) {
-      gui.finish();
+      controls.finish();
       cursor();
     }
   }
@@ -60,7 +61,7 @@ class State {
       }
       pushMatrix();
       translate(0, 0, target);
-      gui.target();
+      env.target();
       popMatrix();
     }
   }
@@ -71,7 +72,7 @@ class State {
       Cubes myCube = Kubes.get(i);
       pushMatrix();
       if ((hit == true) && (start == false)) { // inject red for fail state
-        myCube.cubeR = gui.RedFade(); 
+        myCube.cubeR = env.RedFade(); 
         myCube.cubeG = 0;
       }
       myCube.move();
@@ -111,13 +112,13 @@ class State {
   }
   // set finish distance per mode
   float finish_trigger() {
-    if (mode == 1) {
+    if (level == 1) {
       Finish = 750;
     }
-    if (mode == 2) {
+    if (level == 2) {
       Finish = 2000;
     }
-    if (mode == 3) {
+    if (level == 3) {
       Finish = 5000;
     }
     return Finish;

@@ -45,6 +45,16 @@ class Controls {
     }
   }
 
+  void finish() {
+    textAlign(CENTER);
+    fill(255);
+    if (state.level <= 3) {
+      text("placeholder", width/2, height/2);
+    } else {    
+      text("congrats I guess", width/2, height/2);
+    }
+  }
+
   void menu() {
     if (key == 'm') {
       state.start = false;
