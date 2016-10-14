@@ -2,7 +2,7 @@ class State {
 
   ArrayList <Cubes> Kubes;
   boolean hit, start, finish;
-  float Speed, fov, drawdistance, Zplane, run, dist, target, Finish, Score;
+  float Speed, fov, drawdistance, Zplane, run, dist, target, Finish, Score, PushBack;
   int level;
 
 
@@ -14,41 +14,49 @@ class State {
     finish = false; 
     level = 1;
     Finish = 2000; // distance 1 = 750 | distance 2 = 2000 | distance 3 = 5000
-
+    PushBack = 1000;
     // ! camera setup !     
     Zplane =  ((height/2.0) / tan(PI*60.0/360.0)); // default cameraZ from perspective(); 
     fov = PI/3.0;
-    drawdistance = 100000;
+    drawdistance = 10000;
     perspective(fov, float(width)/float(height), 1, drawdistance); // however still need custom perpective to set zNear at 1
   }
 
   void gameloop() {  
-    env.lights();
-    
-      if (start == true) {
-      while (Kubes.size() < 100) {
-        generator();
-      }
-      iterate();
-      }
-    
-    //if ((hit == false) && (start == true) && (finish == false)) {
-    //  noCursor();
-    //  controls.Mouse();
-    //  distance();
+    //if (start == true) {
+    //while (Kubes.size() < 100) {
     //  generator();
-    //  iterate();
-    //  Target();
     //}
-    //if ((hit == true) && (start == false) && (finish == false)) {
-    //  cursor(); 
-    //  controls.MouseHit();
-    //  iterate();
+    //iterate();
     //}
-    //if ((hit == true) && (start == false) && (finish == true)) {
-    //  controls.finish();
-    //  cursor();
-    //}
+    env.lights();
+    if ((hit == false) && (start == true) && (finish == false)) {
+      noCursor();
+      controls.Mouse();
+
+      //environment needs to be in here!
+      env.walls();
+     
+
+      distance();
+      translate(0,0,-PushBack);
+      generator();
+      iterate();
+    println(Zplane);
+      //Target();
+    }
+    if ((hit == true) && (start == false) && (finish == false)) {
+      cursor(); 
+      controls.MouseHit();
+      //env.walls();
+      env.lights();
+      translate(0,0,-PushBack);
+      iterate();
+    }
+    if ((hit == true) && (start == false) && (finish == true)) {
+      controls.finish();
+      cursor();
+    }
   }
 
   void Target() {
@@ -83,7 +91,8 @@ class State {
         myCube.cubeG = 0;
       }
       myCube.move();
-      //myCube.collision();
+
+      myCube.collision();
       if (myCube.OutOfSight()) {
         Kubes.remove(i);
       }

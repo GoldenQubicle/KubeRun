@@ -37,7 +37,7 @@ class Controls {
       state.run = state.run + 1;
       state.dist = 0;
       state.target = 0;
-      state.Speed = 2; // temporariy in here to set up env
+      //state.Speed = 2; // temporariy in here to set up env
       //struct = 3;
       if (state.finish == true) {
         state.run = 1;

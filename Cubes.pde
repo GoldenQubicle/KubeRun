@@ -8,10 +8,10 @@ class Cubes {
   Cubes(int level) {
     // procedural spawn cube per level. Note level4 is actually extra layer in lvl3 
     if (level == 1) {
-      specular(204, 102, 0);
-      shininess(100);
-      emissive(10, 10, 10);
-      pos = new PVector(random(0, width-64), random(0, height-64), random(-1000, state.Zplane)); 
+      //specular(204, 102, 0);
+      //shininess(100);
+      //emissive(10, 10, 10);
+      pos = new PVector(random(0, width), random(0, height), random(0, 64)); // this here determines the cube density
       size = new PVector(random(10, 64), random(10, 64), random(10, 64));
     }
     if (level == 2) {
@@ -58,7 +58,7 @@ class Cubes {
     // set color & outline cube per level
     translate(pos.x, pos.y, pos.z); 
     if (state.level == 1) {
-      //state.Speed = 8;
+      state.Speed = 8;
       strokeWeight(1); 
       strokeJoin(ROUND);
       strokeCap(ROUND);
@@ -66,13 +66,13 @@ class Cubes {
       fill(cubeR, cubeG, cubeB);
     }
     if (state.level == 2) {
-      //state.Speed = 10.5;
+      state.Speed = 15;
       strokeWeight(1); 
       stroke(cubeR, cubeG); 
-      fill(cubeR, cubeG, cubeG, cubeB);
+      fill(cubeR, cubeG, cubeG, cubeB+100);
     }
     if (state.level == 3) {
-      //state.Speed = 12;
+      state.Speed = 12;
       strokeWeight(0.5); 
       stroke(cubeR, cubeG, cubeG); 
       fill(cubeR, cubeG);
@@ -82,7 +82,7 @@ class Cubes {
 
   boolean OutOfSight() {
     // check if Kube is behind Zplane
-    if (pos.z-size.z > state.Zplane) {
+    if (pos.z-size.z > state.Zplane+state.PushBack) {
       Z = true;
     }
     return Z;
@@ -90,7 +90,7 @@ class Cubes {
 
   void collision() {
     // check if cube is on Zplane
-    if ((pos.z+size.z > state.Zplane)) {   
+    if ((pos.z+size.z > state.Zplane+state.PushBack)) {   
       // check normalized mouse position against normalized kube position
       if ( (controls.mouseXY.x > cubeW.x) && (controls.mouseXY.x < cubeW.y) && (controls.mouseXY.y > cubeH.x) && (controls.mouseXY.y < cubeH.y) ) { // new collision detection
         state.hit = true;

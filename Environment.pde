@@ -16,53 +16,66 @@ class ENV {
 
   void lights() {
     //if (keyPressed == true && key == 'l') {
-      //ambientLight(128, 128, 128, width/2, height/2, state.Zplane);
+    //ambientLight(128, 128, 128, width/2, height/2, state.Zplane);
 
-      //pushMatrix();
-      //rotateY(TAU/4);      
-      //directionalLight(128, 128, 128, width/2, height/2, 0);
+    //pushMatrix();
+    //rotateY(TAU/4);      
+    //directionalLight(128, 128, 128, width/2, height/2, 0);
 
-      //spotLight(64, 64, 64, width, 320, state.Zplane+500, -1, 0, -1, 180, 10); 
-      //spotLight(64, 64, 64, 0, 320, state.Zplane+500, 1, 0, -1, 180, 10); 
-      //pushMatrix();
-      //translate(width/2, height/2, -50);
-      //sphere(33);
-      //popMatrix();
+    //spotLight(64, 64, 64, width, 320, state.Zplane+500, -1, 0, -1, 180, 10); 
+    //spotLight(64, 64, 64, 0, 320, state.Zplane+500, 1, 0, -1, 180, 10); 
+    //pushMatrix();
+    //translate(width/2, height/2, -50);
+    //sphere(33);
+    //popMatrix();
 
 
-      spotLight(255, 255, 126, 320, 320, state.Zplane, 0, 0, -1, 180, 10); // center spotligth
+    spotLight(128, 128, 128, mouseX, mouseY, state.Zplane+state.PushBack, 0, 0, -1, 360, 250); // center spotligth
     //}
   }
 
   void walls() {
     //ambient(10,10,10);
-    lightFalloff(0.0001, 0.0001, 0.000001);
-    ambientLight(64, 64, 128, 0, height/2, state.Zplane+100);
-   //lightFalloff(0.001, 0.0001, 0.000001);
-    ambientLight(64, 64, 128, width, height/2, state.Zplane+100);
-    
-    
-    fill(180, 180, 255, 128); // dynamic color on basis off level
 
-    noStroke();
+    lightFalloff(0.00001, 0.00001, 0.000001);
+    ambientLight(32, 32, 64, width/2,height/2,0);
+    ambientLight(32, 32, 64, 0, height,-state.Zplane);
+    ambientLight(32, 32, 64, width, 0,-state.Zplane);
+    ambientLight(32, 32, 64, width, height,-state.Zplane);
+
+    
+    //ambientLight(64, 64, 128, 0, width,-state.Zplane);
+
+
+    fill(124, 180, 255, 128); // dynamic color on basis off level
+   
+    // pull walls backwards
+    pushMatrix();
+    translate(0, 0, state.Zplane);
+    
+    //noStroke();
+    //strokeWeight(2);
     // left & right
     pushMatrix();
     rotateY(TAU/4);   
-    rect(0, 0, width*4, height); // replace in here, preset the walls to finish distance? 
+      emissive(10, 10, 10);
+    rect(0, 0, width*8, height); // replace in here, preset the walls to finish distance? 
     pushMatrix();
     translate(0, 0, width);
-    rect(0, 0, width*4, height); // replace in here
+    rect(0, 0, width*8, height); // replace in here
     popMatrix();
     popMatrix();
 
     // up & down
     pushMatrix();
     rotateX(-TAU/4);
-    rect(0, 0, width, height*4); // replace in here
+    rect(0, 0, width, height*8); // replace in here
     pushMatrix();
     translate(0, 0, height);
-    rect(0, 0, width, height*4); // replace in here
+    rect(0, 0, width, height*8); // replace in here
     popMatrix();
+    popMatrix();
+
     popMatrix();
   }
 

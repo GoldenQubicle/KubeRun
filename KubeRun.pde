@@ -1,7 +1,7 @@
 /* 
  BIG RIG JOB
- setup walls & lighting
- 
+ setup walls & lighting // partially done
+  
  DESIGN STUFF
  formalise color schemes
  design UI in PS - keep start & continue button in middle!
@@ -18,8 +18,8 @@
 
 
 //video capture
-//import com.hamoid.*; 
-//VideoExport LightingRig; 
+import com.hamoid.*; 
+VideoExport LightingRig2; 
 
 
 Controls controls;
@@ -39,7 +39,7 @@ void setup() {
   struct = 1;
   
 //video capture
-//LightingRig = new VideoExport(this, "LightingRig.mp4");
+LightingRig2 = new VideoExport(this, "LightingRig2.mp4");
 }
 
 void draw() {
@@ -53,11 +53,11 @@ void draw() {
     break;
 
   case 1: 
-    env.walls();
+
     state.gameloop();
     break;
   }
-  //LightingRig.saveFrame();
+  LightingRig2.saveFrame();
 }
 
 void mouseClicked() {
