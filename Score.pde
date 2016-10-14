@@ -32,7 +32,6 @@ class Score {
     } else {
       Scores.append(score);
     }
-    //println(Scores);
     return score;
   }
   

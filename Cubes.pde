@@ -8,7 +8,10 @@ class Cubes {
   Cubes(int level) {
     // procedural spawn cube per level. Note level4 is actually extra layer in lvl3 
     if (level == 1) {
-      pos = new PVector(random(0, width), random(0, height), random(0, 50)); 
+      specular(204, 102, 0);
+      shininess(100);
+      emissive(10, 10, 10);
+      pos = new PVector(random(0, width-64), random(0, height-64), random(-1000, state.Zplane)); 
       size = new PVector(random(10, 64), random(10, 64), random(10, 64));
     }
     if (level == 2) {
@@ -27,14 +30,14 @@ class Cubes {
     cubeW = new PVector(norm(pos.x-(size.x), 0, width), norm(pos.x+(size.x), 0, width));
     cubeH = new PVector(norm(pos.y-(size.y), 0, height), norm(pos.y+(size.y), 0, height));
     // random color 
-    cubeR = int(random(0, 255));
-    cubeG = int(random(0, 255));
-    cubeB = int(random(0, 255));
+    cubeR = int(random(0, 64));
+    cubeG = int(random(0, 64));
+    cubeB = int(random(0, 64));
   }
 
-  float RandomSeed(){
-   float Seed;
-   Seed = random(0,10000);
+  float RandomSeed() {
+    float Seed;
+    Seed = random(0, 10000);
     return Seed;
   }
 
@@ -51,28 +54,28 @@ class Cubes {
   }
 
   void display() {
-     
+
     // set color & outline cube per level
     translate(pos.x, pos.y, pos.z); 
     if (state.level == 1) {
-      state.Speed = 8;
-      strokeWeight(3); 
+      //state.Speed = 8;
+      strokeWeight(1); 
       strokeJoin(ROUND);
       strokeCap(ROUND);
-      stroke(cubeR+100, cubeG+100, cubeB+100);
+      stroke(cubeR+100, cubeG+100, cubeB+100, 17);
       fill(cubeR, cubeG, cubeB);
     }
     if (state.level == 2) {
-      state.Speed = 10.5;
+      //state.Speed = 10.5;
       strokeWeight(1); 
-      stroke(cubeR); 
-      fill(cubeR, cubeG, cubeG);
+      stroke(cubeR, cubeG); 
+      fill(cubeR, cubeG, cubeG, cubeB);
     }
     if (state.level == 3) {
-      state.Speed = 12;
+      //state.Speed = 12;
       strokeWeight(0.5); 
       stroke(cubeR, cubeG, cubeG); 
-      fill(cubeR, cubeG,cubeG);
+      fill(cubeR, cubeG);
     }
     box(size.x, size.y, size.z);
   }

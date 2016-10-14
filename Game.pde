@@ -12,36 +12,43 @@ class State {
     hit = false;
     start = false; 
     finish = false; 
-    //mode = 1;
     level = 1;
     Finish = 2000; // distance 1 = 750 | distance 2 = 2000 | distance 3 = 5000
 
     // ! camera setup !     
     Zplane =  ((height/2.0) / tan(PI*60.0/360.0)); // default cameraZ from perspective(); 
     fov = PI/3.0;
-    drawdistance = 2000;
+    drawdistance = 100000;
     perspective(fov, float(width)/float(height), 1, drawdistance); // however still need custom perpective to set zNear at 1
   }
 
   void gameloop() {  
     env.lights();
-    if ((hit == false) && (start == true) && (finish == false)) {
-      noCursor();
-      controls.Mouse();
-      distance();
-      generator();
+    
+      if (start == true) {
+      while (Kubes.size() < 100) {
+        generator();
+      }
       iterate();
-      Target();
-    }
-    if ((hit == true) && (start == false) && (finish == false)) {
-      cursor(); 
-      controls.MouseHit();
-      iterate();
-    }
-    if ((hit == true) && (start == false) && (finish == true)) {
-      controls.finish();
-      cursor();
-    }
+      }
+    
+    //if ((hit == false) && (start == true) && (finish == false)) {
+    //  noCursor();
+    //  controls.Mouse();
+    //  distance();
+    //  generator();
+    //  iterate();
+    //  Target();
+    //}
+    //if ((hit == true) && (start == false) && (finish == false)) {
+    //  cursor(); 
+    //  controls.MouseHit();
+    //  iterate();
+    //}
+    //if ((hit == true) && (start == false) && (finish == true)) {
+    //  controls.finish();
+    //  cursor();
+    //}
   }
 
   void Target() {
@@ -76,7 +83,7 @@ class State {
         myCube.cubeG = 0;
       }
       myCube.move();
-      myCube.collision();
+      //myCube.collision();
       if (myCube.OutOfSight()) {
         Kubes.remove(i);
       }

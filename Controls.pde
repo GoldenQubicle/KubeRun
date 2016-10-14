@@ -29,6 +29,7 @@ class Controls {
   }
 
   void reset() {
+    if (key == ' ') {
     if (state.start == false) {
       state.start = true; 
       state.hit = false;     
@@ -36,6 +37,7 @@ class Controls {
       state.run = state.run + 1;
       state.dist = 0;
       state.target = 0;
+      state.Speed = 2; // temporariy in here to set up env
       //struct = 3;
       if (state.finish == true) {
         state.run = 1;
@@ -44,7 +46,7 @@ class Controls {
       controls.freeze = false;
     }
   }
-
+  }
   void finish() {
     textAlign(CENTER);
     fill(255);
