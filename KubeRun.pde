@@ -7,19 +7,25 @@
  design UI in PS - keep start & continue button in middle!
  
  GAMEPLAY TWEAKS
- random seed when a level is started, however, NOT on reset
+ random seed when a level is started, however, NOT on reset - proves really quite difficult for now 
+ 
  increasing speed per level, and higher overall speed between levels
+ 
  all levels one after another, and more targets
  level 1 = 2 targets
  level 2 = 3 targets
  level 3 = 4 targets
  special message if runs==3 && level==3, hyperrun!
+ 
+ idea: move target into own class, so its ONE object with hit detection  
+ which I already have in score so to call on it per level
+ 
  */
 
 
 //video capture
-import com.hamoid.*; 
-VideoExport LightingRig2; 
+//import com.hamoid.*; 
+//VideoExport LightingRig2; 
 
 
 Controls controls;
@@ -39,7 +45,7 @@ void setup() {
   struct = 1;
   
 //video capture
-LightingRig2 = new VideoExport(this, "LightingRig2.mp4");
+//LightingRig2 = new VideoExport(this, "LightingRig2.mp4");
 }
 
 void draw() {
@@ -53,11 +59,10 @@ void draw() {
     break;
 
   case 1: 
-
     state.gameloop();
     break;
   }
-  LightingRig2.saveFrame();
+  //LightingRig2.saveFrame();
 }
 
 void mouseClicked() {

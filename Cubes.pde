@@ -8,9 +8,6 @@ class Cubes {
   Cubes(int level) {
     // procedural spawn cube per level. Note level4 is actually extra layer in lvl3 
     if (level == 1) {
-      //specular(204, 102, 0);
-      //shininess(100);
-      //emissive(10, 10, 10);
       pos = new PVector(random(0, width), random(0, height), random(0, 64)); // this here determines the cube density
       size = new PVector(random(10, 64), random(10, 64), random(10, 64));
     }
@@ -35,12 +32,6 @@ class Cubes {
     cubeB = int(random(0, 64));
   }
 
-  float RandomSeed() {
-    float Seed;
-    Seed = random(0, 10000);
-    return Seed;
-  }
-
   void move() {
     pos.z += state.Speed;
     if (state.hit == true) {
@@ -54,7 +45,6 @@ class Cubes {
   }
 
   void display() {
-
     // set color & outline cube per level
     translate(pos.x, pos.y, pos.z); 
     if (state.level == 1) {

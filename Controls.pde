@@ -30,22 +30,21 @@ class Controls {
 
   void reset() {
     if (key == ' ') {
-    if (state.start == false) {
-      state.start = true; 
-      state.hit = false;     
-      state.Kubes = new ArrayList();
-      state.run = state.run + 1;
-      state.dist = 0;
-      state.target = 0;
-      //state.Speed = 2; // temporariy in here to set up env
-      //struct = 3;
-      if (state.finish == true) {
-        state.run = 1;
-        state.finish = false;
+      if (state.start == false) {
+        state.start = true; 
+        state.hit = false;     
+        state.Kubes = new ArrayList();
+        state.run = state.run + 1;
+        state.dist = 0;
+        state.target = 0;
+
+        if (state.finish == true) {
+          state.run = 1;
+          state.finish = false;
+        }
+        controls.freeze = false;
       }
-      controls.freeze = false;
     }
-  }
   }
   void finish() {
     textAlign(CENTER);

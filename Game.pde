@@ -5,7 +5,6 @@ class State {
   float Speed, fov, drawdistance, Zplane, run, dist, target, Finish, Score, PushBack;
   int level;
 
-
   State() {
     // ! gameloop setup !
     Kubes = new ArrayList(); 
@@ -23,33 +22,23 @@ class State {
   }
 
   void gameloop() {  
-    //if (start == true) {
-    //while (Kubes.size() < 100) {
-    //  generator();
-    //}
-    //iterate();
-    //}
-    env.lights();
+    env.spotlight();
+    
     if ((hit == false) && (start == true) && (finish == false)) {
       noCursor();
       controls.Mouse();
 
-      //environment needs to be in here!
       env.walls();
      
-
       distance();
       translate(0,0,-PushBack);
       generator();
       iterate();
-    println(Zplane);
-      //Target();
+      Target();
     }
     if ((hit == true) && (start == false) && (finish == false)) {
       cursor(); 
       controls.MouseHit();
-      //env.walls();
-      env.lights();
       translate(0,0,-PushBack);
       iterate();
     }
@@ -64,7 +53,7 @@ class State {
     if (dist > finish_trigger()) { 
       target = target + Speed;
       // what happens when target is hit, target hit detection & calculation score should prolly be called here
-      if (target >  Zplane) {
+      if (target >  Zplane + PushBack*2) {
         Score = score.Target();
         Speed = 0; 
         hit = true;
@@ -75,7 +64,7 @@ class State {
         println(Score);
       }
       pushMatrix();
-      translate(0, 0, target);
+      translate(0, 0, target-PushBack);
       env.target();
       popMatrix();
     }
@@ -91,7 +80,6 @@ class State {
         myCube.cubeG = 0;
       }
       myCube.move();
-
       myCube.collision();
       if (myCube.OutOfSight()) {
         Kubes.remove(i);
@@ -119,14 +107,15 @@ class State {
     }
   }
 
-  // return current & best distance, latter no longer in use
+  // keep track of distance to trigger targets
   float distance() {
     if ((hit == false) && (start == true)) {
       dist = dist + Speed;
     }
     return dist;
   }
-  // set finish distance per mode
+  
+  // set finish distance per level
   float finish_trigger() {
     if (level == 1) {
       Finish = 750;
