@@ -11,14 +11,17 @@
  
  increasing speed per level, and higher overall speed between levels
  
- all levels one after another, and more targets
+ all levels one after another, and more targets - maybe slight change after target?
  level 1 = 2 targets
- level 2 = 3 targets
- level 3 = 4 targets
+ level 2 = 3 targets // 
+ level 3 = 4 targets // spawn the small kubes at midpoint
  special message if runs==3 && level==3, hyperrun!
  
- idea: move target into own class, so its ONE object with hit detection  
- which I already have in score so to call on it per level
+CURRENT CONCERNS
+distance is still basically just a timer, in that it just counts while running 
+NOW that'd be okay, if it could be tied into the target distance 
+BUT they seems to be unrelated
+SO question is, how do I properly setup distance measurement?!
  
  */
 
@@ -33,6 +36,7 @@ ENV env;
 Score score;
 State state;
 
+
 int struct;
 
 void setup() {
@@ -42,6 +46,7 @@ void setup() {
   env = new ENV();
   score = new Score();
   state = new State();
+
   struct = 1;
   
 //video capture
@@ -52,14 +57,17 @@ void draw() {
   background (0);  
 
   switch(struct) {
-
+  
   case 0:
     cursor();
-    //gui.buttons();
+    
+
     break;
 
-  case 1: 
+  case 1:                
     state.gameloop();
+    //test.move();
+
     break;
   }
   //LightingRig2.saveFrame();

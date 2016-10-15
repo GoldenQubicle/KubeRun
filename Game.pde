@@ -1,8 +1,8 @@
 class State {
-
+   Target test;
   ArrayList <Cubes> Kubes;
   boolean hit, start, finish;
-  float Speed, fov, drawdistance, Zplane, run, dist, target, Finish, Score, PushBack;
+  float Speed, fov, drawdistance, Zplane, run, dist, target, trigger, Score, PushBack;
   int level;
 
   State() {
@@ -12,8 +12,9 @@ class State {
     start = false; 
     finish = false; 
     level = 1;
-    Finish = 2000; // distance 1 = 750 | distance 2 = 2000 | distance 3 = 5000
+    trigger = 2000; // distance 1 = 750 | distance 2 = 2000 | distance 3 = 5000
     PushBack = 1000;
+    test = new Target(.5);
     // ! camera setup !     
     Zplane =  ((height/2.0) / tan(PI*60.0/360.0)); // default cameraZ from perspective(); 
     fov = PI/3.0;
@@ -22,24 +23,30 @@ class State {
   }
 
   void gameloop() {  
-    env.spotlight();
-    
+
+
     if ((hit == false) && (start == true) && (finish == false)) {
       noCursor();
       controls.Mouse();
-
+      env.spotlight();
       env.walls();
-     
+
       distance();
-      translate(0,0,-PushBack);
+      //println(dist);      
+      
+      
+      pushMatrix();
+      translate(0, 0, -PushBack);
       generator();
       iterate();
+      popMatrix();
       Target();
+     //test.display();
     }
     if ((hit == true) && (start == false) && (finish == false)) {
       cursor(); 
       controls.MouseHit();
-      translate(0,0,-PushBack);
+      translate(0, 0, -PushBack);
       iterate();
     }
     if ((hit == true) && (start == false) && (finish == true)) {
@@ -49,24 +56,24 @@ class State {
   }
 
   void Target() {
+    
     // target trigger visible and moving
-    if (dist > finish_trigger()) { 
-      target = target + Speed;
+    if (dist > Trigger()) { 
+        test.move();
+     //if(
+     
       // what happens when target is hit, target hit detection & calculation score should prolly be called here
-      if (target >  Zplane + PushBack*2) {
-        Score = score.Target();
-        Speed = 0; 
-        hit = true;
-        start = false;
-        target = 550 ; // lock at Zplane so to not pass it
-        finish = true;
-        level = level + 1;
-        println(Score);
-      }
-      pushMatrix();
-      translate(0, 0, target-PushBack);
-      env.target();
-      popMatrix();
+      //  Score = score.Target();
+      //  Speed = 0; 
+      //  hit = true;
+      //  start = false;
+      //  target = 550 ; // lock at Zplane so to not pass it
+      //  finish = true;
+      //  level = level + 1;
+ 
+
+      
+    
     }
   }
 
@@ -110,22 +117,25 @@ class State {
   // keep track of distance to trigger targets
   float distance() {
     if ((hit == false) && (start == true)) {
-      dist = dist + Speed;
+      //dist = dist + Speed;
+      dist = dist + 1;
     }
+    println(dist);
     return dist;
   }
   
+  // shouldnt this be in the target class?!
   // set finish distance per level
-  float finish_trigger() {
+  float Trigger() {
     if (level == 1) {
-      Finish = 750;
+      trigger = 50;
     }
     if (level == 2) {
-      Finish = 2000;
+      trigger = 2000;
     }
     if (level == 3) {
-      Finish = 5000;
+      trigger = 5000;
     }
-    return Finish;
+    return trigger;
   }
 }

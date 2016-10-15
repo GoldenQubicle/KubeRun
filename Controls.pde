@@ -37,7 +37,7 @@ class Controls {
         state.run = state.run + 1;
         state.dist = 0;
         state.target = 0;
-
+        state.test = new Target(.5); // soooo probably want to make a function here which calls forth the proper target / level
         if (state.finish == true) {
           state.run = 1;
           state.finish = false;
