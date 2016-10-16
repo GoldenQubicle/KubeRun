@@ -33,11 +33,11 @@ class State {
       // pushback here!
       pushMatrix();
       translate(0, 0, -PushBack);
-      LVL.Kubes();
+      design.generator();
       iterate();
       popMatrix();
 
-      LVL.Targets();
+      design.targets();
     }
     
     if ((hit == true) && (start == false) && (finish == false)) {
@@ -55,17 +55,16 @@ class State {
 
   void iterate() {
     // iterate backwards over Arraylist & delete cubes once out of sight
-    for (int i = LVL.Kubes.size()-1; i >= 0; i--) {   
-      Cubes myCube = LVL.Kubes.get(i);
+    for (int i = design.Kubes.size()-1; i >= 0; i--) {   
+      Cubes myCube = design.Kubes.get(i);
       pushMatrix();
       if ((hit == true) && (start == false)) { // inject red for fail state
-        myCube.cubeR = env.RedFade(); 
-        myCube.cubeG = 0;
+        myCube.cubeC = color (255,0,0,255); // possibly
       }
       myCube.move();
       myCube.collision();
       if (myCube.OutOfSight()) {
-        LVL.Kubes.remove(i);
+        design.Kubes.remove(i);
       }
       popMatrix();
     }

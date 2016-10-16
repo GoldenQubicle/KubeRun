@@ -1,16 +1,18 @@
 class Controls {
-
   boolean inverse, freeze;
   PVector mouseXY, mouseHit;
 
   Controls() {
+
     freeze = false;
     inverse = false;
     mouseXY = new PVector((norm(mouseX, 0, width)), (norm(mouseY, 0, height)));
   }
 
   void Mouse() {
-    mouseXY = new PVector((norm(mouseX, 0, width)), (norm(mouseY, 0, height)));
+    mouseXY.x = (norm(mouseX, 0, width));
+    mouseXY.y = (norm(mouseY, 0, height));
+
     if (inverse == true) {
       translate(((mouseXY.x*width)-width/2), ((mouseXY.y*height)-height/2)); // normalised mouse movement
     }
@@ -32,12 +34,18 @@ class Controls {
     if (key == ' ') {
       if (state.start == false) {
         state.start = true; 
-        state.hit = false;     
-        state.Kubes = new ArrayList();
+        state.hit = false; 
+        
+        design.Kubes.clear();
+        
+        for(int i = 0; i < design.Targets.size();i++){
+          Target myTarget = design.Targets.get(i);
+          myTarget.MoveT = 0;
+        }
+          
         state.run = state.run + 1;
         state.dist = 0;
-        state.target = 0;
-        state.test = new Target(.5); // soooo probably want to make a function here which calls forth the proper target / level
+        //state.test = new Target(.5); // soooo probably want to make a function here which calls forth the proper target / level
         if (state.finish == true) {
           state.run = 1;
           state.finish = false;

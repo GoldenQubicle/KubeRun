@@ -42,7 +42,7 @@ Controls controls;
 ENV env;
 Score score;
 State state;
-Levels LVL;
+Levels design;
 
 int struct;
 
@@ -53,7 +53,7 @@ void setup() {
   env = new ENV();
   score = new Score();
   state = new State();
-  LVL = new Levels();
+  design = new Levels();
   struct = 1;
 
   //video capture
