@@ -16,14 +16,14 @@ class ENV {
   }
 
   void spotlight() {
-    float x, y;
-    x = 320;
-    y=320;
-    if (state.hit == false) {
-      x = mouseX;
-      y = mouseY;
-    }
-    spotLight(128, 128, 128, x, y, state.Zplane+state.PushBack, 0, 0, -1, 360, 250); // center spotlight
+    //float x, y;
+    //x = mouseX;
+    //y = mouseY;
+    //if (state.hit == false) {
+    //  x = mouseX;
+    //  y = mouseY;
+    //}
+    spotLight(128, 128, 128, width/2, height/2, state.Zplane+state.PushBack, 0, 0, -1, 360, 250); // center spotlight
   }
 
   void walls() {

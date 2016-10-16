@@ -1,5 +1,5 @@
 class State {
-   Target test;
+  Target test;
   ArrayList <Cubes> Kubes;
   boolean hit, start, finish;
   float Speed, fov, drawdistance, Zplane, run, dist, target, trigger, Score, PushBack;
@@ -23,25 +23,25 @@ class State {
   }
 
   void gameloop() {  
-
-
     if ((hit == false) && (start == true) && (finish == false)) {
       noCursor();
+     
+      noStroke();
+      fill(128,128,128);
+      ellipse(width/2,height/2,2,2);
+      
       controls.Mouse();
       env.spotlight();
       env.walls();
-
       distance();
-      //println(dist);      
-      
-      
+    
       pushMatrix();
       translate(0, 0, -PushBack);
       generator();
       iterate();
       popMatrix();
       Target();
-     //test.display();
+      
     }
     if ((hit == true) && (start == false) && (finish == false)) {
       cursor(); 
@@ -56,12 +56,12 @@ class State {
   }
 
   void Target() {
-    
+
     // target trigger visible and moving
-    if (dist > Trigger()) { 
-        test.move();
-     //if(
-     
+    if (dist > test.Trigger()) { 
+      test.move();
+      //if(
+
       // what happens when target is hit, target hit detection & calculation score should prolly be called here
       //  Score = score.Target();
       //  Speed = 0; 
@@ -70,10 +70,6 @@ class State {
       //  target = 550 ; // lock at Zplane so to not pass it
       //  finish = true;
       //  level = level + 1;
- 
-
-      
-    
     }
   }
 
@@ -114,28 +110,11 @@ class State {
     }
   }
 
-  // keep track of distance to trigger targets
+  // keep track of distance to trigger targets - basically just a timer
   float distance() {
     if ((hit == false) && (start == true)) {
-      //dist = dist + Speed;
       dist = dist + 1;
     }
-    println(dist);
     return dist;
-  }
-  
-  // shouldnt this be in the target class?!
-  // set finish distance per level
-  float Trigger() {
-    if (level == 1) {
-      trigger = 50;
-    }
-    if (level == 2) {
-      trigger = 2000;
-    }
-    if (level == 3) {
-      trigger = 5000;
-    }
-    return trigger;
   }
 }

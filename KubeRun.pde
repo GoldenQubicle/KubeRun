@@ -1,7 +1,7 @@
 /* 
  BIG RIG JOB
  setup walls & lighting // partially done
-  
+ 
  DESIGN STUFF
  formalise color schemes
  design UI in PS - keep start & continue button in middle!
@@ -17,11 +17,10 @@
  level 3 = 4 targets // spawn the small kubes at midpoint
  special message if runs==3 && level==3, hyperrun!
  
-CURRENT CONCERNS
-distance is still basically just a timer, in that it just counts while running 
-NOW that'd be okay, if it could be tied into the target distance 
-BUT they seems to be unrelated
-SO question is, how do I properly setup distance measurement?!
+ CURRENT CONCERNS
+ spotlight still not following mouse position
+ really, really come up with ui workaround for GP - ALSO
+ be really carefull with Target implementation!!
  
  */
 
@@ -48,19 +47,18 @@ void setup() {
   state = new State();
 
   struct = 1;
-  
-//video capture
-//LightingRig2 = new VideoExport(this, "LightingRig2.mp4");
+
+  //video capture
+  //LightingRig2 = new VideoExport(this, "LightingRig2.mp4");
 }
 
 void draw() {
   background (0);  
 
   switch(struct) {
-  
+
   case 0:
     cursor();
-    
 
     break;
 

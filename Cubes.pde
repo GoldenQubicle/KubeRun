@@ -39,7 +39,7 @@ class Cubes {
       state.Speed = 0;
       state.start = false;
     }
-    if ( state.start == true) {
+    if (state.start == true) {
       display();
     }
   }
