@@ -1,20 +1,18 @@
 class State {
   Target test;
-  ArrayList <Cubes> Kubes;
   boolean hit, start, finish;
-  float Speed, fov, drawdistance, Zplane, run, dist, target, trigger, Score, PushBack;
+  float fov, drawdistance, Zplane, run, dist, PushBack;
   int level;
 
   State() {
     // ! gameloop setup !
-    Kubes = new ArrayList(); 
     hit = false;
     start = false; 
     finish = false; 
     level = 1;
-    trigger = 2000; // distance 1 = 750 | distance 2 = 2000 | distance 3 = 5000
     PushBack = 1000;
     test = new Target(.5);
+
     // ! camera setup !     
     Zplane =  ((height/2.0) / tan(PI*60.0/360.0)); // default cameraZ from perspective(); 
     fov = PI/3.0;
@@ -24,24 +22,25 @@ class State {
 
   void gameloop() {  
     if ((hit == false) && (start == true) && (finish == false)) {
+      // replace mouse cursor with small dot
       noCursor();
-     
       noStroke();
-      fill(128,128,128);
-      ellipse(width/2,height/2,2,2);
-      
+      fill(128, 128, 128);
+      ellipse(width/2, height/2, 2, 2);
+
       controls.Mouse();
       env.spotlight();
       env.walls();
       distance();
-    
+
+      // pushback here!
       pushMatrix();
       translate(0, 0, -PushBack);
-      generator();
+      LVL.Kubes();
       iterate();
       popMatrix();
+
       Target();
-      
     }
     if ((hit == true) && (start == false) && (finish == false)) {
       cursor(); 
@@ -58,7 +57,7 @@ class State {
   void Target() {
 
     // target trigger visible and moving
-    if (dist > test.Trigger()) { 
+    if (dist > LVL.Trigger) { 
       test.move();
       //if(
 
@@ -75,8 +74,8 @@ class State {
 
   void iterate() {
     // iterate backwards over Arraylist & delete cubes once out of sight
-    for (int i = Kubes.size()-1; i >= 0; i--) {   
-      Cubes myCube = Kubes.get(i);
+    for (int i = LVL.Kubes.size()-1; i >= 0; i--) {   
+      Cubes myCube = LVL.Kubes.get(i);
       pushMatrix();
       if ((hit == true) && (start == false)) { // inject red for fail state
         myCube.cubeR = env.RedFade(); 
@@ -85,28 +84,9 @@ class State {
       myCube.move();
       myCube.collision();
       if (myCube.OutOfSight()) {
-        Kubes.remove(i);
+        LVL.Kubes.remove(i);
       }
       popMatrix();
-    }
-  }
-
-  void generator() {
-    // added levels - prolly not the best solution but f-it
-    // generate cubes & add to ArrayList
-    if (level == 1) {
-      Cubes lvl1 = new Cubes(1); 
-      Kubes.add(lvl1);
-    }
-    if (level == 2) {
-      Cubes lvl2 = new Cubes(2); 
-      Kubes.add(lvl2);
-    }
-    if (level == 3) {
-      Cubes lvl3 = new Cubes(3); 
-      Kubes.add(lvl3);
-      Cubes lvl3e = new Cubes(4); 
-      Kubes.add(lvl3e);
     }
   }
 

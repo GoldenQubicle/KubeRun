@@ -18,6 +18,14 @@
  special message if runs==3 && level==3, hyperrun!
  
  CURRENT CONCERNS
+ BIGGIE level setup / design
+ ATM the cubes contructer sets size & position, yet the display function sets colors
+ SO this is already a duplicate structure, i.e. if level == 1, do something
+ AND the same structure is repeated once more inside the state class AND the target trigger
+ IN OTHER WORDS
+ I want ONE place where I can set all parameters for a level, i.e. cubes, walls, lights, triggers, etc
+ 
+ 
  spotlight still not following mouse position
  really, really come up with ui workaround for GP - ALSO
  be really carefull with Target implementation!!
@@ -34,7 +42,7 @@ Controls controls;
 ENV env;
 Score score;
 State state;
-
+Levels LVL;
 
 int struct;
 
@@ -45,7 +53,7 @@ void setup() {
   env = new ENV();
   score = new Score();
   state = new State();
-
+  LVL = new Levels();
   struct = 1;
 
   //video capture
@@ -62,7 +70,8 @@ void draw() {
 
     break;
 
-  case 1:                
+  case 1: 
+
     state.gameloop();
     //test.move();
 
