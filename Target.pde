@@ -1,24 +1,27 @@
 class Target {
   PVector Range_1;
-  float Size, Move, Distance, trigger;
+  float Size, MoveT, Distance, Trigger;
 
 
-  Target(float size) {
+  Target(float size, float distance, float trigger) {
     Range_1 = new PVector();
     Range_1.x = size*width;
     Range_1.y = size*height;
     Size = size;
-    Distance = 500; // how far back the target appears on trigger set per level, by passing level in constructor
+    Distance = distance; // how far back the target appears on trigger set per level, by passing level in constructor
+    Trigger = trigger;
   }
 
   void move() {
+    if(state.dist > Trigger){
     pushMatrix();
-    translate(0, 0, Move);
+    translate(0, 0, MoveT);
     display();
     popMatrix();
-    Move += LVL.Speed;
-    if (Move > Distance+state.Zplane) {
+    MoveT += LVL.Speed;
+    if (MoveT > Distance+state.Zplane) {
       detection();
+    }
     }
   }
 

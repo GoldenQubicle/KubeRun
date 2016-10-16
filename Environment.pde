@@ -1,5 +1,4 @@
 class ENV {
-
   int fade;
   float finish;
   color color1, color2, color3, color4;

@@ -1,10 +1,10 @@
 class Cubes {
   PVector size, pos, cubeW, cubeH;
-  float cubeR, cubeG, cubeB, cubeA; // r,g,b a color values
+  float cubeR, cubeG, cubeB, cubeA; 
   boolean Z = false;
-  float pX, pY, Move;
+  float pX, pY;
 
-  Cubes(int size_min, int size_max, int spawn_min, int spawn_max, float R, float G, float B, float A) {
+  Cubes(int size_min, int size_max, int spawn_min, int spawn_max, float r, float g, float b, float a) {
     // spawn position & size cubes
     pos = new PVector(random(0, width), random(0, height), random(spawn_min, spawn_max)); 
     size = new PVector(random(size_min, size_max), random(size_min, size_max), random(size_min, size_max));
@@ -12,10 +12,10 @@ class Cubes {
     cubeW = new PVector(norm(pos.x-(size.x), 0, width), norm(pos.x+(size.x), 0, width));
     cubeH = new PVector(norm(pos.y-(size.y), 0, height), norm(pos.y+(size.y), 0, height));
     // color 
-    cubeR = R;
-    cubeG = G;
-    cubeB = B;
-    cubeA = A;
+    cubeR = r;
+    cubeG = g;
+    cubeB = b;
+    cubeA = a;
   }
 
   void move() {    

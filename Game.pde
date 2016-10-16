@@ -1,5 +1,4 @@
 class State {
-  Target test;
   boolean hit, start, finish;
   float fov, drawdistance, Zplane, run, dist, PushBack;
   int level;
@@ -11,9 +10,7 @@ class State {
     finish = false; 
     level = 1;
     PushBack = 1000;
-    test = new Target(.5);
-
-    // ! camera setup !     
+     // ! camera setup !     
     Zplane =  ((height/2.0) / tan(PI*60.0/360.0)); // default cameraZ from perspective(); 
     fov = PI/3.0;
     drawdistance = 10000;
@@ -40,35 +37,19 @@ class State {
       iterate();
       popMatrix();
 
-      Target();
+      LVL.Targets();
     }
+    
     if ((hit == true) && (start == false) && (finish == false)) {
       cursor(); 
       controls.MouseHit();
       translate(0, 0, -PushBack);
       iterate();
     }
+    
     if ((hit == true) && (start == false) && (finish == true)) {
       controls.finish();
       cursor();
-    }
-  }
-
-  void Target() {
-
-    // target trigger visible and moving
-    if (dist > LVL.Trigger) { 
-      test.move();
-      //if(
-
-      // what happens when target is hit, target hit detection & calculation score should prolly be called here
-      //  Score = score.Target();
-      //  Speed = 0; 
-      //  hit = true;
-      //  start = false;
-      //  target = 550 ; // lock at Zplane so to not pass it
-      //  finish = true;
-      //  level = level + 1;
     }
   }
 
