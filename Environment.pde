@@ -8,7 +8,7 @@ class ENV {
     color1 = color(255, 153, 51);
     color2 = color(255, 255, 51);
     color3 = color(153, 255, 51,128);
-    color4 = color(51, 255, 51);
+    color4 = color(51, 255, 51,128);
     // red fail state
     fade = 255;
   

@@ -41,12 +41,13 @@ class Controls {
         for(int i = 0; i < design.Targets.size();i++){
           Target myTarget = design.Targets.get(i);
           myTarget.MoveT = 0;
+          design.TargetPosReset();
         }
           
         state.run = state.run + 1;
         state.dist = 0;
-        //state.test = new Target(.5); // soooo probably want to make a function here which calls forth the proper target / level
-        if (state.finish == true) {
+     
+       if (state.finish == true) {
           state.run = 1;
           state.finish = false;
         }

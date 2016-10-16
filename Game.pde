@@ -10,7 +10,7 @@ class State {
     finish = false; 
     level = 1;
     PushBack = 1000;
-     // ! camera setup !     
+    // ! camera setup !     
     Zplane =  ((height/2.0) / tan(PI*60.0/360.0)); // default cameraZ from perspective(); 
     fov = PI/3.0;
     drawdistance = 10000;
@@ -34,19 +34,16 @@ class State {
       pushMatrix();
       translate(0, 0, -PushBack);
       design.generator();
-      iterate();
       popMatrix();
-
-      design.targets();
+      iterate();
     }
-    
+
     if ((hit == true) && (start == false) && (finish == false)) {
       cursor(); 
       controls.MouseHit();
-      translate(0, 0, -PushBack);
       iterate();
     }
-    
+
     if ((hit == true) && (start == false) && (finish == true)) {
       controls.finish();
       cursor();
@@ -54,12 +51,15 @@ class State {
   }
 
   void iterate() {
+    //arg this pushback needs to be sorted!!
+    pushMatrix();
+    translate(0, 0, -PushBack);
     // iterate backwards over Arraylist & delete cubes once out of sight
     for (int i = design.Kubes.size()-1; i >= 0; i--) {   
       Cubes myCube = design.Kubes.get(i);
       pushMatrix();
       if ((hit == true) && (start == false)) { // inject red for fail state
-        myCube.cubeC = color (255,0,0,255); // possibly
+        myCube.cubeC = color (255, 0, 0, 255); // possibly
       }
       myCube.move();
       myCube.collision();
@@ -68,7 +68,14 @@ class State {
       }
       popMatrix();
     }
+    popMatrix();
+
+    for (int i = 0; i < design.Targets.size(); i++) {
+      Target myTarget = design.Targets.get(i);
+      myTarget.move();
+    }
   }
+
 
   // keep track of distance to trigger targets - basically just a timer
   float distance() {
