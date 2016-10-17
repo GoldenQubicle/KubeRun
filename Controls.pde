@@ -6,7 +6,7 @@ class Controls {
 
     freeze = false;
     inverse = false;
-    mouseXY = new PVector((norm(mouseX, 0, width)), (norm(mouseY, 0, height)));
+    mouseXY = new PVector();
   }
 
   void Mouse() {
@@ -35,19 +35,19 @@ class Controls {
       if (state.start == false) {
         state.start = true; 
         state.hit = false; 
-        
+
         design.Kubes.clear();
-        
-        for(int i = 0; i < design.Targets.size();i++){
+
+        for (int i = 0; i < design.Targets.size(); i++) {
           Target myTarget = design.Targets.get(i);
           myTarget.MoveT = 0;
-          design.TargetPosReset();
+          design.TargetPos();
         }
-          
+
         state.run = state.run + 1;
         state.dist = 0;
-     
-       if (state.finish == true) {
+
+        if (state.finish == true) {
           state.run = 1;
           state.finish = false;
         }

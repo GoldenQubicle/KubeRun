@@ -1,6 +1,6 @@
 class State {
   boolean hit, start, finish;
-  float fov, drawdistance, Zplane, run, dist, PushBack;
+  float fov, drawdistance, Zplane, run, dist, PushBack, acc;
   int level;
 
   State() {
@@ -10,6 +10,7 @@ class State {
     finish = false; 
     level = 1;
     PushBack = 1000;
+    acc = 1.25;
     // ! camera setup !     
     Zplane =  ((height/2.0) / tan(PI*60.0/360.0)); // default cameraZ from perspective(); 
     fov = PI/3.0;
@@ -19,22 +20,19 @@ class State {
 
   void gameloop() {  
     if ((hit == false) && (start == true) && (finish == false)) {
+
       // replace mouse cursor with small dot
       noCursor();
       noStroke();
       fill(128, 128, 128);
       ellipse(width/2, height/2, 2, 2);
+      //spotLight(255, 255, 255, mouseX, mouseY, state.Zplane+state.PushBack, 0, 0, -1, 360, 250);
 
       controls.Mouse();
-      env.spotlight();
       env.walls();
       distance();
 
-      // pushback here!
-      pushMatrix();
-      translate(0, 0, -PushBack);
       design.generator();
-      popMatrix();
       iterate();
     }
 
@@ -51,15 +49,14 @@ class State {
   }
 
   void iterate() {
-    //arg this pushback needs to be sorted!!
-    pushMatrix();
-    translate(0, 0, -PushBack);
     // iterate backwards over Arraylist & delete cubes once out of sight
     for (int i = design.Kubes.size()-1; i >= 0; i--) {   
       Cubes myCube = design.Kubes.get(i);
       pushMatrix();
-      if ((hit == true) && (start == false)) { // inject red for fail state
-        myCube.cubeC = color (255, 0, 0, 255); // possibly
+      translate(0, 0, myCube.pos.z*acc);
+      if ((hit == true) && (start == false)) { 
+        noStroke();
+        myCube.cubeC = color (255, 0, 0, 255); // inject red for fail state
       }
       myCube.move();
       myCube.collision();
@@ -67,9 +64,8 @@ class State {
         design.Kubes.remove(i);
       }
       popMatrix();
+      println(design.Kubes.size());
     }
-    popMatrix();
-
     for (int i = 0; i < design.Targets.size(); i++) {
       Target myTarget = design.Targets.get(i);
       myTarget.move();

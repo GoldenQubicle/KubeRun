@@ -33,17 +33,19 @@ class Target {
     fill(C);
     pushMatrix();
     rectMode(CENTER);
-    translate(0, 0, -Distance); // about *8 actually, this translate could also be mstate shorter than all the way back
-    rect(Pos.x*width, Pos.y*height, Dim.x, Dim.y); // always drawn from middle of screen
+    translate(0, 0, -Distance); 
+    shininess(2);
+    emissive(64,128,64);
+    rect(Pos.x*width, Pos.y*height, Dim.x, Dim.y); 
     popMatrix();
   }
 
   void detection() {
     if  ((controls.mouseXY.x < .5+Size/4 &&  controls.mouseXY.x > .5-Size/4) &&
       (controls.mouseXY.y < .5+Size/4 &&  controls.mouseXY.y > .5-Size/4)) {
-      println("hit");
+      //println("hit");
     } else {
-      println("nope");
+      //println("nope");
     }
   }
 }

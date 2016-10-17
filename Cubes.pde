@@ -29,22 +29,25 @@ class Cubes {
 
   void display() {
     // set color & outline cubes
+    pushMatrix();
+    translate(0, 0, -state.PushBack);
     translate(pos.x, pos.y, pos.z); 
     fill(cubeC);
     box(size.x, size.y, size.z);
+    popMatrix();
   }
 
   boolean OutOfSight() {
     // check if Kube is behind Zplane
-    if (pos.z-size.z > state.Zplane+state.PushBack) {
+    if (pos.z/state.acc-size.z > state.Zplane) {
       Z = true;
-    }
+     }
     return Z;
   }
 
   void collision() {
     // check if cube is on Zplane
-    if ((pos.z+size.z > state.Zplane+state.PushBack)) {   
+    if ((pos.z/state.acc+size.z >= state.Zplane)) {   
       // check normalized mouse position against normalized kube position
       if ( (controls.mouseXY.x > cubeW.x) && (controls.mouseXY.x < cubeW.y) && (controls.mouseXY.y > cubeH.x) && (controls.mouseXY.y < cubeH.y) ) { // new collision detection
         
