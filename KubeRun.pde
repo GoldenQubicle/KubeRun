@@ -8,8 +8,6 @@
  design UI in PS - keep start & button in middle!
  
  GAMEPLAY TWEAKS
- after entering new level, upon fail reset to that level
- 
  all levels one after another, and more targets - maybe slight change after target?
  level 1 = 2 targets
  level 2 = 3 targets // 
@@ -18,6 +16,11 @@
  special message if runs==1 hyperrun!
  disable background and let it space out!
  
+ CURRENT CONCERNS
+ somehow disable generator before finish target, so that no new cuves spwawn just in front thereoff
+ incremental speed gain over level 
+ 
+
  
  
  */
@@ -25,7 +28,7 @@
 
 //video capture
 //import com.hamoid.*; 
-//VideoExport LightingRig2; 
+//VideoExport Targets; 
 
 
 Controls controls;
@@ -34,7 +37,7 @@ Score score;
 State state;
 Levels design;
 
-Target test;
+
 
 int struct;
 
@@ -47,10 +50,10 @@ void setup() {
   state = new State();
   design = new Levels();
   struct = 1;
-//test = new Target();
+
 
   //video capture
-  //LightingRig2 = new VideoExport(this, "LightingRig2.mp4");
+  //Targets = new VideoExport(this, "Targets.mp4");
 }
 
 void draw() {
@@ -61,28 +64,15 @@ void draw() {
 
   case 0:
     cursor();
-    //controls.Mouse();
-    //design.generator();
-    //state.iterate();
-    design.T1.display();
-    design.T1.detection();
-    //test.display();
-    //design.T1.detection();
-    
-    //println(controls.mouseXY.x, design.T1.Th.x); 
-    
-    //test.Tw.x+((test.Tw.y-test.Tw.x)/4));
-
     break;
 
   case 1: 
 
     state.gameloop();
-    //test.move();
-
+ 
     break;
   }
-  //LightingRig2.saveFrame();
+  //Targets.saveFrame();
 }
 
 void mouseClicked() {

@@ -3,21 +3,23 @@ class Target {
   float MoveT, Distance, Trigger;
   color C;
   boolean sight = false;
+  boolean Last = false;
   String Check;
 
 
-  Target(float size, float PX, float PY, float distance, float trigger, color c, String check) { // pass scores as well? 
+  Target(float size, float PX, float PY, float distance, float trigger, color c, String check, boolean finish) { // pass scores as well? 
     Size = new PVector(size, size);
     Pos = new PVector(PX, PY);
     Distance = distance; 
     Trigger = trigger;
     C = c;
     Check = check;
+    Last = finish;
     Tw = new PVector(norm (Pos.x-(Size.x/2), 0, width), (norm(Pos.x+(Size.x/2), 0, width)));
     Th = new PVector(norm (Pos.y-(Size.y/2), 0, width), (norm(Pos.y+(Size.y/2), 0, width)));
   }  
 
-  //Target(){
+  //Target(){ // test constructor
   //  Size = new PVector(320,320);
   //  Pos = new PVector(320,320);
   //  Distance = 0;
@@ -30,9 +32,9 @@ class Target {
       MoveT += design.Speed;
       translate(0, 0, MoveT);
       display();
+      //println(MoveT, Distance+state.Zplane);
     }
   }
-
 
   void display() {
     fill(C);
@@ -55,11 +57,12 @@ class Target {
   }
 
   boolean Sight() {
-    //println(MoveT, Distance+state.Zplane);
-    if (MoveT >  Distance+state.Zplane) {
+    if (Last == false && MoveT >  Distance+state.Zplane) {
       sight = true;
-      println(sight);
-    } else {
+    } else if (Last == true && MoveT > Distance-state.Zplane-10) {
+      sight = true;
+      state.finish = true;
+    } else {  
       sight = false;
     }
     return sight;

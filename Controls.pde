@@ -35,14 +35,9 @@ class Controls {
       if (state.start == false) {
         state.start = true; 
         state.hit = false; 
-
         design.Kubes.clear();
-
-        for(Target myTarget : design.Targets){
-          myTarget.MoveT = 0;
-          design.TargetPos();
-        }
-
+        design.Targets.clear();
+        design.Targetsetup();
         state.run = state.run + 1;
         state.dist = 0;
 

@@ -42,11 +42,15 @@ class State {
       iterate();
     }
 
-    if (hit == true && start == false && finish == true) {
-      controls.finish();
-      cursor();
+    if (finish == true && start == true && hit == false) {
+      state.level = state.level +1;
+      design.Kubes.clear();
+      design.Targetsetup();
+      dist = 0;
+      finish = false;
     }
   }
+
 
   void iterate() {
     // iterate backwards over ArrayList & delete cubes once out of sight
@@ -55,7 +59,7 @@ class State {
       pushMatrix();
       translate(0, 0, myCube.pos.z*acc);
       myCube.move();
-      //myCube.collision();
+      myCube.collision();
       if ((hit == true) && (start == false)) { 
         noStroke();
         myCube.cubeC = color (255, 0, 0, 255); // inject red for fail state
@@ -65,22 +69,20 @@ class State {
       }
       popMatrix();
     }
-
+    // same for targets, iterate backwards over ArrayList & delete once out of sight
     for (int i = design.Targets.size()-1; i >= 0; i--) { 
       Target myTarget = design.Targets.get(i);
       pushMatrix();
-      if (state.dist > 625 && state.level == 1) { // ensures targets move at different speed than finish, i.e. equalizes speed finish
+      //if (state.dist > 625 && state.level == 1) { // ensures targets move at different speed than finish, i.e. equalizes speed finish
+      if (myTarget.Last == true) {
         translate(0, 0, myTarget.MoveT);
+        //println(myTarget.MoveT, myTarget.Distance-state.Zplane);
       }
-      //myTarget.display();
-      //myTarget.detection();
-      //println(design.Targets.size());
       myTarget.move();      
       if (myTarget.Sight() == true) {
         myTarget.detection();
         design.Targets.remove(myTarget);
       }
-
       popMatrix();
     }
   }
