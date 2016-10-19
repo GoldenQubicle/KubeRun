@@ -1,25 +1,24 @@
 /* 
  BIG RIG JOB
- setup walls & lighting // partially done
+ setup walls & lighting // level1 done
  
  DESIGN STUFF
- formalise color schemes
- design UI in PS - keep start & continue button in middle!
+ formalise color scheme // level1 done
+ 
+ design UI in PS - keep start & button in middle!
  
  GAMEPLAY TWEAKS
- random seed when a level is started, however, NOT on reset - proves really quite difficult for now 
- 
- increasing speed per level, and higher overall speed between levels
+ after entering new level, upon fail reset to that level
  
  all levels one after another, and more targets - maybe slight change after target?
  level 1 = 2 targets
  level 2 = 3 targets // 
  level 3 = 4 targets // spawn the small kubes at midpoint
- special message if runs==3 && level==3, hyperrun!
  
- CURRENT CONCERNS
- really, really come up with ui workaround for GP - ALSO
-
+ special message if runs==1 hyperrun!
+ disable background and let it space out!
+ 
+ 
  
  */
 
@@ -35,6 +34,8 @@ Score score;
 State state;
 Levels design;
 
+Target test;
+
 int struct;
 
 void setup() {
@@ -46,6 +47,7 @@ void setup() {
   state = new State();
   design = new Levels();
   struct = 1;
+//test = new Target();
 
   //video capture
   //LightingRig2 = new VideoExport(this, "LightingRig2.mp4");
@@ -56,8 +58,20 @@ void draw() {
 
   switch(struct) {
 
+
   case 0:
     cursor();
+    //controls.Mouse();
+    //design.generator();
+    //state.iterate();
+    design.T1.display();
+    design.T1.detection();
+    //test.display();
+    //design.T1.detection();
+    
+    //println(controls.mouseXY.x, design.T1.Th.x); 
+    
+    //test.Tw.x+((test.Tw.y-test.Tw.x)/4));
 
     break;
 

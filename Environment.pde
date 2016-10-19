@@ -1,16 +1,15 @@
 class ENV {
-  int fade;
+
   float finish;
   color color1, color2, color3, color4;
 
   ENV() {
     // target colors
     color1 = color(255, 153, 51);
-    color2 = color(255, 255, 51);
+    color2 = color(255, 255, 51,128);
     color3 = color(153, 255, 51,128);
-    color4 = color(51, 255, 51, 128);
-    // red fail state
-    fade = 255;
+    color4 = color(51, 255, 51);
+  
   
   }
 
@@ -26,11 +25,13 @@ class ENV {
      //spotLight(128, 128, 128, width/2, height/2, state.Zplane+state.PushBack, 0, 0, -1, 360, 250);
   }
 
-  void walls() {
+  void walls() { // prolly easiest to pass level here and yes, duplicate if structure
     //ambient(10,10,10);
     // lighting setting level1
     // includes, lighfalloff, lights, emmisive wall AND cubes
-    float strenght = 7;
+    
+    if(state.level == 1){
+    float strenght = 6;
     lightFalloff(0.000001, 0.000001, 0.00000035);
     ambientLight(strenght, strenght, strenght*2, 0, 0, 0);
     ambientLight(strenght, strenght, strenght*2, 0, height, 0);
@@ -68,8 +69,7 @@ class ENV {
 
     popMatrix();
   }
-
-  int RedFade() {
-    return fade;
   }
+
+  
 }

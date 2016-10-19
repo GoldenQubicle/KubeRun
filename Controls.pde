@@ -38,8 +38,7 @@ class Controls {
 
         design.Kubes.clear();
 
-        for (int i = 0; i < design.Targets.size(); i++) {
-          Target myTarget = design.Targets.get(i);
+        for(Target myTarget : design.Targets){
           myTarget.MoveT = 0;
           design.TargetPos();
         }

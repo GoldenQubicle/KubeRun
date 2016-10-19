@@ -39,20 +39,20 @@ class Cubes {
 
   boolean OutOfSight() {
     // check if Kube is behind Zplane
-    if (pos.z/state.acc-size.z > state.Zplane) {
+    if (pos.z/state.acc-size.z > state.Zplane+size.z) {
       Z = true;
-     }
+    }
     return Z;
   }
 
   void collision() {
     // check if cube is on Zplane
-    if ((pos.z/state.acc+size.z >= state.Zplane)) {   
+    if ((pos.z/state.acc)-size.z >= state.Zplane) {   
       // check normalized mouse position against normalized kube position
       if ( (controls.mouseXY.x > cubeW.x) && (controls.mouseXY.x < cubeW.y) && (controls.mouseXY.y > cubeH.x) && (controls.mouseXY.y < cubeH.y) ) { // new collision detection
-        
         state.hit = true;
         state.start = false;
+        //println("test Kube");
       }
     }
   }
