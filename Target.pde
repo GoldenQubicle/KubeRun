@@ -6,6 +6,8 @@ class Target {
   boolean Last = false;
   String Check;
 
+  // ROUND THE CORNERS!!! OR why not proper circle targets?! wut WUT! 
+  // start with squares, round corners in lvl2, complete circles in lvl3
 
   Target(float size, float PX, float PY, float distance, float trigger, color c, String check, boolean finish) { // pass scores as well? 
     Size = new PVector(size, size);
@@ -32,18 +34,24 @@ class Target {
       MoveT += design.Speed;
       translate(0, 0, MoveT);
       display();
-      //println(MoveT, Distance+state.Zplane);
     }
   }
 
   void display() {
     fill(C);
     pushMatrix(); 
-    rectMode(CENTER);
     translate(Pos.x, Pos.y, -Distance); 
     shininess(2);
     emissive(64, 128, 64);
-    rect(0, 0, Size.x, Size.y);  
+
+    if (Last == false) {
+      ellipseMode(CENTER);
+      ellipse(0, 0, Size.x, Size.y);
+    } else if (Last == true) {
+      rectMode(CENTER);
+      rect(0, 0, Size.x, Size.y);
+    }
+
     popMatrix();
   }
 

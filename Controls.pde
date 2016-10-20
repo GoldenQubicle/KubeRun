@@ -38,13 +38,9 @@ class Controls {
         design.Kubes.clear();
         design.Targets.clear();
         design.Targetsetup();
+        design.Wallsetup();
         state.run = state.run + 1;
         state.dist = 0;
-
-        if (state.finish == true) {
-          state.run = 1;
-          state.finish = false;
-        }
         controls.freeze = false;
       }
     }

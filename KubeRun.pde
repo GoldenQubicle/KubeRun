@@ -19,9 +19,10 @@
  CURRENT CONCERNS
  somehow disable generator before finish target, so that no new cuves spwawn just in front thereoff
  incremental speed gain over level 
+ pass stroke colors in cube contructor
  
-
- 
+ question: what to do with state.run when level>1 is reset?
+ or in other words, how do I track the hyperrun, i.e one continous run through all 3 levels?!
  
  */
 
@@ -37,8 +38,6 @@ Score score;
 State state;
 Levels design;
 
-
-
 int struct;
 
 void setup() {
@@ -50,7 +49,6 @@ void setup() {
   state = new State();
   design = new Levels();
   struct = 1;
-
 
   //video capture
   //Targets = new VideoExport(this, "Targets.mp4");
@@ -64,12 +62,12 @@ void draw() {
 
   case 0:
     cursor();
-    break;
+     break;
 
   case 1: 
 
     state.gameloop();
- 
+
     break;
   }
   //Targets.saveFrame();

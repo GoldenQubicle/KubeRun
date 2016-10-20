@@ -8,7 +8,7 @@ class State {
     hit = false;
     start = false; 
     finish = false; 
-    level = 1;
+    level = 3;
     PushBack = 1000;
     acc = 1.25;
     // ! camera setup !     
@@ -19,21 +19,29 @@ class State {
   }
 
   void gameloop() {  
+   
     if ((hit == false) && (start == true) && (finish == false)) {
-
+      
       // replace mouse cursor with small dot
       noCursor();
       noStroke();
       fill(128, 128, 128);
       ellipse(width/2, height/2, 2, 2);
-      //spotLight(255, 255, 255, mouseX, mouseY, state.Zplane+state.PushBack, 0, 0, -1, 360, 250);
-
-      controls.Mouse();
-      env.walls();
+      
+      // general dealings
       distance();
-
+      controls.Mouse();
+     
+      // setup walls & lights
+      //env.walls();
+      env.lighting();
+      for (Wall myWall : design.Walls) {
+        myWall.display();
+      }
+      // generate cubes & iterate over cubes & target  
       design.generator();
       iterate();
+      println(run);
     }
 
     if (hit == true && start == false && finish == false) {
@@ -64,7 +72,7 @@ class State {
         noStroke();
         myCube.cubeC = color (255, 0, 0, 255); // inject red for fail state
       }      
-      if (myCube.OutOfSight() == true) {
+      if (myCube.OutOfSight() == true) { 
         design.Kubes.remove(myCube);
       }
       popMatrix();
@@ -73,10 +81,8 @@ class State {
     for (int i = design.Targets.size()-1; i >= 0; i--) { 
       Target myTarget = design.Targets.get(i);
       pushMatrix();
-      //if (state.dist > 625 && state.level == 1) { // ensures targets move at different speed than finish, i.e. equalizes speed finish
       if (myTarget.Last == true) {
-        translate(0, 0, myTarget.MoveT);
-        //println(myTarget.MoveT, myTarget.Distance-state.Zplane);
+        translate(0, 0, myTarget.MoveT); // equalizes speed for finish target
       }
       myTarget.move();      
       if (myTarget.Sight() == true) {

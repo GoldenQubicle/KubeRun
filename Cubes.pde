@@ -52,7 +52,6 @@ class Cubes {
       if ( (controls.mouseXY.x > cubeW.x) && (controls.mouseXY.x < cubeW.y) && (controls.mouseXY.y > cubeH.x) && (controls.mouseXY.y < cubeH.y) ) { // new collision detection
         state.hit = true;
         state.start = false;
-        //println("test Kube");
       }
     }
   }
