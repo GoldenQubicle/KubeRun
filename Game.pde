@@ -2,15 +2,17 @@ class State {
   boolean hit, start, finish;
   float fov, drawdistance, Zplane, run, dist, PushBack, acc;
   int level;
-
+  Score scores;
   State() {
     // ! gameloop setup !
     hit = false;
     start = false; 
     finish = false; 
-    level = 3;
+    level = 1;
     PushBack = 1000;
     acc = 1.25;
+    //TargetScore = new FloatList();
+    scores = new Score();
     // ! camera setup !     
     Zplane =  ((height/2.0) / tan(PI*60.0/360.0)); // default cameraZ from perspective(); 554.256
     fov = PI/3.0;
@@ -19,19 +21,19 @@ class State {
   }
 
   void gameloop() {  
-   
+
     if ((hit == false) && (start == true) && (finish == false)) {
-      
+
       // replace mouse cursor with small dot
       noCursor();
       noStroke();
       fill(128, 128, 128);
       ellipse(width/2, height/2, 2, 2);
-      
+
       // general dealings
       distance();
       controls.Mouse();
-     
+
       // setup walls & lights
       //env.walls();
       env.lighting();
@@ -41,7 +43,7 @@ class State {
       // generate cubes & iterate over cubes & target  
       design.generator();
       iterate();
-      println(run);
+      //println(run);
     }
 
     if (hit == true && start == false && finish == false) {
@@ -67,7 +69,7 @@ class State {
       pushMatrix();
       translate(0, 0, myCube.pos.z*acc);
       myCube.move();
-      myCube.collision();
+      //myCube.collision();
       if ((hit == true) && (start == false)) { 
         noStroke();
         myCube.cubeC = color (255, 0, 0, 255); // inject red for fail state
@@ -86,7 +88,9 @@ class State {
       }
       myTarget.move();      
       if (myTarget.Sight() == true) {
-        myTarget.detection();
+        if (myTarget.detection() == true) {
+          println(myTarget.Score);
+        }
         design.Targets.remove(myTarget);
       }
       popMatrix();

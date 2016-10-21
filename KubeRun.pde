@@ -38,6 +38,8 @@ Score score;
 State state;
 Levels design;
 
+Target range1, range2, range3;
+
 int struct;
 
 void setup() {
@@ -50,24 +52,46 @@ void setup() {
   design = new Levels();
   struct = 1;
 
+  
+  //range1 = new Target(400,3,320, 320, 0, 0, env.color2, 400, false);
+  //range2 = new Target(250, 320, 320, 0, 0, env.color2, 250, false);
+  //range3 = new Target(100, 320, 320, 0, 0, env.color2, 100, false);
+
   //video capture
   //Targets = new VideoExport(this, "Targets.mp4");
 }
 
 void draw() {
   background (0);  
+  if (width > 640) {
+
+    struct = 3;
+  }
+
 
   switch(struct) {
 
 
   case 0:
     cursor();
-     break;
+    noStroke();
+    //controls.Mouse();
+    range1.display();
+    //range1.detection();
+    //range2.display();
+    //range3.display();
+    break;
 
   case 1: 
 
     state.gameloop();
 
+    break;
+
+
+  case 3 :
+
+    println("screen dimensions have been changed");
     break;
   }
   //Targets.saveFrame();

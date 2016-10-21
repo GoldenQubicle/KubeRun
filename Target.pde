@@ -1,24 +1,30 @@
 class Target {
   PVector Size, Pos, Tw, Th;
-  float MoveT, Distance, Trigger;
+  float MoveT, Score, Curve;
   color C;
   boolean sight = false;
   boolean Last = false;
-  String Check;
+  boolean detect = false;
 
   // ROUND THE CORNERS!!! OR why not proper circle targets?! wut WUT! 
   // start with squares, round corners in lvl2, complete circles in lvl3
+  // yeah thats fine and all, but! detection is still based on rectangle! 
 
-  Target(float size, float PX, float PY, float distance, float trigger, color c, String check, boolean finish) { // pass scores as well? 
+  /*
+ideally want a constructor where I pass maxixum size, normalised range so that number of rects == 1/.2,
+   
+   
+   */
+
+  Target(float size, color c, float score, boolean finish, float curve) { // pass scores as well? 
     Size = new PVector(size, size);
-    Pos = new PVector(PX, PY);
-    Distance = distance; 
-    Trigger = trigger;
+    //Pos = new PVector(PX, PY);
     C = c;
-    Check = check;
+    Curve = curve;
+    Score = score;
     Last = finish;
-    Tw = new PVector(norm (Pos.x-(Size.x/2), 0, width), (norm(Pos.x+(Size.x/2), 0, width)));
-    Th = new PVector(norm (Pos.y-(Size.y/2), 0, width), (norm(Pos.y+(Size.y/2), 0, width)));
+    Tw = new PVector(norm (design.TargetPos.x-(Size.x/2), 0, width), (norm(design.TargetPos.x+(Size.x/2), 0, width)));
+    Th = new PVector(norm (design.TargetPos.y-(Size.y/2), 0, width), (norm(design.TargetPos.y+(Size.y/2), 0, width)));
   }  
 
   //Target(){ // test constructor
@@ -30,23 +36,23 @@ class Target {
   //}
 
   void move() {
-    if (state.dist > Trigger) {
+    if (state.dist > design.TargetTrigger) {
       MoveT += design.Speed;
       translate(0, 0, MoveT);
       display();
     }
   }
 
+
   void display() {
     fill(C);
     pushMatrix(); 
-    translate(Pos.x, Pos.y, -Distance); 
+    translate(design.TargetPos.x, design.TargetPos.y, -design.TargetDistance); 
     shininess(2);
     emissive(64, 128, 64);
-
     if (Last == false) {
-      ellipseMode(CENTER);
-      ellipse(0, 0, Size.x, Size.y);
+      rectMode(CENTER);    
+      rect(0, 0, Size.x, Size.y, Curve);
     } else if (Last == true) {
       rectMode(CENTER);
       rect(0, 0, Size.x, Size.y);
@@ -55,19 +61,23 @@ class Target {
     popMatrix();
   }
 
-  void detection() {
-    if (sight == true) {
+  boolean detection() {
+    if(sight == true){
       if ((controls.mouseXY.x > Tw.x) && (controls.mouseXY.x < Tw.y) &&  
         (controls.mouseXY.y > Th.x) && (controls.mouseXY.y < Th.y)) {
-        println(Check);
-      }
+        detect = true;
+        }
+    } else {
+      detect = false;
+    
     }
+    return detect;
   }
 
   boolean Sight() {
-    if (Last == false && MoveT >  Distance+state.Zplane) {
+    if (Last == false && MoveT >  design.TargetDistance+state.Zplane) {
       sight = true;
-    } else if (Last == true && MoveT > Distance-state.Zplane-10) {
+    } else if (Last == true && MoveT > design.TargetDistance-state.Zplane-10) {
       sight = true;
       state.finish = true;
     } else {  

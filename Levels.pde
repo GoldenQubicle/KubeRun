@@ -3,10 +3,11 @@ class Levels {
   ArrayList<Target> Targets;
   ArrayList<Wall> Walls;
   float R, G, B, A; 
-  float Speed, Trigger;
-  Target T1, T2, T3, T4;
+  float Speed, TargetTrigger, TargetDistance;
+  Target T1, T2, T3, T4, lvl1_t11, lvl1_t12, lvl1_t13, lvl1_t14;
   Wall wall_l, wall_r, wall_u, wall_d;
   color ColorKube, ColorWall, ColorWall_M_E, ColorWall_M_Er;
+  PVector TargetPos;
 
   Levels() {
     Kubes = new ArrayList();
@@ -40,21 +41,32 @@ class Levels {
 
   ArrayList Targetsetup() {
     if (state.level == 1) {
-      T1 = new Target(400, random(192, 448), random(192, 448), 800, random(50, 150), env.color2, "T1", false); //trigger values could be randomized as well?!
-      T2 = new Target(317, random(128, 512), random(128, 512), 1000, random(300, 400), env.color3, "T2", false);  
-      T3 = new Target(640, 320, 320, 1750, 625, env.color4, "T3", true);  
-      Targets.add(T1);
-      Targets.add(T2);
-      Targets.add(T3);
+      TargetTrigger = random(50, 150); 
+      TargetDistance = random(700, 800);
+      TargetPos = new PVector(random(340, 440), random(200, 300));
+      //translate(TargetPos.x, TargetPos.y, 0); 
+      lvl1_t11 = new Target(400, env.color2, 100, false, 80);
+      lvl1_t12 = new Target(300, env.color2, 200, false, 60);
+      lvl1_t13 = new Target(200, env.color2, 300, false, 40);
+      lvl1_t14 = new Target(100, env.color2, 400, false, 30);
+      //popMatrix();
+      //T2 = new Target(317, random(128, 512), random(128, 512), 1000, random(300, 400), env.color3, 600, false);  
+      //T3 = new Target(640, 320, 320, 1750, 625, env.color4, 1000, true);  
+      Targets.add(lvl1_t11);
+      Targets.add(lvl1_t12);
+      Targets.add(lvl1_t13);
+      Targets.add(lvl1_t14);
+      //Targets.add(T2);
+      //Targets.add(T3);
     }
-    if (state.level == 2) {
-      T1 = new Target(320, random(192, 240), random(192, 448), 1250, random(0, 100), env.color3, "lvl2 T1", false); //trigger values could be randomized as well?!
-      T2 = new Target(192, random(300, 340), random(300, 340), 1000, random(300, 400), env.color4, "lvl2 T2", false);  
-      T3 = new Target(128, random(480, 576), random(480, 576), 1500, random(500, 600), env.color1, "lvl2 T3", true);  
-      Targets.add(T1);
-      Targets.add(T2);
-      Targets.add(T3);
-    }
+    //if (state.level == 2) {
+    //  T1 = new Target(320, random(192, 240), random(192, 448), 1250, random(0, 100), env.color3, "lvl2 T1", false); //trigger values could be randomized as well?!
+    //  T2 = new Target(192, random(300, 340), random(300, 340), 1000, random(300, 400), env.color4, "lvl2 T2", false);  
+    //  T3 = new Target(128, random(480, 576), random(480, 576), 1500, random(500, 600), env.color1, "lvl2 T3", true);  
+    //  Targets.add(T1);
+    //  Targets.add(T2);
+    //  Targets.add(T3);
+    //}
     return Targets;
   }
 
@@ -77,7 +89,7 @@ class Levels {
         Kubes.add(lvl1);
       }
       state.acc = 1.15;
-      Speed = 7.5;
+      Speed = 6.5;
     }
 
     // LEVEL 2
