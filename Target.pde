@@ -1,30 +1,26 @@
 class Target {
-  PVector Size, Pos, Tw, Th;
-  float MoveT, Score, Curve;
+  PVector Pos;
+  float MoveT, Score, Curve, Size, SizeR, SizeRN, Trigger, Distance;
   color C;
   boolean sight = false;
   boolean Last = false;
   boolean detect = false;
+  int R;
 
-  // ROUND THE CORNERS!!! OR why not proper circle targets?! wut WUT! 
-  // start with squares, round corners in lvl2, complete circles in lvl3
-  // yeah thats fine and all, but! detection is still based on rectangle! 
-
-  /*
-ideally want a constructor where I pass maxixum size, normalised range so that number of rects == 1/.2,
-   
-   
-   */
-
-  Target(float size, color c, float score, boolean finish, float curve) { // pass scores as well? 
-    Size = new PVector(size, size);
-    //Pos = new PVector(PX, PY);
+  Target(float size, int ranges, float xpos, float ypos, float trigger, float distance, color c, float score, boolean finish, float curve) { // pass scores as well? 
+    Size =  size;
+    R = ranges;
+    SizeR = size/ranges;
+    Pos = new PVector(norm(xpos, 0, width), norm(ypos, 0, height));
+    Trigger = trigger;
+    Distance = distance;
     C = c;
-    Curve = curve;
     Score = score;
     Last = finish;
-    Tw = new PVector(norm (design.TargetPos.x-(Size.x/2), 0, width), (norm(design.TargetPos.x+(Size.x/2), 0, width)));
-    Th = new PVector(norm (design.TargetPos.y-(Size.y/2), 0, width), (norm(design.TargetPos.y+(Size.y/2), 0, width)));
+    Curve = curve;
+    // calculate normalised width of target range
+    SizeRN = (norm(size, 0, 640)/(ranges));
+    SizeRN = SizeRN/2;
   }  
 
   //Target(){ // test constructor
@@ -36,8 +32,11 @@ ideally want a constructor where I pass maxixum size, normalised range so that n
   //}
 
   void move() {
-    if (state.dist > design.TargetTrigger) {
+    if (state.dist > Trigger) {
       MoveT += design.Speed;
+      if(Last == true){
+       translate(0, 0, MoveT*state.acc); 
+      }
       translate(0, 0, MoveT);
       display();
     }
@@ -47,41 +46,55 @@ ideally want a constructor where I pass maxixum size, normalised range so that n
   void display() {
     fill(C);
     pushMatrix(); 
-    translate(design.TargetPos.x, design.TargetPos.y, -design.TargetDistance); 
+    translate(Pos.x*width, Pos.y*height, -Distance); 
     shininess(2);
     emissive(64, 128, 64);
     if (Last == false) {
-      rectMode(CENTER);    
-      rect(0, 0, Size.x, Size.y, Curve);
+      rectMode(CENTER);
+      for (int i = 0; i <= R; i++) {
+        noStroke();
+        rect(0, 0, Size-(SizeR*i), Size-(SizeR*i), Curve);
+      }
     } else if (Last == true) {
       rectMode(CENTER);
-      rect(0, 0, Size.x, Size.y);
+      for (int i = 0; i <= R; i++) {
+        noStroke();
+        rect(0, 0, Size-(SizeR*i), Size-(SizeR*i), Curve);
+      }
     }
 
     popMatrix();
   }
 
   boolean detection() {
-    if(sight == true){
-      if ((controls.mouseXY.x > Tw.x) && (controls.mouseXY.x < Tw.y) &&  
-        (controls.mouseXY.y > Th.x) && (controls.mouseXY.y < Th.y)) {
-        detect = true;
+    if (sight == true) {
+      float totalscore = 0;
+      for (int i = 1; i <= R; i++) {
+        if ((controls.mouseXY.x > (Pos.x-SizeRN*i)) && (controls.mouseXY.x < Pos.x+(SizeRN*i)) && 
+          (controls.mouseXY.y > (Pos.y-SizeRN*i)) && (controls.mouseXY.y < Pos.y+(SizeRN*i)) ) {
+
+          detect = true;        
+          totalscore = totalscore + Score/i;
+      
+          //println(totalscore, Score/i);
         }
+      }
     } else {
       detect = false;
-    
     }
     return detect;
   }
 
   boolean Sight() {
-    if (Last == false && MoveT >  design.TargetDistance+state.Zplane) {
+    if (Last == false && MoveT >  Distance+state.Zplane) {
       sight = true;
-    } else if (Last == true && MoveT > design.TargetDistance-state.Zplane-10) {
-      sight = true;
+    } else if (Last == true && MoveT*state.acc > Distance-state.Zplane) {
+       sight = true;
       state.finish = true;
+    
     } else {  
       sight = false;
+        println(MoveT*state.acc, Distance-state.Zplane);
     }
     return sight;
   }

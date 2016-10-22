@@ -3,8 +3,8 @@ class Levels {
   ArrayList<Target> Targets;
   ArrayList<Wall> Walls;
   float R, G, B, A; 
-  float Speed, TargetTrigger, TargetDistance;
-  Target T1, T2, T3, T4, lvl1_t11, lvl1_t12, lvl1_t13, lvl1_t14;
+  float Speed;
+  Target LVL1_T1, LVL1_T2, LVL1_T3;
   Wall wall_l, wall_r, wall_u, wall_d;
   color ColorKube, ColorWall, ColorWall_M_E, ColorWall_M_Er;
   PVector TargetPos;
@@ -41,23 +41,16 @@ class Levels {
 
   ArrayList Targetsetup() {
     if (state.level == 1) {
-      TargetTrigger = random(50, 150); 
-      TargetDistance = random(700, 800);
-      TargetPos = new PVector(random(340, 440), random(200, 300));
-      //translate(TargetPos.x, TargetPos.y, 0); 
-      lvl1_t11 = new Target(400, env.color2, 100, false, 80);
-      lvl1_t12 = new Target(300, env.color2, 200, false, 60);
-      lvl1_t13 = new Target(200, env.color2, 300, false, 40);
-      lvl1_t14 = new Target(100, env.color2, 400, false, 30);
-      //popMatrix();
-      //T2 = new Target(317, random(128, 512), random(128, 512), 1000, random(300, 400), env.color3, 600, false);  
-      //T3 = new Target(640, 320, 320, 1750, 625, env.color4, 1000, true);  
-      Targets.add(lvl1_t11);
-      Targets.add(lvl1_t12);
-      Targets.add(lvl1_t13);
-      Targets.add(lvl1_t14);
-      //Targets.add(T2);
-      //Targets.add(T3);
+      //                   size, R, xpos,             ypos,           trigger,         distance,             color, score, last, curves
+      LVL1_T1 = new Target(400, 4, random(340, 440), random(240, 440), random(50, 150), random(700, 800), env.color2, 400, false, 80);
+
+      LVL1_T2 = new Target(300, 3, random(150, 250), random(450, 490), random(250, 350), random(700, 800), env.color3, 600, false, 120);  
+      
+       LVL1_T3 = new Target(640, 5, 320, 320, 750, 1500, env.color3, 2500, true, 10);  // final target does not have ranges? and triggers top fast
+      //LVL1_T3 = new Target(640, 320, 320, 1750, 625, env.color4, 1000, true);  
+      Targets.add(LVL1_T1);
+      Targets.add(LVL1_T2);
+      Targets.add(LVL1_T3);
     }
     //if (state.level == 2) {
     //  T1 = new Target(320, random(192, 240), random(192, 448), 1250, random(0, 100), env.color3, "lvl2 T1", false); //trigger values could be randomized as well?!

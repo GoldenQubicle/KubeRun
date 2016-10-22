@@ -1,18 +1,19 @@
 class State {
-  boolean hit, start, finish;
+  boolean hit, start, finish, target;
   float fov, drawdistance, Zplane, run, dist, PushBack, acc;
   int level;
-  Score scores;
+
+  
   State() {
     // ! gameloop setup !
     hit = false;
     start = false; 
     finish = false; 
+    target = false;
     level = 1;
     PushBack = 1000;
     acc = 1.25;
-    //TargetScore = new FloatList();
-    scores = new Score();
+
     // ! camera setup !     
     Zplane =  ((height/2.0) / tan(PI*60.0/360.0)); // default cameraZ from perspective(); 554.256
     fov = PI/3.0;
@@ -23,17 +24,16 @@ class State {
   void gameloop() {  
 
     if ((hit == false) && (start == true) && (finish == false)) {
-
       // replace mouse cursor with small dot
       noCursor();
       noStroke();
       fill(128, 128, 128);
       ellipse(width/2, height/2, 2, 2);
-
       // general dealings
       distance();
       controls.Mouse();
-
+      score.TargetScore();
+      
       // setup walls & lights
       //env.walls();
       env.lighting();
@@ -43,8 +43,7 @@ class State {
       // generate cubes & iterate over cubes & target  
       design.generator();
       iterate();
-      //println(run);
-    }
+     }
 
     if (hit == true && start == false && finish == false) {
       cursor(); 
@@ -82,20 +81,18 @@ class State {
     // same for targets, iterate backwards over ArrayList & delete once out of sight
     for (int i = design.Targets.size()-1; i >= 0; i--) { 
       Target myTarget = design.Targets.get(i);
-      pushMatrix();
-      if (myTarget.Last == true) {
-        translate(0, 0, myTarget.MoveT); // equalizes speed for finish target
-      }
-      myTarget.move();      
+      pushMatrix();         
+      myTarget.move();                   
       if (myTarget.Sight() == true) {
         if (myTarget.detection() == true) {
-          println(myTarget.Score);
+     
         }
         design.Targets.remove(myTarget);
       }
       popMatrix();
     }
   }
+
 
 
   // keep track of distance to trigger targets - basically just a timer

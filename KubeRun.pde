@@ -20,6 +20,9 @@
  somehow disable generator before finish target, so that no new cuves spwawn just in front thereoff
  incremental speed gain over level 
  pass stroke colors in cube contructor
+ sort out wonkiness with the last 'finish' target detection
+ 
+ 
  
  question: what to do with state.run when level>1 is reset?
  or in other words, how do I track the hyperrun, i.e one continous run through all 3 levels?!

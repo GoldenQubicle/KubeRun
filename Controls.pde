@@ -41,6 +41,7 @@ class Controls {
         design.Wallsetup();
         state.run = state.run + 1;
         state.dist = 0;
+        score.targetscore = 0;
         controls.freeze = false;
       }
     }
