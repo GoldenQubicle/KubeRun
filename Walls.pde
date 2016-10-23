@@ -2,6 +2,7 @@ class Wall {
   float WWidth, WHeight, WposX, WposY;
   String Orienation;
   color Kolors, Mat_em;
+  float MoveWall = 0;
 
   Wall(float wposx, float wposy, float wwidht, float wheight, String orientation, color kolors, color mat_em) {
 
@@ -43,6 +44,19 @@ class Wall {
     rectMode(CORNER);
     rect(WposX, WposY, WWidth, WHeight);
     popMatrix();
+    popMatrix();
+  }
+
+  void MoveWallLVL3() {
+
+    MoveWall+=design.Speed;
+
+    pushMatrix();
+    translate(0, 0, MoveWall);
+    display();
+    if (MoveWall > width*2) {
+      MoveWall = 0;
+    }    
     popMatrix();
   }
 }

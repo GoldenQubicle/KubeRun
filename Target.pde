@@ -22,26 +22,16 @@ class Target {
     SizeRN = (norm(size, 0, 640)/(ranges));
     SizeRN = SizeRN/2;
   }  
-
-  //Target(){ // test constructor
-  //  Size = new PVector(320,320);
-  //  Pos = new PVector(320,320);
-  //  Distance = 0;
-  //  Tw = new PVector(norm (Pos.x-(Size.x/2),0,width),(norm(Pos.x+(Size.x/2),0,width)));
-  //  Th = new PVector(norm (Pos.y-(Size.y/2),0,width),(norm(Pos.y+(Size.y/2),0,width)));
-  //}
-
   void move() {
     if (state.dist > Trigger) {
       MoveT += design.Speed;
-      if(Last == true){
-       translate(0, 0, MoveT*state.acc); 
+      if (Last == true) {
+        translate(0, 0, MoveT*state.acc);
       }
       translate(0, 0, MoveT);
       display();
     }
   }
-
 
   void display() {
     fill(C);
@@ -49,20 +39,12 @@ class Target {
     translate(Pos.x*width, Pos.y*height, -Distance); 
     shininess(2);
     emissive(64, 128, 64);
-    if (Last == false) {
-      rectMode(CENTER);
-      for (int i = 0; i <= R; i++) {
-        noStroke();
-        rect(0, 0, Size-(SizeR*i), Size-(SizeR*i), Curve);
-      }
-    } else if (Last == true) {
-      rectMode(CENTER);
-      for (int i = 0; i <= R; i++) {
-        noStroke();
-        rect(0, 0, Size-(SizeR*i), Size-(SizeR*i), Curve);
-      }
+    //if (Last == false) {
+    rectMode(CENTER);
+    for (int i = 0; i <= R; i++) {
+      noStroke();
+      rect(0, 0, Size-(SizeR*i), Size-(SizeR*i), Curve);
     }
-
     popMatrix();
   }
 
@@ -72,11 +54,8 @@ class Target {
       for (int i = 1; i <= R; i++) {
         if ((controls.mouseXY.x > (Pos.x-SizeRN*i)) && (controls.mouseXY.x < Pos.x+(SizeRN*i)) && 
           (controls.mouseXY.y > (Pos.y-SizeRN*i)) && (controls.mouseXY.y < Pos.y+(SizeRN*i)) ) {
-
           detect = true;        
           totalscore = totalscore + Score/i;
-      
-          //println(totalscore, Score/i);
         }
       }
     } else {
@@ -86,15 +65,16 @@ class Target {
   }
 
   boolean Sight() {
-    if (Last == false && MoveT >  Distance+state.Zplane) {
+    if (Last == false && MoveT > Distance+state.Zplane) {
       sight = true;
-    } else if (Last == true && MoveT*state.acc > Distance-state.Zplane) {
-       sight = true;
+    } else if (Last == true && MoveT > (Distance*state.acc-state.Zplane)+50) {
+      sight = true;
       state.finish = true;
-    
+    } else if (Last == true && state.level == 3 && MoveT > (Distance*state.acc-state.Zplane)-3650) {
+      sight = true;
+      state.finish = true;
     } else {  
       sight = false;
-        println(MoveT*state.acc, Distance-state.Zplane);
     }
     return sight;
   }

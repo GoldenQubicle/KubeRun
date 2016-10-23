@@ -3,16 +3,16 @@ class State {
   float fov, drawdistance, Zplane, run, dist, PushBack, acc;
   int level;
 
-  
+
   State() {
     // ! gameloop setup !
     hit = false;
     start = false; 
     finish = false; 
     target = false;
-    level = 1;
+    level = 3;
     PushBack = 1000;
-    acc = 1.25;
+    //acc = 1.25;
 
     // ! camera setup !     
     Zplane =  ((height/2.0) / tan(PI*60.0/360.0)); // default cameraZ from perspective(); 554.256
@@ -24,26 +24,29 @@ class State {
   void gameloop() {  
 
     if ((hit == false) && (start == true) && (finish == false)) {
+      
       // replace mouse cursor with small dot
       noCursor();
       noStroke();
       fill(128, 128, 128);
       ellipse(width/2, height/2, 2, 2);
+      
       // general dealings
       distance();
       controls.Mouse();
       score.TargetScore();
+      //println(dist);
       
-      // setup walls & lights
-      //env.walls();
-      env.lighting();
+      // setup lights & walls
+      light.level();
       for (Wall myWall : design.Walls) {
         myWall.display();
       }
+
       // generate cubes & iterate over cubes & target  
       design.generator();
       iterate();
-     }
+    }
 
     if (hit == true && start == false && finish == false) {
       cursor(); 
@@ -54,7 +57,10 @@ class State {
     if (finish == true && start == true && hit == false) {
       state.level = state.level +1;
       design.Kubes.clear();
+      design.Walls.clear();
+      design.Targets.clear();
       design.Targetsetup();
+      design.Wallsetup(); 
       dist = 0;
       finish = false;
     }
@@ -85,15 +91,13 @@ class State {
       myTarget.move();                   
       if (myTarget.Sight() == true) {
         if (myTarget.detection() == true) {
-     
+          
         }
         design.Targets.remove(myTarget);
       }
       popMatrix();
     }
   }
-
-
 
   // keep track of distance to trigger targets - basically just a timer
   float distance() {
