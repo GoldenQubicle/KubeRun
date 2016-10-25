@@ -1,16 +1,24 @@
-//class Score {
+class Score {
 
-//  FloatList Target, Scores;
+  FloatList Target, Scores;
+  Float LevelScore = 0.0;
 
+  Score() {
 
-//  Score() {
+    Scores = new FloatList();
+    Target = new FloatList();
+    Target.append(200);
+    Target.append(400);
+    Target.append(600);
+    Target.append(800);
+    Target.append(1000);
+  }
 
-//    Scores = new FloatList();
-//    Target = new FloatList();
-//    Target.append(3);;
-//  }
+  Float TargetScore() {
 
-//  void TargetScore() {
-    
-//  }
-//}
+    for (int i = 0; i < Target.size(); i++) {
+      LevelScore = LevelScore + Target.get(i);
+    }
+    return LevelScore;
+  }
+}

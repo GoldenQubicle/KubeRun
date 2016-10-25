@@ -5,20 +5,9 @@ class Levels {
   PVector TargetPos;
   float R, G, B, A, Speed; 
   boolean level3 = false;
-  Target   
-    T1, T2, T3, T4, T5;
-
-  Wall
-    Wall_l, Wall_r, Wall_u, Wall_d, 
-
-    LVL2Wall2_l, LVL2Wall2_r, LVL2Wall2_u, LVL2Wall2_d; // currently not in use!
-
-  color 
-    ColorKube, 
-    ColorWall, ColorWall_M_E, 
-
-    LVL2ColorWall2, LVL2ColorWall2_M_E, // currently not in use!
-    ColorWall_M_Er, ColorWall_M_Eb, ColorWall_M_Eg; // currently not in use!
+  Target T1, T2, T3, T4, T5;
+  Wall Wall_l, Wall_r, Wall_u, Wall_d; 
+  color ColorKube, ColorWall, ColorWall_M_E; 
 
   Levels() {
     Kubes = new ArrayList();
@@ -51,36 +40,6 @@ class Levels {
       Walls.add(Wall_u);
       Walls.add(Wall_d);
     }
-
-    //LVL2ColorWall2 = color(255, 255, 20);
-    //LVL2ColorWall2_M_E = lerpColor(LVL2ColorWall,LVL2ColorWall2,.1);
-    //LVL2Wall2_l = new Wall(width*2,0, width*6, height, "LEFT", LVL2ColorWall2, LVL2ColorWall2_M_E);
-    //LVL2Wall2_r = new Wall(width*2, 0, width*6, height, "RIGHT", LVL2ColorWall2, LVL2ColorWall2_M_E);
-    //LVL2Wall2_u = new Wall(0, height*3, width, height*6, "UP", LVL2ColorWall2, LVL2ColorWall2_M_E);
-    //LVL2Wall2_d = new Wall(0, height*3, width, height*6, "DOWN", LVL2ColorWall2, LVL2ColorWall2_M_E);
-    //Walls.add(LVL2Wall2_l);
-    //Walls.add(LVL2Wall2_r);
-    //Walls.add(LVL2Wall2_u);
-    //Walls.add(LVL2Wall2_d);
-
-    //if (state.level == 3) {
-    //  ColorWall = color(255, 124, 64);
-    //  ColorWall_M_Er = color(120, 10, 12);
-    //  ColorWall_M_Eg = color(10, 120, 12);
-    //  ColorWall_M_Eb = color(10, 10, 120);
-    //  //wall_l = new Wall(width, 0, width, height, "LEFT", ColorWall, ColorWall_M_Er);
-    //  //wall_r = new Wall(width, 0, width, height, "RIGHT", ColorWall, ColorWall_M_Er);
-    //  //wall_l2 = new Wall(width*2, 0, width, height, "LEFT", ColorWall, ColorWall_M_Eg);
-    //  //wall_r2 = new Wall(width*2, 0, width, height, "RIGHT", ColorWall, ColorWall_M_Eb);
-    //  //wall_l3 = new Wall(width*3, 0, width, height, "LEFT", ColorWall, ColorWall_M_Eb);
-    //  //wall_r3 = new Wall(width*3, 0, width, height, "RIGHT", ColorWall, ColorWall_M_Eg);
-    //  //Walls.add(wall_l);
-    //  //Walls.add(wall_r);
-    //  //Walls.add(wall_l2);
-    //  //Walls.add(wall_r2);
-    //  //Walls.add(wall_l3);
-    //  //Walls.add(wall_r3);
-    //}
     return Walls;
   }
 
@@ -88,9 +47,9 @@ class Levels {
   ArrayList Targetsetup() {
     if (state.level == 1) {
       //                   size, R, xpos,             ypos,           trigger,         distance,             color, score, last, curves
-      T1 = new Target(400, 3, random(340, 440), random(240, 440), random(50, 150), random(700, 800), light.color3, 400, false, 80);
-      T2 = new Target(300, 2, random(150, 250), random(450, 490), random(300, 350), random(700, 800), light.color3, 600, false, 120);  
-      T3 = new Target(640, 5, 320, 320, 600, 1000, light.color3, 2500, true, 0);  
+      T1 = new Target(400, 3, random(340, 440), random(240, 440), random(50, 150), random(700, 800), light.color3, 300, false, 80);
+      T2 = new Target(300, 2, random(150, 250), random(450, 490), random(300, 350), random(700, 800), light.color3, 400, false, 120);  
+      T3 = new Target(640, 5, 320, 320, 600, 1000, light.color3, 600, true, 0);  
       Targets.add(T1);
       Targets.add(T2);
       Targets.add(T3);
@@ -100,7 +59,7 @@ class Levels {
       T1 = new Target(320, 4, random(192, 240), random(192, 448), random(50, 150), random(700, 800), light.color3, 500, false, 50); 
       T2 = new Target(192, 3, random(300, 340), random(300, 340), random(250, 300), random(800, 900), light.color3, 750, false, 75);  
       T3 = new Target(128, 2, random(320, 576), random(320, 500), random(500, 550), random(750, 850), light.color3, 1000, false, 125);  
-      T4 = new Target(640, 5, 320, 320, 700, 1100, light.color3, 2500, true, 0);
+      T4 = new Target(640, 5, 320, 320, 700, 1250, light.color3, 1200, true, 0);
       Targets.add(T1);
       Targets.add(T2);
       Targets.add(T3);
@@ -112,7 +71,7 @@ class Levels {
       T2 = new Target(200, 4, random(100, 400), random(300, 540), 10, random(3700, 4000), light.color2, 1000, false, 37);
       //T3 = new Target();
       //T4 = new Target();
-      T5 = new Target(640, 6, 320, 320, 800, 6500, light.color3, 2500, true, 0);
+      T5 = new Target(640, 6, 320, 320, 800, 6500, light.color3, 1800, true, 0);
       Targets.add(T1);
       Targets.add(T2);
       //Targets.add(T3);

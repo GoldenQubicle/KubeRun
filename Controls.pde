@@ -37,30 +37,20 @@ class Controls {
       design.Kubes.clear();
       design.Targets.clear();
       design.Walls.clear();
-      //score.Target.clear();
+      score.Target.clear();
       design.Targetsetup();
       design.Wallsetup();
       state.run = state.run + 1;
       state.dist = 0;
-      //score.targetscore = 0;
+      score.LevelScore = 0.0;
       controls.freeze = false;
-    }
-  }
-
-  void finish() {
-    textAlign(CENTER);
-    fill(255);
-    if (state.level <= 3) {
-      text("placeholder", width/2, height/2);
-    } else {    
-      text("congrats I guess", width/2, height/2);
     }
   }
 
   void menu() {
     if (key == 'm') {
       state.start = false;
-      state.run = 1;
+      state.run = 0;
       struct = 0;
       println("check");
     } else if (key == ' ') {  

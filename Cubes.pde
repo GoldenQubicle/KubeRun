@@ -1,10 +1,9 @@
 class Cubes {
+
   PVector size, pos, cubeW, cubeH;
   boolean Z = false;
   //float pX, pY;
   color cubeC;
-
-  boolean back = false;
   float S = 0;
 
   Cubes(int size_min, int size_max, int spawn_min, int spawn_max, color colorkube) {
@@ -43,26 +42,10 @@ class Cubes {
       emissive(50, 50, 50);
       specular(100);
     }
-
     if (state.level == 3) {
       stroke(light.color4);
       emissive(100, 100, 100);
       specular(100);
-
-      // println(S);
-
-      // if (back == false) {
-      //   S = S + 2.5;
-      // }
-      // if (S > 150) {
-      //   back = true;
-      // }
-      // if (back == true) {
-      //   S = S - 2.5;
-      // }
-      // if (S < - 150) {
-      //   back = false;
-      // }
     }
     fill(cubeC);
     box(size.x, size.y, size.z);
@@ -78,14 +61,8 @@ class Cubes {
   }
 
   void collision() {
-    //println(state.Zplane, ((pos.z/state.acc)-(size.z*2)));
-    // check if cube is on Zplane
-    if ((pos.z/state.acc)-size.z/2 >= state.Zplane) { // collision detection v1
-      //if (((pos.z/state.acc)-(size.z)) >= state.Zplane) {   // collision detection v1
-
-      //if ((pos.z/state.acc)-size.z >= state.Zplane) { 
-      //if (((pos.z/state.acc)-(size.z)) >= state.PushBack-state.Zplane) { // detection for reactie cubes lvvl2
-      // check normalized mouse position against normalized kube position
+     // check if cube is on Zplane
+    if ((pos.z/state.acc)-size.z/2 >= state.Zplane) { 
       if ( (controls.mouseXY.x > cubeW.x) && (controls.mouseXY.x < cubeW.y) && (controls.mouseXY.y > cubeH.x) && (controls.mouseXY.y < cubeH.y) ) { // new collision detection
         state.hit = true;
         state.start = false;

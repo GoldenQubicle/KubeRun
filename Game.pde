@@ -10,7 +10,7 @@ class State {
     start = false; 
     finish = false; 
     target = false;
-    level = 3;
+    level = 1;
     PushBack = 1000;
     //acc = 1.25;
 
@@ -22,20 +22,19 @@ class State {
   }
 
   void gameloop() {  
+
     if ((hit == false) && (start == true) && (finish == false)) {
-      
+
       // replace mouse cursor with small dot
       noCursor();
       noStroke();
       fill(128, 128, 128);
       ellipse(width/2, height/2, 2, 2);
-      
+
       // general dealings
       distance();
       controls.Mouse();
-      //score.TargetScore();
-      //println(dist);
-      
+
       // setup lights & walls
       light.level();
       for (Wall myWall : design.Walls) {
@@ -43,12 +42,15 @@ class State {
       }
 
       // generate cubes & iterate over cubes & target  
-      if(level == 1 && dist < 600){
-      design.generator();}
-       if(level == 2 && dist < 700){
-      design.generator();}
-      if(level == 3 && dist < 925){
-      design.generator();}
+      if (level == 1 && dist < 600) {
+        design.generator();
+      }
+      if (level == 2 && dist < 700) {
+        design.generator();
+      }
+      if (level == 3 && dist < 925) {
+        design.generator();
+      }
       iterate();
     }
 
@@ -59,17 +61,14 @@ class State {
     }
 
     if (finish == true && start == true && hit == false) {
-      state.level = state.level +1;
-      design.Kubes.clear();
-      design.Walls.clear();
-      design.Targets.clear();
-      design.Targetsetup();
-      design.Wallsetup(); 
-      dist = 0;
-      finish = false;
+      struct = 2;
+      controls.reset();
+      level = level + 1;
+      run = 0;
+      start = false;
+      finish = false;  
     }
   }
-
 
   void iterate() {
     // iterate backwards over ArrayList & delete cubes once out of sight
@@ -78,14 +77,13 @@ class State {
       pushMatrix();
       translate(0, 0, myCube.pos.z*acc);
       myCube.move();
-      myCube.collision();
+      //myCube.collision();
       if ((hit == true) && (start == false)) { 
         noStroke();
         myCube.cubeC = color (255, 0, 0, 255); // inject red for fail state
       }      
       if (myCube.OutOfSight() == true) { 
         design.Kubes.remove(myCube);
-        //println(design.Kubes.size());
       }
       popMatrix();
     }
@@ -95,9 +93,10 @@ class State {
       pushMatrix();         
       myTarget.move();                   
       if (myTarget.Sight() == true) {
-        if (myTarget.detection() == true) {
-          //score.Target.append(myTarget.totalscore);
-          //println(score.Target);
+        if (myTarget.detection() == true || myTarget.detection() == false) {
+          score.Target.append(myTarget.totalscore);
+          score.TargetScore();
+          println(score.Target);
         }
         design.Targets.remove(myTarget);
       }

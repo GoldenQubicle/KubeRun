@@ -76,6 +76,7 @@ class Target {
         }
       }
     } else {
+      totalscore = totalscore + 0;
       detect = false;
     }
     return detect;
