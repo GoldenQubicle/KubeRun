@@ -4,7 +4,7 @@ class Levels {
   ArrayList<Target> Targets;
   PVector TargetPos;
   float R, G, B, A, Speed; 
-
+  boolean level3 = false;
   Target   
     T1, T2, T3, T4, T5;
 
@@ -88,31 +88,35 @@ class Levels {
   ArrayList Targetsetup() {
     if (state.level == 1) {
       //                   size, R, xpos,             ypos,           trigger,         distance,             color, score, last, curves
-      T1 = new Target(400, 3, random(340, 440), random(240, 440), random(50, 150), random(700, 800), env.color2, 400, false, 80);
-      T2 = new Target(300, 2, random(150, 250), random(450, 490), random(300, 350), random(700, 800), env.color3, 600, false, 120);  
-      T3 = new Target(640, 5, 320, 320, 600, 1000, env.color3, 2500, true, 0);  
+      T1 = new Target(400, 3, random(340, 440), random(240, 440), random(50, 150), random(700, 800), light.color3, 400, false, 80);
+      T2 = new Target(300, 2, random(150, 250), random(450, 490), random(300, 350), random(700, 800), light.color3, 600, false, 120);  
+      T3 = new Target(640, 5, 320, 320, 600, 1000, light.color3, 2500, true, 0);  
       Targets.add(T1);
       Targets.add(T2);
       Targets.add(T3);
     }
     if (state.level == 2) {
       //                 size, R, xpos,             ypos,           trigger,         distance,             color, score, last, curves
-      T1 = new Target(320, 4, random(192, 240), random(192, 448), random(50, 150), random(700, 800), env.color2, 500, false, 50); 
-      T2 = new Target(192, 3, random(300, 340), random(300, 340), random(250, 300), random(800, 900), env.color3, 750, false, 75);  
-      T3 = new Target(128, 2, random(480, 576), random(480, 576), random(500, 550), random(750, 850), env.color3, 1000, false, 125);  
-      T4 = new Target(640, 5, 320, 320, 700, 1100, env.color3, 2500, true, 0);
+      T1 = new Target(320, 4, random(192, 240), random(192, 448), random(50, 150), random(700, 800), light.color3, 500, false, 50); 
+      T2 = new Target(192, 3, random(300, 340), random(300, 340), random(250, 300), random(800, 900), light.color3, 750, false, 75);  
+      T3 = new Target(128, 2, random(320, 576), random(320, 500), random(500, 550), random(750, 850), light.color3, 1000, false, 125);  
+      T4 = new Target(640, 5, 320, 320, 700, 1100, light.color3, 2500, true, 0);
       Targets.add(T1);
       Targets.add(T2);
       Targets.add(T3);
       Targets.add(T4);
     }
     if (state.level == 3) {
-      //                 size, R, xpos,             ypos,           trigger,         distance,             color, score, last, curves
-      //T1 = new Target();
-      //T2 = new Target();
+      //                 size, R, xpos,             ypos,      trigger,    distance,             color, score, last, curves
+      T1 = new Target(280, 5, random(140, 500), random(140, 400), 10, random(2400, 2700), light.color2, 1000, false, 37);
+      T2 = new Target(200, 4, random(100, 400), random(300, 540), 10, random(3700, 4000), light.color2, 1000, false, 37);
       //T3 = new Target();
       //T4 = new Target();
-      T5 = new Target(640, 6, 320, 320, 800, 6500, env.color3, 2500, true, 0);
+      T5 = new Target(640, 6, 320, 320, 800, 6500, light.color3, 2500, true, 0);
+      Targets.add(T1);
+      Targets.add(T2);
+      //Targets.add(T3);
+      //Targets.add(T4);
       Targets.add(T5);
     }
     return Targets;
@@ -132,7 +136,6 @@ class Levels {
       if ((lvl1.size.x - lvl1.size.y < 40) || (lvl1.size.x - lvl1.size.y > 30)) {  
         shininess(100);
         emissive(20);
-        stroke(0);
         Kubes.add(lvl1);
       }
       state.acc = 1.15;
@@ -152,9 +155,9 @@ class Levels {
         specular(255);
         Kubes.add(lvl2M);
       }
-      if (T2.sight == true) {
+      if (T2.sight == true && state.dist < 750) {
         Cubes lvl2S = new Cubes(7, 12, 150, 250, ColorKube);
-        float cone = 47;
+        float cone = random(37, 57);
         lvl2S.pos = new PVector(random(controls.mouseXY.x*width -cone, controls.mouseXY.x*width+cone), random(controls.mouseXY.y*height-cone, controls.mouseXY.y*height+cone));
         pushMatrix();
         translate(0, 0, -state.PushBack);
@@ -168,14 +171,22 @@ class Levels {
     }
 
     // LEVEL 3
+    level3 = true;
     if (state.level == 3) {
       ColorKube = color(R, G);
-      Cubes lvl3 = new Cubes(35, 70, 0, 50, ColorKube); 
-      Kubes.add(lvl3);
-      Cubes lvl3e = new Cubes(5, 25, 0, 50, ColorKube); 
-      Kubes.add(lvl3e);
+      Cubes lvl3 = new Cubes(35, 70, -500, -150, ColorKube);       
+      //> 50 && lvl3.size.x - lvl3.size.y < 100 ) {  
+      if (lvl3.size.y + lvl3.size.x > 97) { 
+        Kubes.add(lvl3);
+      }
+      Cubes lvl3S = new Cubes(15, 25, 0, 50, ColorKube); 
+      //Kubes.add(lvl3S);
+      Cubes lvl3SS = new Cubes(5, 15, 0, 25, ColorKube); 
+      float cone = random(37, 57);
+      lvl3SS.pos = new PVector(random(controls.mouseXY.x*width -cone, controls.mouseXY.x*width+cone), random(controls.mouseXY.y*height-cone, controls.mouseXY.y*height+cone));
+      //Kubes.add(lvl3SS);
       state.acc = 1.15;
-      Speed = 11.5;
+      Speed = 13;
     }
   }
 }

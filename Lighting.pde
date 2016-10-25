@@ -6,10 +6,10 @@ class Lighthing {
 
   Lighthing() {
     // target colors
-    color1 = color(255, 153, 51);
+    color1 = color(255, 153, 51, 100);
     color2 = color(255, 255, 51, 64);
     color3 = color(153, 255, 51, 128);
-    color4 = color(51, 255, 51);
+    color4 = color(random(128,255), 51, 51, random(64,128));
   }
 
   void level() {

@@ -1,6 +1,6 @@
 class Target {
   PVector Pos;
-  float MoveT, Score, Curve, Size, SizeR, SizeRN, Trigger, Distance;
+  float MoveT, Score, Curve, Size, SizeR, SizeRN, Trigger, Distance, totalscore;
   color C;
   boolean sight = false;
   boolean Last = false;
@@ -28,6 +28,11 @@ class Target {
       if (Last == true) {
         translate(0, 0, MoveT*state.acc);
       }
+      //} else if (state.level == 3) {
+      //  translate(0, 0, MoveT*state.acc);
+      //}
+
+
       translate(0, 0, MoveT);
       display();
     }
@@ -43,6 +48,17 @@ class Target {
     rectMode(CENTER);
     for (int i = 0; i <= R; i++) {
       noStroke();
+
+      if (state.level == 3) {
+        stroke(0, 0, 255);
+        fill(0, 0, 2, 57);
+        emissive(0, 128, 255);
+        specular(128);
+      }
+      if (Last == true) {
+        //specular(128,180,128);
+        emissive(115+25*i, 100+20*i, 25+5*i);
+      }
       rect(0, 0, Size-(SizeR*i), Size-(SizeR*i), Curve);
     }
     popMatrix();
@@ -50,12 +66,13 @@ class Target {
 
   boolean detection() {
     if (sight == true) {
-      float totalscore = 0;
+      totalscore = 0;
       for (int i = 1; i <= R; i++) {
         if ((controls.mouseXY.x > (Pos.x-SizeRN*i)) && (controls.mouseXY.x < Pos.x+(SizeRN*i)) && 
           (controls.mouseXY.y > (Pos.y-SizeRN*i)) && (controls.mouseXY.y < Pos.y+(SizeRN*i)) ) {
           detect = true;        
-          totalscore = totalscore + Score/i;
+          totalscore = totalscore + (Score/i)/state.run;
+          //println(totalscore);
         }
       }
     } else {

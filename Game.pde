@@ -22,7 +22,6 @@ class State {
   }
 
   void gameloop() {  
-
     if ((hit == false) && (start == true) && (finish == false)) {
       
       // replace mouse cursor with small dot
@@ -34,7 +33,7 @@ class State {
       // general dealings
       distance();
       controls.Mouse();
-      score.TargetScore();
+      //score.TargetScore();
       //println(dist);
       
       // setup lights & walls
@@ -44,7 +43,12 @@ class State {
       }
 
       // generate cubes & iterate over cubes & target  
-      design.generator();
+      if(level == 1 && dist < 600){
+      design.generator();}
+       if(level == 2 && dist < 700){
+      design.generator();}
+      if(level == 3 && dist < 925){
+      design.generator();}
       iterate();
     }
 
@@ -74,13 +78,14 @@ class State {
       pushMatrix();
       translate(0, 0, myCube.pos.z*acc);
       myCube.move();
-      //myCube.collision();
+      myCube.collision();
       if ((hit == true) && (start == false)) { 
         noStroke();
         myCube.cubeC = color (255, 0, 0, 255); // inject red for fail state
       }      
       if (myCube.OutOfSight() == true) { 
         design.Kubes.remove(myCube);
+        //println(design.Kubes.size());
       }
       popMatrix();
     }
@@ -91,7 +96,8 @@ class State {
       myTarget.move();                   
       if (myTarget.Sight() == true) {
         if (myTarget.detection() == true) {
-          
+          //score.Target.append(myTarget.totalscore);
+          //println(score.Target);
         }
         design.Targets.remove(myTarget);
       }

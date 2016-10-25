@@ -1,22 +1,16 @@
-class Score {
-  float targetscore;
-  FloatList Target, Scores;
-  int i = 0;
+//class Score {
 
-  Score() {
-    targetscore = 0;
-    Scores = new FloatList();
-    Target = new FloatList();
-  }
+//  FloatList Target, Scores;
 
-  void TargetScore() {
-   
-    while ( i < Target.size()){
-      targetscore = targetscore + Target.get(i); 
-      i = i + 1;
-      //println(targetscore);
-      //break;
-    }
-    //println(targetscore,Target.size(), "check");
-  }
-}
+
+//  Score() {
+
+//    Scores = new FloatList();
+//    Target = new FloatList();
+//    Target.append(3);;
+//  }
+
+//  void TargetScore() {
+    
+//  }
+//}

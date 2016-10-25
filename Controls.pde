@@ -31,21 +31,22 @@ class Controls {
   }
 
   void reset() {
-    if (key == ' ') {
-      if (state.start == false) {
-        state.start = true; 
-        state.hit = false; 
-        design.Kubes.clear();
-        design.Targets.clear();
-        design.Targetsetup();
-        design.Wallsetup();
-        state.run = state.run + 1;
-        state.dist = 0;
-        score.targetscore = 0;
-        controls.freeze = false;
-      }
+    if (state.start == false) {
+      state.start = true; 
+      state.hit = false; 
+      design.Kubes.clear();
+      design.Targets.clear();
+      design.Walls.clear();
+      //score.Target.clear();
+      design.Targetsetup();
+      design.Wallsetup();
+      state.run = state.run + 1;
+      state.dist = 0;
+      //score.targetscore = 0;
+      controls.freeze = false;
     }
   }
+
   void finish() {
     textAlign(CENTER);
     fill(255);
@@ -59,8 +60,11 @@ class Controls {
   void menu() {
     if (key == 'm') {
       state.start = false;
-      state.level = 1;
+      state.run = 1;
       struct = 0;
+      println("check");
+    } else if (key == ' ') {  
+      controls.reset();
     }
   }
 }
