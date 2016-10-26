@@ -43,9 +43,16 @@ class Cubes {
       specular(100);
     }
     if (state.level == 3) {
-      stroke(light.color4);
-      emissive(100, 100, 100);
-      specular(100);
+
+      if (design.T1.sight == false || design.T2.sight == false  ) {
+        stroke(light.color4);
+        emissive(100, 100, 100);
+        specular(100);
+      } else {
+        stroke(light.color4);
+        emissive(random(75,125),random(75,125),random(75,125));
+        specular(150);
+      }
     }
     fill(cubeC);
     box(size.x, size.y, size.z);
@@ -61,7 +68,7 @@ class Cubes {
   }
 
   void collision() {
-     // check if cube is on Zplane
+    // check if cube is on Zplane
     if ((pos.z/state.acc)-size.z/2 >= state.Zplane) { 
       if ( (controls.mouseXY.x > cubeW.x) && (controls.mouseXY.x < cubeW.y) && (controls.mouseXY.y > cubeH.x) && (controls.mouseXY.y < cubeH.y) ) { // new collision detection
         state.hit = true;

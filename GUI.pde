@@ -14,8 +14,8 @@ class GUI {
     level1 = new Button("LVL1", 100, 540, 150, 65, font1, 44, textcolor);
     level2 = new Button("LVL2", 320, 540, 150, 65, font1, 44, textcolor);
     level3 = new Button("LVL3", 540, 540, 150, 65, font1, 44, textcolor);
-    Continue = new Button("continue", width/2, height/2, 400, 120, font2, 100, textcolor);
-    Menu = new Button("back to menu", width/2, 450, 200, 60, font2, 33, textcolor);
+    Continue = new Button("continue", width/2, height/2, 400, 85, font2, 100, textcolor);
+    Menu = new Button("back to menu", width/2, 450, 220, 40, font2, 33, textcolor);
     buttons.add(start);
     buttons.add(level1);
     buttons.add(level2);

@@ -34,7 +34,7 @@ class Button {
       fill(Hoover);
       rectMode(CENTER);
       noStroke();
-      rect(Xpos, Ypos, BWidth, BHeight);
+      rect(Xpos, Ypos, BWidth, BHeight,25);
       hoover = true;
     } else {
       hoover = false;
@@ -51,17 +51,17 @@ class Button {
       if (Title == "LVL1") {
         state.level = 1;
         fill(select);
-        rect(Xpos, Ypos, BWidth, BHeight);
+        rect(Xpos, Ypos, BWidth, BHeight,25);
       }
       if (Title == "LVL2") {
         state.level = 2;
         fill(select);
-        rect(Xpos, Ypos, BWidth, BHeight);
+        rect(Xpos, Ypos, BWidth, BHeight,25);
       } 
       if (Title == "LVL3") {
         state.level = 3;
         fill(select);
-        rect(Xpos, Ypos, BWidth, BHeight);
+        rect(Xpos, Ypos, BWidth, BHeight,25);
       }
       if (Title == "back to menu") {
         struct = 0;

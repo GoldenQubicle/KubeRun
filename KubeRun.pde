@@ -1,12 +1,15 @@
 /* 
- CURRENT CONCERNS
- - score system!
+TODO KR
+ - finalise score & level design
+ - hoover over title to reveal gameplay goal & controls
+ - reset message upon failstate
  
- AESTHETICS & TWEAKS
- - level 3 design
- - only call on GUI at start, call on gamesetup when start is actually pressed (i.e. do not setup stuff it its not needed) 
+TODO RL
+  - make gameplay gif
+  - rework GitHub pages - custombackground?
+  - small devlog?
  
- - at least start button in middle!
+ 
  */
 
 Controls controls;
