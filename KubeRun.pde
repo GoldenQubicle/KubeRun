@@ -1,14 +1,16 @@
 /* 
 TODO KR
- - finalise score & level design
- - hoover over title to reveal gameplay goal & controls
- - reset message upon failstate
- 
+ - add score menu, access underneath the start button
+ - score menu has 'level', 'score', '#runs"  
+ - finalise score & level design, i.e.
+     - have at least local saves, however, preferably a global score sytem by means of DB
+
+ - level3 equalize target speed
+
 TODO RL
   - make gameplay gif
   - rework GitHub pages - custombackground?
-  - small devlog?
- 
+  - small devlog? 
  
  */
 
@@ -40,7 +42,8 @@ void draw() {
     switch(struct) {
     case 0:
       cursor();
-      gui.Title();
+      gui.TitleMenu();
+      //gui.Title();
       gui.menu();
       break;
     case 1: 
@@ -60,6 +63,7 @@ void draw() {
     Screensize = true;
   }
   if (Screensize == false) {
+    cursor();
     textFont(gui.font2, 44);
     fill(255);
     rectMode(CENTER);
@@ -67,6 +71,7 @@ void draw() {
     text(yeah, width/2, height/2, width/2, height/2);
   }
 }
+
 
 void keyPressed() {
   controls.reset();

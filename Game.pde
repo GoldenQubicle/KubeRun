@@ -58,6 +58,10 @@ class State {
       cursor(); 
       controls.MouseHit();
       iterate();
+      pushMatrix();
+      translate(0,0,state.Zplane-50);
+      gui.Retry();
+      popMatrix();
     }
 
     if (finish == true && start == true && hit == false) {
@@ -66,7 +70,7 @@ class State {
       level = level + 1;
       run = 0;
       start = false;
-      finish = false;  
+      finish = false;
     }
   }
 

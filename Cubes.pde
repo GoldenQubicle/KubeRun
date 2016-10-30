@@ -69,7 +69,7 @@ class Cubes {
 
   void collision() {
     // check if cube is on Zplane
-    if ((pos.z/state.acc)-size.z/2 >= state.Zplane) { 
+    if ((pos.z/state.acc)-size.z/2 >= state.Zplane+size.z/2) { 
       if ( (controls.mouseXY.x > cubeW.x) && (controls.mouseXY.x < cubeW.y) && (controls.mouseXY.y > cubeH.x) && (controls.mouseXY.y < cubeH.y) ) { // new collision detection
         state.hit = true;
         state.start = false;

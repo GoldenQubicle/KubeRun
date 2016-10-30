@@ -31,10 +31,25 @@ class Button {
 
     if (mouseX > Xpos-BWidth/2 && mouseX < Xpos + BWidth/2 && 
       mouseY > Ypos-BHeight/2 && mouseY < Ypos + BHeight/2) {
+      if (Title == "KubeRun") {
+        fill(TextColor);
+        rectMode(CENTER);
+        noStroke();
+        rect(Xpos, Ypos, BWidth, BHeight);
+        textFont(gui.font2);
+        textSize(17);
+        fill(128, 128, 128);
+        text("a silly little game by vrtxt", width/2, 33); 
+        String HowTo = "Dodge dem Kubes by moving the mouse and reach the end of each level. Hit additional targets along the way for ultra extra bonus score points.";
+        textFont(gui.font2);
+        textSize(27);
+        fill(64, 64, 64);
+        text(HowTo, width/2, 150, width, 200);
+      }
       fill(Hoover);
       rectMode(CENTER);
       noStroke();
-      rect(Xpos, Ypos, BWidth, BHeight,25);
+      rect(Xpos, Ypos, BWidth, BHeight, 25);
       hoover = true;
     } else {
       hoover = false;
@@ -51,17 +66,17 @@ class Button {
       if (Title == "LVL1") {
         state.level = 1;
         fill(select);
-        rect(Xpos, Ypos, BWidth, BHeight,25);
+        rect(Xpos, Ypos, BWidth, BHeight, 25);
       }
       if (Title == "LVL2") {
         state.level = 2;
         fill(select);
-        rect(Xpos, Ypos, BWidth, BHeight,25);
+        rect(Xpos, Ypos, BWidth, BHeight, 25);
       } 
       if (Title == "LVL3") {
         state.level = 3;
         fill(select);
-        rect(Xpos, Ypos, BWidth, BHeight,25);
+        rect(Xpos, Ypos, BWidth, BHeight, 25);
       }
       if (Title == "back to menu") {
         struct = 0;
@@ -69,6 +84,9 @@ class Button {
           state.level = 1;
         }
       }
+    }
+    if (Title == "click to retry" && mousePressed == true && mouseButton == LEFT) {
+      controls.reset();
     }
   }
 }

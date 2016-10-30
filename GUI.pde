@@ -1,6 +1,6 @@
 class GUI {
 
-  Button start, level1, level2, level3, Continue, Menu;
+  Button start, level1, level2, level3, Continue, Menu, Retry, Title;
   PFont font1, font2;
   ArrayList <Button> buttons;
   color textcolor;
@@ -16,6 +16,8 @@ class GUI {
     level3 = new Button("LVL3", 540, 540, 150, 65, font1, 44, textcolor);
     Continue = new Button("continue", width/2, height/2, 400, 85, font2, 100, textcolor);
     Menu = new Button("back to menu", width/2, 450, 220, 40, font2, 33, textcolor);
+    Retry = new Button("click to retry", 320, 320, 0, 0, font2, 9, 255);
+    Title = new Button( "KubeRun", width/2, 100,width,320, font1, 120, textcolor);
     buttons.add(start);
     buttons.add(level1);
     buttons.add(level2);
@@ -31,7 +33,6 @@ class GUI {
     }
     Menu.Display();
     Menu.mouseClicked();
- 
   }
 
   void TargetScore() {
@@ -49,8 +50,20 @@ class GUI {
       textAlign(LEFT);
       text("Total Score", width/2, 275, 400, 100);
       textAlign(RIGHT);
-      text(""+score.LevelScore, width/2, 275, 400, 100);
+      text(""+ score.LevelScore, width/2, 275, 400, 100);
     }
+  }
+
+  void Retry() {
+    Retry.Xpos = controls.mouseHit.x;
+    Retry.Ypos = controls.mouseHit.y;
+    Retry.Display();
+    Retry.mouseClicked();
+  }
+
+  void TitleMenu(){
+    Title.Display();
+    
   }
 
   void Title() { 

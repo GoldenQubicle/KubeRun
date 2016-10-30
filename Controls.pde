@@ -3,7 +3,6 @@ class Controls {
   PVector mouseXY, mouseHit;
 
   Controls() {
-
     freeze = false;
     inverse = false;
     mouseXY = new PVector();
@@ -52,9 +51,10 @@ class Controls {
       state.start = false;
       state.run = 0;
       struct = 0;
-      println("check");
+      //reset();
+      //println("check");
     } else if (key == ' ') {  
-      controls.reset();
+      reset();
     }
   }
 }
