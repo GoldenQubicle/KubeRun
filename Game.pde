@@ -10,7 +10,7 @@ class State {
     start = false; 
     finish = false; 
     target = false;
-    level = 1;
+    level = 3;
     PushBack = 1000;
     //acc = 1.25;
 

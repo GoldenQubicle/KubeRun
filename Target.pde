@@ -1,20 +1,18 @@
 class Target {
   PVector Pos;
   float MoveT, Score, Curve, Size, SizeR, SizeRN, Trigger, Distance, totalscore;
-  color C;
   boolean sight = false;
   boolean Last = false;
   boolean detect = false;
   int R;
 
-  Target(float size, int ranges, float xpos, float ypos, float trigger, float distance, color c, float score, boolean finish, float curve) { // pass scores as well? 
+  Target(float size, int ranges, float xpos, float ypos, float trigger, float distance, float score, boolean finish, float curve) { // pass scores as well? 
     Size =  size;
     R = ranges;
     SizeR = size/ranges;
     Pos = new PVector(norm(xpos, 0, width), norm(ypos, 0, height));
     Trigger = trigger;
     Distance = distance;
-    C = c;
     Score = score;
     Last = finish;
     Curve = curve;
@@ -35,21 +33,18 @@ class Target {
   }
 
   void display() {
-    fill(C);
+
+    stroke(design.TargetStroke);
+    fill(design.TargetColor);
+    emissive(design.TargetEmission);
+    shininess(2);
+    specular(128);
+
     pushMatrix(); 
     translate(Pos.x*width, Pos.y*height, -Distance); 
-    shininess(2);
-    emissive(64, 128, 64);
-    //if (Last == false) {
     rectMode(CENTER);
     for (int i = 0; i <= R; i++) {
-      noStroke();
-      if (state.level == 3) {
-        stroke(0, 0, 255);
-        fill(0, 0, 2, 57);
-        emissive(0, 128, 255);
-        specular(128);
-      }
+      
       if (Last == true) {
         stroke(128, 128, 128);
         emissive(115+25*i, 100+20*i, 25+5*i);

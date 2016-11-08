@@ -3,10 +3,10 @@ class Cubes {
   PVector size, pos, cubeW, cubeH;
   boolean Z = false;
   //float pX, pY;
-  color cubeC;
+  color cubeC, Stroke, Emissive, Specular;
   float S = 0;
 
-  Cubes(int size_min, int size_max, int spawn_min, int spawn_max, color colorkube) {
+  Cubes(int size_min, int size_max, int spawn_min, int spawn_max, color colorkube, color stroke, color emissive, color specular) {
     // spawn position & size cubes
     pos = new PVector(random(0, width), random(0, height), random(spawn_min, spawn_max)); 
     size = new PVector(random(size_min, size_max), random(size_min, size_max), random(size_min, size_max));
@@ -15,6 +15,11 @@ class Cubes {
     cubeH = new PVector(norm(pos.y-(size.y), 0, height), norm(pos.y+(size.y), 0, height));
     // color 
     cubeC = color (colorkube);
+    
+    Stroke = stroke;
+    Emissive = emissive;
+    Specular = specular;
+    
   }
 
   void move() {    
@@ -34,31 +39,9 @@ class Cubes {
     pushMatrix();
     translate(0, 0, -state.PushBack);
     translate(pos.x, pos.y, pos.z); 
-
-    if (state.level == 1) {
-      stroke(0);
-      emissive(0);
-      specular(100);
-    }
-    if (state.level == 2) {
-      stroke(cubeC);
-      emissive(50, 50, 50);
-      specular(100);
-    }
-    if (state.level == 3) {
-
-      if (design.T1.sight == false || design.T2.sight == false  ) {
-        stroke(light.color4);
-        emissive(100, 100, 100);
-        specular(100);
-      } else {
-        //  stroke(light.color4);
-        //emissive(random(75,125),random(75,125),random(75,125));
-        //stroke(0, 0, 255);
-        emissive(design.ColorWall_M_E);
-        //  specular(150);
-      }
-    }
+    stroke(Stroke);
+    emissive(Emissive);
+    specular(Specular);
     fill(cubeC);
     box(size.x, size.y, size.z);
     popMatrix();
