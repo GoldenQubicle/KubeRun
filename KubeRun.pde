@@ -1,11 +1,14 @@
 /* 
 TODO KR
+ - add two modes? continual vs. level
+
  - add score menu, access underneath the start button
  - score menu has 'level', 'score', '#runs"  
  - finalise score & level design, i.e.
      - have at least local saves, however, preferably a global score sytem by means of DB
 
- - level3 equalize target speed
+ - level3 design
+   
 
 TODO RL
   - make gameplay gif
@@ -33,7 +36,7 @@ void setup() {
   state = new State();
   design = new Levels();
   gui = new GUI();
-  struct = 0;
+  struct = 1;
 }
 
 void draw() {

@@ -34,8 +34,11 @@ class Cubes {
     pushMatrix();
     translate(0, 0, -state.PushBack);
     translate(pos.x, pos.y, pos.z); 
+
     if (state.level == 1) {
       stroke(0);
+      emissive(0);
+      specular(100);
     }
     if (state.level == 2) {
       stroke(cubeC);
@@ -49,9 +52,11 @@ class Cubes {
         emissive(100, 100, 100);
         specular(100);
       } else {
-        stroke(light.color4);
-        emissive(random(75,125),random(75,125),random(75,125));
-        specular(150);
+        //  stroke(light.color4);
+        //emissive(random(75,125),random(75,125),random(75,125));
+        //stroke(0, 0, 255);
+        emissive(design.ColorWall_M_E);
+        //  specular(150);
       }
     }
     fill(cubeC);

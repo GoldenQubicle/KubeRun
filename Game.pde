@@ -59,18 +59,21 @@ class State {
       controls.MouseHit();
       iterate();
       pushMatrix();
-      translate(0,0,state.Zplane-50);
+      translate(0, 0, state.Zplane-50);
       gui.Retry();
       popMatrix();
     }
 
     if (finish == true && start == true && hit == false) {
-      struct = 2;
-      controls.reset();
+      struct = 2; //score menu for level mode
+      //score.OverallScore();
+      score.LevelScore();
       level = level + 1;
       run = 0;
       start = false;
       finish = false;
+      //controls.reset(); // continual mode, if level == 3, needs to have end screen of sorts,i.e. the overall score break down
+      
     }
   }
 
@@ -81,7 +84,7 @@ class State {
       pushMatrix();
       translate(0, 0, myCube.pos.z*acc);
       myCube.move();
-      myCube.collision();
+      //myCube.collision();
       if ((hit == true) && (start == false)) { 
         noStroke();
         myCube.cubeC = color (255, 0, 0, 255); // inject red for fail state
@@ -99,8 +102,7 @@ class State {
       if (myTarget.Sight() == true) {
         if (myTarget.detection() == true || myTarget.detection() == false) {
           score.Target.append(myTarget.totalscore);
-          score.TargetScore();
-          println(score.Target);
+          //println(myTarget.totalscore);
         }
         design.Targets.remove(myTarget);
       }

@@ -40,7 +40,7 @@ class Button {
         textSize(17);
         fill(128, 128, 128);
         text("a silly little game by vrtxt", width/2, 33); 
-        String HowTo = "Dodge dem Kubes by moving the mouse and reach the end of each level. Hit additional targets along the way for ultra extra bonus score points.";
+        String HowTo = "Dodge dem Kubes by moving the mouse and reach the end of the level. Hit additional targets along the way for ultra extra bonus score points.";
         textFont(gui.font2);
         textSize(27);
         fill(64, 64, 64);
@@ -80,6 +80,7 @@ class Button {
       }
       if (Title == "back to menu") {
         struct = 0;
+        score.Overall.clear();
         if (state.level > 3) {
           state.level = 1;
         }

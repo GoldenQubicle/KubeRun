@@ -46,13 +46,14 @@ class Controls {
     }
   }
 
+
+
   void menu() {
     if (key == 'm') {
       state.start = false;
       state.run = 0;
       struct = 0;
-      //reset();
-      //println("check");
+      score.Overall.clear();
     } else if (key == ' ') {  
       reset();
     }

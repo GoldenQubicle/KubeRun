@@ -22,17 +22,13 @@ class Target {
     SizeRN = (norm(size, 0, 640)/(ranges));
     SizeRN = SizeRN/2;
   }  
+
   void move() {
     if (state.dist > Trigger) {
       MoveT += design.Speed;
       if (Last == true) {
-        translate(0, 0, MoveT*state.acc);
+        translate(0, 0, MoveT*state.acc); // equalize finish target speed
       }
-      //} else if (state.level == 3) {
-      //  translate(0, 0, MoveT*state.acc);
-      //}
-
-
       translate(0, 0, MoveT);
       display();
     }
@@ -48,7 +44,6 @@ class Target {
     rectMode(CENTER);
     for (int i = 0; i <= R; i++) {
       noStroke();
-
       if (state.level == 3) {
         stroke(0, 0, 255);
         fill(0, 0, 2, 57);
@@ -56,7 +51,7 @@ class Target {
         specular(128);
       }
       if (Last == true) {
-        //specular(128,180,128);
+        stroke(128, 128, 128);
         emissive(115+25*i, 100+20*i, 25+5*i);
       }
       rect(0, 0, Size-(SizeR*i), Size-(SizeR*i), Curve);
@@ -71,8 +66,7 @@ class Target {
         if ((controls.mouseXY.x > (Pos.x-SizeRN*i)) && (controls.mouseXY.x < Pos.x+(SizeRN*i)) && 
           (controls.mouseXY.y > (Pos.y-SizeRN*i)) && (controls.mouseXY.y < Pos.y+(SizeRN*i)) ) {
           detect = true;        
-          totalscore = totalscore + (Score/i)/state.run;
-          //println(totalscore);
+          totalscore = totalscore + round((Score/i)/state.run);
         }
       }
     } else {

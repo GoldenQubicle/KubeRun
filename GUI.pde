@@ -35,10 +35,12 @@ class GUI {
     Menu.mouseClicked();
   }
 
+
+
   void TargetScore() {
     for (int i = 0; i < score.Target.size(); i++) {
       String Targets = "Target " + (i+1);
-      String Scores = " " + score.Target.get(i);
+      float Scores = score.Target.get(i);
       fill(255);
       textAlign(CENTER);
       textFont(font2);
@@ -46,11 +48,11 @@ class GUI {
       textAlign(LEFT);
       text(Targets, width/2, 100+(35*i), 400, 100);
       textAlign(RIGHT);
-      text(Scores, width/2, 100+(35*i), 400, 100);
+      text(nf(Scores, 0,0), width/2, 100+(35*i), 400, 100);
       textAlign(LEFT);
       text("Total Score", width/2, 275, 400, 100);
       textAlign(RIGHT);
-      text(""+ score.LevelScore, width/2, 275, 400, 100);
+      text(""+ nf(score.LevelScore,0,0), width/2, 275, 400, 100);
     }
   }
 
