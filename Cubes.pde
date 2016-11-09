@@ -40,6 +40,9 @@ class Cubes {
     translate(0, 0, -state.PushBack);
     translate(pos.x, pos.y, pos.z); 
     stroke(Stroke);
+      if(state.level == 3 && design.T2.sight == true){
+       noStroke(); 
+      }
     emissive(Emissive);
     specular(Specular);
     fill(cubeC);
